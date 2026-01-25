@@ -1,0 +1,127 @@
+
+import React, { useRef } from 'react';
+import { motion, useScroll, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { Github, Linkedin, Twitter, Instagram, ArrowUpRight } from 'lucide-react';
+import Button from '../atoms/Button';
+import { Magnetic } from '../atoms/Magnetic';
+
+const Footer: React.FC = () => {
+    const footerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: footerRef,
+        offset: ["start end", "end end"]
+    });
+
+    // Spotlight Effect
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+
+    function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+        let { left, top } = currentTarget.getBoundingClientRect();
+        mouseX.set(clientX - left);
+        mouseY.set(clientY - top);
+    }
+
+    return (
+        <div
+            ref={footerRef}
+            className="relative h-[800px]"
+            style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
+        >
+            <div
+                className="fixed bottom-0 h-[800px] w-full bg-[#050505] text-white overflow-hidden group"
+                onMouseMove={handleMouseMove}
+            >
+                {/* Spotlight Overlay */}
+                <motion.div
+                    className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-10"
+                    style={{
+                        background: useMotionTemplate`
+                            radial-gradient(
+                                600px circle at ${mouseX}px ${mouseY}px,
+                                rgba(152, 231, 16, 0.15),
+                                transparent 80%
+                            )
+                        `
+                    }}
+                />
+
+                <div className="relative h-full container mx-auto px-6 md:px-12 flex flex-col justify-between py-20 z-20">
+
+                    {/* Top Content */}
+                    <div className="flex flex-col md:flex-row justify-between items-start gap-12">
+                        {/* Call to Action */}
+                        <div className="md:w-1/2">
+                            <h3 className="text-4xl md:text-5xl font-display italic font-bold mb-8 leading-tight">
+                                ¿Tienes una idea?
+                                <br />
+                                <span className="text-white/40">Hagámosla realidad.</span>
+                            </h3>
+                            <Magnetic>
+                                <Button
+                                    href="mailto:contact@vibeflow.com"
+                                    size="lg"
+                                    className="inline-flex items-center gap-4 text-xl px-8 py-4 rounded-full bg-white text-black hover:scale-105 transition-transform duration-300 font-bold"
+                                >
+                                    Hablemos Ahora
+                                </Button>
+                            </Magnetic>
+                        </div>
+
+                        {/* Navigation Grid */}
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-16">
+                            <div className="space-y-4">
+                                <span className="text-xs uppercase tracking-[0.2em] text-white/30 block mb-4">Sitemap</span>
+                                {['Inicio', 'Servicios', 'Comunidad', 'Nosotros', 'Blog'].map(link => (
+                                    <a key={link} href={`/${link.toLowerCase() === 'inicio' ? '' : link.toLowerCase()}`} className="block text-white/60 hover:text-white transition-colors text-lg">
+                                        {link}
+                                    </a>
+                                ))}
+                            </div>
+                            <div className="space-y-4">
+                                <span className="text-xs uppercase tracking-[0.2em] text-white/30 block mb-4">Social</span>
+                                {[
+                                    { name: 'LinkedIn', icon: <Linkedin size={16} /> },
+                                    { name: 'Twitter', icon: <Twitter size={16} /> },
+                                    { name: 'Instagram', icon: <Instagram size={16} /> },
+                                    { name: 'Github', icon: <Github size={16} /> }
+                                ].map(item => (
+                                    <a key={item.name} href="#" className="flex items-center gap-2 text-white/60 hover:text-white transition-colors group text-lg">
+                                        {item.name}
+                                        <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-y-1 translate-x-1" />
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Giant Text & Info */}
+                    <div>
+                        {/* Time & Legal - Top of bottom section */}
+                        <div className="flex justify-between items-end mb-4 text-xs font-mono text-white/30 uppercase tracking-widest border-t border-white/5 pt-8">
+                            <div className="flex gap-8">
+                                <span>© 2026 Vibe Flow</span>
+                                <span className="hidden md:inline">Madrid, ES • {new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                            </div>
+                            <div className="flex gap-6">
+                                <a href="#" className="hover:text-white transition-colors">Legal</a>
+                                <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+                            </div>
+                        </div>
+
+                        {/* THE GIANT TEXT */}
+                        <h1 className="text-[13vw] font-display italic font-bold leading-[0.8] tracking-tighter text-center text-white/10 select-none bg-gradient-to-b from-white/20 to-transparent bg-clip-text text-transparent hover:text-white/20 transition-colors duration-500">
+                            VIBE FLOW
+                        </h1>
+                    </div>
+                </div>
+
+                {/* Background Noise/Gradient */}
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-0" />
+                <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none z-0" />
+            </div>
+        </div>
+    );
+};
+
+export default Footer;

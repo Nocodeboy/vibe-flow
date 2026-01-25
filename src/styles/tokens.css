@@ -1,0 +1,48 @@
+:root {
+    /* Brand Palette from User */
+    --color-primary: #98e710;
+    /* Lime Green - Was Teal */
+    --color-background: #030303;
+    /* Deep Black */
+    --color-text: #fefefe;
+    /* Off White */
+
+    /* Derived / UI Colors */
+    --color-surface: #0A0A0A;
+    --color-surface-hover: #111111;
+    --color-border: rgba(255, 255, 255, 0.1);
+
+    /* Typography */
+    --font-display: 'Space Mono', monospace;
+    /* Titles */
+    --font-body: 'Inter', sans-serif;
+    /* Body */
+
+    /* Spacing & Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    /* ~12px from spec */
+    --radius-lg: 1.5rem;
+    --radius-full: 9999px;
+
+    /* Animation */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Utility Classes for usage in CSS modules if needed */
+.text-primary {
+    color: var(--color-primary);
+}
+
+.bg-primary {
+    background-color: var(--color-primary);
+}
+
+.bg-app {
+    background-color: var(--color-background);
+}
+
+::selection {
+    background-color: var(--color-primary);
+    color: #000000;
+}

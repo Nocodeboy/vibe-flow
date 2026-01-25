@@ -1,0 +1,16 @@
+# Sitemap for Vibe Flow
+# https://vibeflow.com
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
+# Sitemap location
+Sitemap: https://vibeflow.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
