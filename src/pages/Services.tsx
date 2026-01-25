@@ -5,8 +5,15 @@ import Button from '../components/atoms/Button';
 import ServiceCard from '../components/molecules/ServiceCard';
 import ServiceModal from '../components/organisms/ServiceModal';
 import { services, processSteps, guarantees, Service } from '../data/services';
+import { useSEO } from '../hooks/useSEO';
 
 const Services: React.FC = () => {
+    useSEO({
+        title: 'Servicios',
+        description: 'Proyectos llave en mano de IA y automatización. Desarrollo web, CRMs, chatbots IA y automatizaciones desde 2.000€. Resultados garantizados.',
+        url: 'https://vibeflow.com/services'
+    });
+
     const heroRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
     const heroY = useTransform(scrollYProgress, [0, 1], [0, -150]);

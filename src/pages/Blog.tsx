@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Search, Tag } from 'lucide-react';
 import BlogSection from '../components/organisms/BlogSection';
+import { useSEO } from '../hooks/useSEO';
 
 const categories = [
     { name: "Todos", count: 12 },
@@ -13,6 +13,12 @@ const categories = [
 ];
 
 const Blog: React.FC = () => {
+    useSEO({
+        title: 'Blog',
+        description: 'Ideas, tutoriales y reflexiones sobre IA, automatización y la construcción de negocios digitales escalables.',
+        url: 'https://vibeflow.com/blog'
+    });
+
     return (
         <div className="relative">
             {/* Hero Section */}

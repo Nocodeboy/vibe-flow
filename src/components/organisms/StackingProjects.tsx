@@ -1,21 +1,35 @@
-
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
+import React, { useRef, memo } from 'react';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate, MotionValue } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import Badge from '../atoms/Badge';
 import Button from '../atoms/Button';
-import { projects as projectsData } from '../../data/projects';
+import { projects as projectsData, Project } from '../../data/projects';
 import { EASE_ELITE } from '../../styles/animation';
 import { Magnetic } from '../atoms/Magnetic';
 
+// Extended project type with additional display properties
+interface DisplayProject extends Project {
+    year: string;
+    color: string;
+}
+
 // Map projects with premium colors and years
-const projects = projectsData.map((p, i) => ({
+const projects: DisplayProject[] = projectsData.map((p, i) => ({
     ...p,
     year: '2026',
     color: ['#98e710', '#6366f1', '#ec4899', '#3b82f6'][i % 4]
 }));
 
-const ProjectCard = ({ project, index, range, targetScale, progress, onProjectClick }: any) => {
+interface ProjectCardProps {
+    project: DisplayProject;
+    index: number;
+    range: [number, number];
+    targetScale: number;
+    progress: MotionValue<number>;
+    onProjectClick: (project: DisplayProject) => void;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, targetScale, progress, onProjectClick }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -170,7 +184,11 @@ const ProjectCard = ({ project, index, range, targetScale, progress, onProjectCl
     );
 };
 
-const StackingProjects: React.FC<{ onProjectClick: (p: any) => void }> = ({ onProjectClick }) => {
+interface StackingProjectsProps {
+    onProjectClick: (project: Project) => void;
+}
+
+const StackingProjects: React.FC<StackingProjectsProps> = ({ onProjectClick }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: containerRef,

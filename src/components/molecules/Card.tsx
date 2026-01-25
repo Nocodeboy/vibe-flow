@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { memo } from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
 
 interface CardProps extends HTMLMotionProps<"div"> {
@@ -53,4 +53,4 @@ const Card: React.FC<CardProps> = ({
     );
 };
 
-export default Card;
+export default memo(Card);

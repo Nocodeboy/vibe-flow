@@ -22,23 +22,25 @@
         @apply font-display;
     }
 
-    /* Remove default focus outlines and purple highlights */
+    /* Accessible focus styles - visible for keyboard users, hidden for mouse */
     *:focus {
-        outline: none !important;
+        outline: none;
+    }
+
+    *:focus-visible {
+        outline: 2px solid var(--color-primary) !important;
+        outline-offset: 2px !important;
     }
 
     a,
     button {
-        outline: none !important;
         -webkit-tap-highlight-color: transparent;
     }
 
-    a:focus,
-    button:focus,
-    a:active,
-    button:active {
-        outline: none !important;
-        box-shadow: none !important;
+    a:focus-visible,
+    button:focus-visible {
+        outline: 2px solid var(--color-primary) !important;
+        outline-offset: 2px !important;
     }
 
     /* Custom selection color - green instead of purple */
@@ -102,4 +104,16 @@
 
 :root {
     --color-primary: #98e710;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

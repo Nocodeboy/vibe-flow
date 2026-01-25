@@ -1,10 +1,10 @@
-
 import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, ArrowUpRight, CheckCircle2, Globe, Share2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Globe, Share2 } from 'lucide-react';
+import { Project } from '../../data/projects';
 
 interface ProjectDetailProps {
-  project: any;
+  project: Project;
   onBack: () => void;
 }
 
@@ -134,7 +134,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
               <img
                 src={project.img}
                 className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105 brightness-110"
-                alt="Detailed perspective"
+                alt={`Vista detallada del proyecto ${project.title}`}
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             </motion.div>
