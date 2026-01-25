@@ -7,7 +7,7 @@ const Methodology: React.FC = () => {
     useSEO({
         title: 'Metodología',
         description: 'Descubre nuestra metodología de aprendizaje: módulos prácticos, sesiones en vivo y mentoría directa para dominar IA y automatización.',
-        url: 'https://vibeflow.com/methodology'
+        url: 'https://vibeflow.es/metodologia'
     });
 
     return (

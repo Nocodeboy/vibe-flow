@@ -13,7 +13,7 @@ const ProjectPage: React.FC = () => {
     useSEO({
         title: project?.title || 'Proyecto',
         description: project?.description || 'Caso de estudio detallado de un proyecto de Vibe Flow.',
-        url: `https://vibeflow.com/work/${id}`
+        url: `https://vibeflow.es/proyectos/${id}`
     });
 
     if (!project) {
@@ -21,7 +21,7 @@ const ProjectPage: React.FC = () => {
             <div className="h-screen flex items-center justify-center bg-black text-white">
                 <div className="text-center">
                     <h2 className="text-4xl font-bold mb-4">Proyecto no encontrado</h2>
-                    <button onClick={() => navigate('/work')} className="text-primary underline">Volver al portfolio</button>
+                    <button onClick={() => navigate('/proyectos')} className="text-primary underline">Volver al portfolio</button>
                 </div>
             </div>
         );
@@ -29,7 +29,7 @@ const ProjectPage: React.FC = () => {
 
     return (
         <div className="min-h-screen">
-            <ProjectDetail project={project} onBack={() => navigate('/work')} />
+            <ProjectDetail project={project} onBack={() => navigate('/proyectos')} />
         </div>
     );
 };

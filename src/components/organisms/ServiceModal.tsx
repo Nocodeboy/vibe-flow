@@ -235,7 +235,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                                 className="pt-6 border-t border-white/[0.06]"
                             >
                                 <Button
-                                    href="mailto:contact@vibeflow.com"
+                                    href="mailto:contact@vibeflow.es"
                                     external
                                     size="lg"
                                     className="w-full justify-center py-4 text-base font-bold group"

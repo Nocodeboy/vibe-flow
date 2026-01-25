@@ -11,7 +11,7 @@ const Services: React.FC = () => {
     useSEO({
         title: 'Servicios',
         description: 'Proyectos llave en mano de IA y automatización. Desarrollo web, CRMs, chatbots IA y automatizaciones desde 2.000€. Resultados garantizados.',
-        url: 'https://vibeflow.com/services'
+        url: 'https://vibeflow.es/servicios'
     });
 
     const heroRef = useRef<HTMLDivElement>(null);
@@ -88,7 +88,7 @@ const Services: React.FC = () => {
                         transition={{ delay: 0.7 }}
                     >
                         <Button
-                            href="#contact"
+                            href="/contacto"
                             size="lg"
                             className="inline-flex items-center gap-3 px-10 py-5 font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all duration-500"
                             icon={<ArrowRight size={18} />}
@@ -268,7 +268,7 @@ const Services: React.FC = () => {
                         ].map((project, i) => (
                             <motion.a
                                 key={project.id}
-                                href={`/work/${project.id}`}
+                                href={`/proyectos/${project.id}`}
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -310,7 +310,7 @@ const Services: React.FC = () => {
                         className="text-center mt-12"
                     >
                         <Button
-                            href="/work"
+                            href="/proyectos"
                             variant="outline"
                             size="lg"
                             shape="pill"
@@ -340,7 +340,7 @@ const Services: React.FC = () => {
                         Cuéntanos tu proyecto y te enviamos propuesta personalizada en <span className="text-primary font-bold">menos de 48h</span>.
                     </p>
                     <Button
-                        href="mailto:contact@vibeflow.com"
+                        href="mailto:contacto@vibeflow.es"
                         external
                         size="lg"
                         className="inline-flex items-center gap-3 px-12 py-6 rounded-full bg-primary text-black font-bold uppercase tracking-widest text-sm hover:shadow-[0_0_80px_rgba(152,231,16,0.5)] transition-all duration-500"

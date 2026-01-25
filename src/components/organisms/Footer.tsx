@@ -1,7 +1,8 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { Github, Linkedin, Twitter, Instagram, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Twitter, Instagram, ArrowUpRight, Youtube, GraduationCap, Video } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Button from '../atoms/Button';
 import { Magnetic } from '../atoms/Magnetic';
 
@@ -59,7 +60,7 @@ const Footer: React.FC = () => {
                             </h3>
                             <Magnetic>
                                 <Button
-                                    href="mailto:contact@vibeflow.com"
+                                    href="mailto:contact@vibeflow.es"
                                     size="lg"
                                     className="inline-flex items-center gap-4 text-xl px-8 py-4 rounded-full bg-white text-black hover:scale-105 transition-transform duration-300 font-bold"
                                 >
@@ -81,12 +82,21 @@ const Footer: React.FC = () => {
                             <div className="space-y-4">
                                 <span className="text-xs uppercase tracking-[0.2em] text-white/30 block mb-4">Social</span>
                                 {[
-                                    { name: 'LinkedIn', icon: <Linkedin size={16} /> },
-                                    { name: 'Twitter', icon: <Twitter size={16} /> },
-                                    { name: 'Instagram', icon: <Instagram size={16} /> },
-                                    { name: 'Github', icon: <Github size={16} /> }
+                                    { name: 'LinkedIn', icon: <Linkedin size={16} />, href: "https://www.linkedin.com/in/germ%C3%A1n-huertas-piquero-b89a80b1/" },
+                                    { name: 'Instagram', icon: <Instagram size={16} />, href: "https://www.instagram.com/germanhuertaspiquero/" },
+                                    { name: 'X', icon: <Twitter size={16} />, href: "https://x.com/Nocodeboy" },
+                                    { name: 'YouTube', icon: <Youtube size={16} />, href: "https://www.youtube.com/@germanhuertaspiquero" },
+                                    { name: 'TikTok', icon: <Video size={16} />, href: "https://www.tiktok.com/@nocodeboy" },
+                                    { name: 'Skool', icon: <GraduationCap size={16} />, href: "https://www.skool.com/vibe-flow" }
                                 ].map(item => (
-                                    <a key={item.name} href="#" className="flex items-center gap-2 text-white/60 hover:text-white transition-colors group text-lg">
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 text-white/60 hover:text-white transition-colors group text-lg"
+                                    >
+                                        {item.icon}
                                         {item.name}
                                         <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-y-1 translate-x-1" />
                                     </a>
@@ -104,8 +114,8 @@ const Footer: React.FC = () => {
                                 <span className="hidden md:inline">Madrid, ES • {new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
                             <div className="flex gap-6">
-                                <a href="#" className="hover:text-white transition-colors">Legal</a>
-                                <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+                                <Link to="/aviso-legal" className="hover:text-white transition-colors">Legal</Link>
+                                <Link to="/politica-privacidad" className="hover:text-white transition-colors">Privacidad</Link>
                             </div>
                         </div>
 

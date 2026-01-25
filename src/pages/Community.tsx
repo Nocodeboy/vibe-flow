@@ -22,7 +22,7 @@ const Community: React.FC = () => {
     useSEO({
         title: 'Comunidad',
         description: 'Únete a la comunidad de élite para aprender IA y automatización haciendo proyectos reales. 2 sesiones semanales en vivo, mentoría, y acceso a proyectos de agencia.',
-        url: 'https://vibeflow.com/community'
+        url: 'https://vibeflow.es/comunidad'
     });
 
     return (
@@ -95,7 +95,7 @@ const Community: React.FC = () => {
                         className="mt-12"
                     >
                         <a
-                            href="https://www.skool.com/vibe-flow-hub"
+                            href="https://www.skool.com/vibe-flow"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-black font-bold uppercase tracking-widest text-sm rounded-full hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all duration-500"

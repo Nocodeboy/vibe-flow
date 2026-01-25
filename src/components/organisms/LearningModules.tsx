@@ -195,7 +195,9 @@ const LearningModules: React.FC = () => {
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
 
                 {/* Background elements */}
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] -z-10 pointer-events-none" />
+                {/* Background elements - Removed per user request */}
+                {/* <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] -z-10 pointer-events-none" /> */}
+
 
                 <div className="relative w-full max-w-[100vw]">
                     <div className="max-w-7xl mx-auto px-6 mb-12 relative z-10">

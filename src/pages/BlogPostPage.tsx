@@ -18,8 +18,8 @@ const BlogPostPage: React.FC = () => {
     useSEO({
         title: post?.title || 'Artículo',
         description: post?.excerpt || 'Lee nuestro artículo sobre IA y automatización.',
-        image: post?.img ? `https://vibeflow.com${post.img}` : undefined,
-        url: `https://vibeflow.com/blog/${slug}`,
+        image: post?.img ? `https://vibeflow.es${post.img}` : undefined,
+        url: `https://vibeflow.es/blog/${slug}`,
         type: 'article',
         article: {
             publishedTime: post?.date,

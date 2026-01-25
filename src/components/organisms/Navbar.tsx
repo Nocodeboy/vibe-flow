@@ -19,9 +19,9 @@ const Navbar: React.FC = () => {
 
     const navLinks = [
         { num: '01', name: 'Inicio', href: '/' },
-        { num: '02', name: 'Comunidad', href: '/community' },
-        { num: '03', name: 'Servicios', href: '/services' },
-        { num: '04', name: 'Nosotros', href: '/about' },
+        { num: '02', name: 'Comunidad', href: '/comunidad' },
+        { num: '03', name: 'Servicios', href: '/servicios' },
+        { num: '04', name: 'Nosotros', href: '/nosotros' },
         { num: '05', name: 'Blog', href: '/blog' },
     ];
 
@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
                     {/* Actions Area */}
                     <div className="flex items-center gap-3">
                         <Button
-                            href="/contact"
+                            href="/contacto"
                             size="sm"
                             variant={scrolled ? 'secondary' : 'glass'}
                             className="hidden sm:flex font-black"
@@ -129,7 +129,7 @@ const Navbar: React.FC = () => {
 
                         <div className="max-w-7xl w-full px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center relative z-10">
                             <div className="flex flex-col gap-2 md:gap-6">
-                                {[...navLinks, { num: '05', name: 'Contacto', href: '/contact' }].map((link, i) => (
+                                {[...navLinks, { num: '05', name: 'Contacto', href: '/contacto' }].map((link, i) => (
                                     <motion.div
                                         key={link.name}
                                         initial={{ opacity: 0, x: -60 }}

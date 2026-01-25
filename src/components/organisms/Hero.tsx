@@ -210,7 +210,7 @@ const Hero: React.FC = () => {
                     {/* Primary CTA - Community */}
                     <Magnetic>
                         <a
-                            href="https://www.skool.com/vibe-flow/about"
+                            href="https://www.skool.com/vibe-flow"
                             className="group relative px-10 h-14 rounded-full bg-primary text-black font-bold uppercase tracking-widest text-xs overflow-hidden flex items-center justify-center outline-none focus:outline-none focus:ring-0"
                         >
                             <div className="absolute inset-0 bg-black translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1]" />
@@ -228,7 +228,7 @@ const Hero: React.FC = () => {
                     {/* Secondary CTA - Agency */}
                     <Magnetic>
                         <a
-                            href="/services"
+                            href="/servicios"
                             className="group px-10 h-14 rounded-full border border-white/20 bg-white/5 backdrop-blur-md text-white font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white hover:text-black transition-all duration-500 outline-none focus:outline-none focus:ring-0"
                         >
                             Ver Servicios <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

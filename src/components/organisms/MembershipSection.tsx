@@ -124,7 +124,7 @@ const MembershipSection: React.FC = () => {
 
                     <Magnetic>
                         <Button
-                            href="https://www.skool.com/vibeflow/about"
+                            href="https://www.skool.com/vibe-flow"
                             external
                             size="lg"
                             icon={<ArrowRight size={20} />}

@@ -38,7 +38,7 @@ const questions: FAQQuestion[] = [
     {
         id: "faq-5",
         q: "¿Y si solo quiero que lo hagan por mí?",
-        a: <>También podemos. Nuestra <Highlight>agencia implementa proyectos llave en mano</Highlight> desde 2.000€. CRMs, automatizaciones, chatbots IA, integraciones... Visita nuestra página de <Link to="/services" className="text-primary underline hover:text-primary/80 transition-colors">Servicios</Link> para más información.</>
+        a: <>También podemos. Nuestra <Highlight>agencia implementa proyectos llave en mano</Highlight> desde 2.000€. CRMs, automatizaciones, chatbots IA, integraciones... Visita nuestra página de <Link to="/servicios" className="text-primary underline hover:text-primary/80 transition-colors">Servicios</Link> para más información.</>
     }
 ];
 

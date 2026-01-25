@@ -16,7 +16,7 @@ const Blog: React.FC = () => {
     useSEO({
         title: 'Blog',
         description: 'Ideas, tutoriales y reflexiones sobre IA, automatización y la construcción de negocios digitales escalables.',
-        url: 'https://vibeflow.com/blog'
+        url: 'https://vibeflow.es/blog'
     });
 
     return (

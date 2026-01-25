@@ -178,7 +178,7 @@ const HeroVideoB: React.FC = () => {
                 >
                     <Magnetic>
                         <a
-                            href="https://www.skool.com/vibe-flow/about"
+                            href="https://www.skool.com/vibe-flow"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group relative px-10 h-14 rounded-full bg-primary text-black font-bold uppercase tracking-widest text-xs overflow-hidden flex items-center justify-center shadow-[0_0_40px_rgba(152,231,16,0.3)]"
@@ -196,7 +196,7 @@ const HeroVideoB: React.FC = () => {
                     </Magnetic>
 
                     <Magnetic>
-                        <a href="/services" className="group px-10 h-14 rounded-full border border-white/30 bg-black/30 backdrop-blur-md text-white font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white hover:text-black transition-all duration-500">
+                        <a href="/servicios" className="group px-10 h-14 rounded-full border border-white/30 bg-black/30 backdrop-blur-md text-white font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 hover:bg-white hover:text-black transition-all duration-500">
                             Ver Servicios <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                         </a>
                     </Magnetic>

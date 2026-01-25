@@ -28,6 +28,8 @@ const Services = lazy(() => import('./pages/Services'));
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const LegalNotice = lazy(() => import('./pages/LegalNotice'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 
 // Loading fallback component
 const PageLoader: React.FC = () => (
@@ -125,15 +127,18 @@ const AppContent: React.FC = () => {
                             <AnimatePresence mode="wait">
                                 <Routes location={location}>
                                     <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-                                    <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
-                                    <Route path="/work/:id" element={<PageTransition><ProjectPage /></PageTransition>} />
-                                    <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-                                    <Route path="/methodology" element={<PageTransition><Methodology /></PageTransition>} />
-                                    <Route path="/community" element={<PageTransition><Community /></PageTransition>} />
-                                    <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+                                    <Route path="/proyectos" element={<PageTransition><Work /></PageTransition>} />
+                                    <Route path="/proyectos/:id" element={<PageTransition><ProjectPage /></PageTransition>} />
+                                    <Route path="/servicios" element={<PageTransition><Services /></PageTransition>} />
+                                    <Route path="/metodologia" element={<PageTransition><Methodology /></PageTransition>} />
+                                    <Route path="/comunidad" element={<PageTransition><Community /></PageTransition>} />
+                                    <Route path="/nosotros" element={<PageTransition><About /></PageTransition>} />
                                     <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
                                     <Route path="/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />
-                                    <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+                                    <Route path="/contacto" element={<PageTransition><Contact /></PageTransition>} />
+                                    <Route path="/contacto" element={<PageTransition><Contact /></PageTransition>} />
+                                    <Route path="/aviso-legal" element={<PageTransition><LegalNotice /></PageTransition>} />
+                                    <Route path="/politica-privacidad" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
                                 </Routes>
                             </AnimatePresence>
                         </Suspense>

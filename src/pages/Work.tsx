@@ -7,7 +7,7 @@ const Work: React.FC = () => {
     useSEO({
         title: 'Portfolio',
         description: 'Explora nuestros casos de éxito en automatización, CRMs, chatbots IA y desarrollo web. Proyectos reales con resultados medibles.',
-        url: 'https://vibeflow.com/work'
+        url: 'https://vibeflow.es/proyectos'
     });
 
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Work: React.FC = () => {
             <CaseStudies
                 fullView
                 onBack={() => navigate('/')}
-                onProjectClick={(p) => navigate(`/work/${p.id}`)}
+                onProjectClick={(p) => navigate(`/proyectos/${p.id}`)}
             />
         </div>
     );

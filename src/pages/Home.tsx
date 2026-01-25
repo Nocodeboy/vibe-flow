@@ -22,7 +22,7 @@ const Home: React.FC = () => {
     useSEO({
         title: 'Comunidad de IA y Automatización para Creadores Digitales',
         description: 'Aprende IA y automatización haciendo, no viendo videos. Sesiones en vivo, mentoría real, y acceso a proyectos de 2.000€-15.000€. Únete por $24/mes.',
-        url: 'https://vibeflow.com/'
+        url: 'https://vibeflow.es/'
     });
 
     return (
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
             <LearningModules />
 
             {/* 5. Authority (What we build) - Moved UP for Authority */}
-            <StackingProjects onProjectClick={(p) => navigate(`/work/${p.id}`)} />
+            <StackingProjects onProjectClick={(p) => navigate(`/proyectos/${p.id}`)} />
 
             {/* 6. Offer (Membership) */}
             <MembershipSection />

@@ -17,8 +17,8 @@ interface SEOProps {
 const defaultMeta = {
     title: 'Vibe Flow | Comunidad de IA y Automatización',
     description: 'La comunidad de élite para aprender IA y automatización haciendo, no viendo videos. Sesiones en vivo, mentoría real, y acceso a proyectos de 2.000€-15.000€.',
-    image: 'https://vibeflow.com/images/og-image.png',
-    url: 'https://vibeflow.com'
+    image: 'https://vibeflow.es/images/og-image.png',
+    url: 'https://vibeflow.es'
 };
 
 export const useSEO = ({
