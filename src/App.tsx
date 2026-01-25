@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -11,23 +10,34 @@ import SmoothScroll from './components/layout/SmoothScroll';
 import Navbar from './components/organisms/Navbar';
 import Footer from './components/organisms/Footer';
 import PageTransition from './components/layout/PageTransition';
+import ErrorBoundary from './components/layout/ErrorBoundary';
 
 // Effects
 import GlobalBackground from './components/layout/GlobalBackground';
 import CustomCursor from './components/atoms/CustomCursor';
 import NoiseOverlay from './components/atoms/NoiseOverlay';
 
-// Pages
-import Home from './pages/Home';
-import Work from './pages/Work';
-import ProjectPage from './pages/ProjectPage';
-import Methodology from './pages/Methodology';
-import Community from './pages/Community';
-import Contact from './pages/Contact';
-import Services from './pages/Services';
-import About from './pages/About';
-import Blog from './pages/Blog';
-import BlogPostPage from './pages/BlogPostPage';
+// Lazy loaded pages for code splitting
+const Home = lazy(() => import('./pages/Home'));
+const Work = lazy(() => import('./pages/Work'));
+const ProjectPage = lazy(() => import('./pages/ProjectPage'));
+const Methodology = lazy(() => import('./pages/Methodology'));
+const Community = lazy(() => import('./pages/Community'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Services = lazy(() => import('./pages/Services'));
+const About = lazy(() => import('./pages/About'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+
+// Loading fallback component
+const PageLoader: React.FC = () => (
+    <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+            <div className="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-white/50 text-sm">Cargando...</p>
+        </div>
+    </div>
+);
 
 // ScrollToTop Component to handle route changes
 const ScrollToTop = () => {
@@ -111,20 +121,22 @@ const AppContent: React.FC = () => {
                     style={{ marginBottom: footerHeight }}
                 >
                     <div className="bg-[#030303] relative z-10 shadow-2xl min-h-screen">
-                        <AnimatePresence mode="wait">
-                            <Routes location={location}>
-                                <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-                                <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
-                                <Route path="/work/:id" element={<PageTransition><ProjectPage /></PageTransition>} />
-                                <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-                                <Route path="/methodology" element={<PageTransition><Methodology /></PageTransition>} />
-                                <Route path="/community" element={<PageTransition><Community /></PageTransition>} />
-                                <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-                                <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
-                                <Route path="/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />
-                                <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-                            </Routes>
-                        </AnimatePresence>
+                        <Suspense fallback={<PageLoader />}>
+                            <AnimatePresence mode="wait">
+                                <Routes location={location}>
+                                    <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+                                    <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
+                                    <Route path="/work/:id" element={<PageTransition><ProjectPage /></PageTransition>} />
+                                    <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
+                                    <Route path="/methodology" element={<PageTransition><Methodology /></PageTransition>} />
+                                    <Route path="/community" element={<PageTransition><Community /></PageTransition>} />
+                                    <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+                                    <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
+                                    <Route path="/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />
+                                    <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+                                </Routes>
+                            </AnimatePresence>
+                        </Suspense>
                     </div>
                 </main>
 
@@ -142,11 +154,13 @@ const AppContent: React.FC = () => {
 
 const App: React.FC = () => {
     return (
-        <BackgroundProvider>
-            <Router>
-                <AppContent />
-            </Router>
-        </BackgroundProvider>
+        <ErrorBoundary>
+            <BackgroundProvider>
+                <Router>
+                    <AppContent />
+                </Router>
+            </BackgroundProvider>
+        </ErrorBoundary>
     );
 };
 

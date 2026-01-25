@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useSpring, useTransform, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform, useMotionValue, MotionValue } from 'framer-motion';
 import { Spotlight } from '../atoms/Spotlight';
 import { Flag, Rocket, Users, Globe, Zap, ArrowUpRight } from 'lucide-react';
 import { EASE_ELITE } from '../../styles/animation';
@@ -128,7 +128,7 @@ const ScrollRevealInsight: React.FC<{ text: string; align: 'left' | 'right' }> =
     );
 };
 
-const MilestoneCard: React.FC<{ item: RoadmapItem; index: number; globalScroll: any }> = ({ item, index, globalScroll }) => {
+const MilestoneCard: React.FC<{ item: RoadmapItem; index: number; globalScroll: MotionValue<number> }> = ({ item, index, globalScroll }) => {
     const cardRef = useRef<HTMLDivElement>(null);
     const isEven = index % 2 === 0;
 

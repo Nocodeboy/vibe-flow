@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Heart, Zap, ArrowRight, Linkedin, Twitter, Award, Target, Sparkles } from 'lucide-react';
+import { Users, Heart, Zap, Linkedin, Twitter, Award, Target, Sparkles } from 'lucide-react';
 import TeamSection from '../components/organisms/TeamSection';
+import { useSEO } from '../hooks/useSEO';
 
 const values = [
     {
@@ -28,6 +28,12 @@ const values = [
 ];
 
 const About: React.FC = () => {
+    useSEO({
+        title: 'Sobre Nosotros',
+        description: 'Conoce la historia de Vibe Flow, nuestro equipo y los valores que nos impulsan a construir la mejor comunidad de IA y automatización en español.',
+        url: 'https://vibeflow.com/about'
+    });
+
     return (
         <div className="relative">
             {/* Hero Section */}

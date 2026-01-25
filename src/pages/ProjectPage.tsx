@@ -1,14 +1,20 @@
-
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProjectDetail from '../components/organisms/ProjectDetail';
 import { projects } from '../data/projects';
+import { useSEO } from '../hooks/useSEO';
 
 const ProjectPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
     const project = projects.find(p => p.id === id);
+
+    useSEO({
+        title: project?.title || 'Proyecto',
+        description: project?.description || 'Caso de estudio detallado de un proyecto de Vibe Flow.',
+        url: `https://vibeflow.com/work/${id}`
+    });
 
     if (!project) {
         return (

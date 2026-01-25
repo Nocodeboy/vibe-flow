@@ -1,5 +1,8 @@
 import { Project } from '../types';
 
+// Re-export Project type for convenience
+export type { Project };
+
 export const projects: Project[] = [
     {
         id: 'clinica-dental',

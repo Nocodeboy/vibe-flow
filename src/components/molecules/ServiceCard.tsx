@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo, useCallback } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { Service } from '../../data/services';
 import { EASE_ELITE } from '../../styles/animation';
@@ -7,7 +7,6 @@ interface ServiceCardProps {
     service: Service;
     index: number;
     onClick: () => void;
-    key?: React.Key;
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, onClick }) => {
@@ -127,4 +126,4 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, onClick }) =>
     );
 };
 
-export default ServiceCard;
+export default memo(ServiceCard);

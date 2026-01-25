@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, ReactNode, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import { EASE_ELITE } from '../../styles/animation';
 
 export interface FAQItemProps {
     q: string;
-    a: string;
+    a: ReactNode;
     index: number;
 }
 
@@ -37,10 +37,9 @@ const FAQItem: React.FC<FAQItemProps> = ({ q, a, index }) => {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden"
                     >
-                        <p
-                            className="pb-8 text-white/60 text-lg leading-relaxed max-w-3xl"
-                            dangerouslySetInnerHTML={{ __html: a }}
-                        />
+                        <p className="pb-8 text-white/60 text-lg leading-relaxed max-w-3xl">
+                            {a}
+                        </p>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -48,4 +47,4 @@ const FAQItem: React.FC<FAQItemProps> = ({ q, a, index }) => {
     );
 };
 
-export default FAQItem;
+export default memo(FAQItem);

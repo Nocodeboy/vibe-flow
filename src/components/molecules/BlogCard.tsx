@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, memo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -44,6 +44,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
                         <img
                             src={post.img}
                             alt={post.title}
+                            loading="lazy"
                             className="w-full h-full object-cover grayscale brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100"
                         />
                     </motion.div>
@@ -80,4 +81,4 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, index }) => {
     );
 };
 
-export default BlogCard;
+export default memo(BlogCard);
