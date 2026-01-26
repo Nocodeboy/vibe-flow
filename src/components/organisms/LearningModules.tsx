@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
 import { Database, Zap, Layers, Cpu, ArrowRight } from 'lucide-react';
 import { EASE_ELITE } from '../../styles/animation';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 interface ModuleData {
     id: string;
@@ -57,14 +58,14 @@ const modules: ModuleData[] = [
     }
 ];
 
-const ModuleCard: React.FC<{ module: ModuleData; index: number }> = ({ module, index }) => {
-    // 3D Tilt Logic
+const ModuleCard: React.FC<{ module: ModuleData; index: number; isMobile: boolean }> = ({ module, index, isMobile }) => {
+    // 3D Tilt Logic - only on desktop
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const mouseXSpring = useSpring(x);
     const mouseYSpring = useSpring(y);
 
-    // Card rotation
+    // Card rotation - disabled on mobile
     const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
     const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
 
@@ -73,8 +74,7 @@ const ModuleCard: React.FC<{ module: ModuleData; index: number }> = ({ module, i
     const imageY = useTransform(mouseYSpring, [-0.5, 0.5], ["-20px", "20px"]);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        // Disable 3D tilt on mobile for performance
-        if (window.innerWidth < 768) return;
+        if (isMobile) return;
 
         const rect = e.currentTarget.getBoundingClientRect();
         const width = rect.width;
@@ -92,23 +92,25 @@ const ModuleCard: React.FC<{ module: ModuleData; index: number }> = ({ module, i
 
     return (
         <motion.div
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
+            onMouseMove={isMobile ? undefined : handleMouseMove}
+            onMouseLeave={isMobile ? undefined : handleMouseLeave}
+            style={isMobile ? {} : {
                 rotateX,
                 rotateY,
                 transformStyle: "preserve-3d"
             }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: index * 0.05, ease: EASE_ELITE }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 0, scale: isMobile ? 1 : 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: isMobile ? 0.4 : 0.8, delay: isMobile ? index * 0.1 : index * 0.05, ease: EASE_ELITE }}
             viewport={{ once: true }}
-            className="relative flex-shrink-0 w-[85vw] md:w-[420px] h-[580px] rounded-[3rem] bg-[#0A0A0A] border border-white/[0.08] overflow-hidden group select-none shadow-2xl shadow-black/50"
+            className={`relative flex-shrink-0 ${isMobile ? 'w-full h-auto min-h-[420px]' : 'w-[85vw] md:w-[420px] h-[580px]'} rounded-[2rem] md:rounded-[3rem] bg-[#0A0A0A] border border-white/[0.08] overflow-hidden group select-none shadow-2xl shadow-black/50`}
         >
-            {/* Shimmer Effect on Hover */}
-            <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-50 mix-blend-overlay">
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:animate-shimmer" />
-            </div>
+            {/* Shimmer Effect on Hover - Hidden on mobile */}
+            {!isMobile && (
+                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-50 mix-blend-overlay">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:animate-shimmer" />
+                </div>
+            )}
 
             {/* Ambient Gradient */}
             <div className={`absolute inset-0 bg-gradient-to-br ${module.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-700`} />
@@ -118,7 +120,7 @@ const ModuleCard: React.FC<{ module: ModuleData; index: number }> = ({ module, i
                 <span className="text-[10rem] font-display font-bold leading-none tracking-tighter">{module.number}</span>
             </div>
 
-            <div className="relative z-10 h-full flex flex-col justify-between p-2" style={{ transform: "translateZ(20px)" }}>
+            <div className="relative z-10 h-full flex flex-col justify-between p-2" style={isMobile ? {} : { transform: "translateZ(20px)" }}>
 
                 {/* Top Content Area (Padded) */}
                 <div className="p-8 pt-10">
@@ -150,30 +152,44 @@ const ModuleCard: React.FC<{ module: ModuleData; index: number }> = ({ module, i
                 </div>
 
                 {/* Bottom Image Area (Full width/rounded bottom) */}
-                <div className="relative h-56 w-full rounded-[2.5rem] overflow-hidden mx-auto border-t border-white/5 bg-black/50 group-hover:h-64 transition-all duration-500 ease-out">
-                    <motion.div
-                        style={{ x: imageX, y: imageY, scale: 1.1 }}
-                        className="absolute inset-0 w-full h-full"
-                    >
-                        <img
-                            src={module.image}
-                            alt={module.title}
-                            className="w-full h-full object-cover opacity-60 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-700"
-                        />
-                    </motion.div>
+                <div className={`relative ${isMobile ? 'h-40' : 'h-56 group-hover:h-64'} w-full rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden mx-auto border-t border-white/5 bg-black/50 transition-all duration-500 ease-out`}>
+                    {isMobile ? (
+                        <div className="absolute inset-0 w-full h-full">
+                            <img
+                                src={module.image}
+                                alt={module.title}
+                                loading="lazy"
+                                className="w-full h-full object-cover opacity-80"
+                            />
+                        </div>
+                    ) : (
+                        <motion.div
+                            style={{ x: imageX, y: imageY, scale: 1.1 }}
+                            className="absolute inset-0 w-full h-full"
+                        >
+                            <img
+                                src={module.image}
+                                alt={module.title}
+                                loading="lazy"
+                                className="w-full h-full object-cover opacity-60 group-hover:opacity-100 grayscale group-hover:grayscale-0 transition-all duration-700"
+                            />
+                        </motion.div>
+                    )}
 
                     {/* Gradient Overlay for Text Readability */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/20 to-transparent" />
 
-                    {/* Action Hint */}
-                    <div className="absolute bottom-6 left-8 z-20 flex items-center gap-3 text-white group-hover:text-primary transition-colors duration-300">
-                        <span className="text-xs font-bold uppercase tracking-[0.2em] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100">
-                            Explorar
-                        </span>
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-50 group-hover:opacity-100 group-hover:bg-primary group-hover:text-black transition-all duration-300">
-                            <ArrowRight size={14} />
+                    {/* Action Hint - Hidden on mobile */}
+                    {!isMobile && (
+                        <div className="absolute bottom-6 left-8 z-20 flex items-center gap-3 text-white group-hover:text-primary transition-colors duration-300">
+                            <span className="text-xs font-bold uppercase tracking-[0.2em] opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 delay-100">
+                                Explorar
+                            </span>
+                            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center opacity-50 group-hover:opacity-100 group-hover:bg-primary group-hover:text-black transition-all duration-300">
+                                <ArrowRight size={14} />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </motion.div>
@@ -181,27 +197,48 @@ const ModuleCard: React.FC<{ module: ModuleData; index: number }> = ({ module, i
 };
 
 const LearningModules: React.FC = () => {
+    const isMobile = useIsMobile();
     const targetRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });
 
-    // Transform scroll progress to horizontal movement
-    // 0% -> 0px
-    // 100% -> -totalWidth (we approximate 4 cards * 450px ~= 1800px)
-    // We adjust exact distance based on viewport in a real app, but here we can estimate for the effect.
-    // For a smoother desktop experience we move the container left.
+    // Transform scroll progress to horizontal movement - only on desktop
     const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
+    // Mobile: Simple vertical layout
+    if (isMobile) {
+        return (
+            <section className="relative bg-[#030303] py-20 px-4">
+                <div className="max-w-7xl mx-auto mb-10">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-8 h-[1px] bg-primary" />
+                        <span className="text-primary font-bold uppercase tracking-[0.4em] text-[10px]">
+                            ACADEMIA VIBE FLOW
+                        </span>
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-display font-medium tracking-tighter text-white">
+                        Áreas de <br />
+                        <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-white/50 to-transparent">
+                            Dominio.
+                        </span>
+                    </h2>
+                </div>
+
+                {/* Mobile: Vertical card list */}
+                <div className="flex flex-col gap-6">
+                    {modules.map((module, idx) => (
+                        <ModuleCard key={module.id} module={module} index={idx} isMobile={true} />
+                    ))}
+                </div>
+            </section>
+        );
+    }
+
+    // Desktop: Horizontal scroll effect
     return (
         <section ref={targetRef} className="relative h-[300vh] bg-[#030303]">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-
-                {/* Background elements */}
-                {/* Background elements - Removed per user request */}
-                {/* <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] -z-10 pointer-events-none" /> */}
-
-
                 <div className="relative w-full max-w-[100vw]">
                     <div className="max-w-7xl mx-auto px-6 mb-12 relative z-10">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
@@ -224,7 +261,7 @@ const LearningModules: React.FC = () => {
 
                     <motion.div style={{ x }} className="flex gap-8 px-6 md:px-[max(calc((100vw-80rem)/2),1.5rem)]">
                         {modules.map((module, idx) => (
-                            <ModuleCard key={module.id} module={module} index={idx} />
+                            <ModuleCard key={module.id} module={module} index={idx} isMobile={false} />
                         ))}
                     </motion.div>
                 </div>
