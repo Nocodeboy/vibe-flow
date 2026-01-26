@@ -22,11 +22,11 @@ const Footer: React.FC = () => {
     return (
         <div
             ref={footerRef}
-            className="relative h-[800px]"
+            className="relative h-auto md:h-[800px]"
             style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
         >
             <div
-                className="fixed bottom-0 h-[800px] w-full bg-[#050505] text-white overflow-hidden group"
+                className="relative h-auto md:fixed md:bottom-0 md:h-[800px] w-full bg-[#050505] text-white overflow-hidden group"
                 onMouseMove={handleMouseMove}
             >
                 {/* Spotlight Overlay */}
@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
                     }}
                 />
 
-                <div className="relative h-full container mx-auto px-6 md:px-12 flex flex-col justify-between py-20 z-20">
+                <div className="relative h-auto md:h-full container mx-auto px-6 md:px-12 flex flex-col justify-between py-20 z-20">
 
                     {/* Top Content */}
                     <div className="flex flex-col md:flex-row justify-between items-start gap-12">
