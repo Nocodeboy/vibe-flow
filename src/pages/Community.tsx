@@ -29,8 +29,8 @@ const Community: React.FC = () => {
         <div className="relative">
             {/* Hero Section */}
             <section className="min-h-[80vh] flex items-center justify-center relative overflow-hidden pt-32 pb-20 px-6">
-                {/* Background Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[200px] pointer-events-none" />
+                {/* Background Glow - Consistent with other pages */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px] pointer-events-none" />
 
                 <div className="max-w-5xl mx-auto text-center relative z-10">
                     <motion.div

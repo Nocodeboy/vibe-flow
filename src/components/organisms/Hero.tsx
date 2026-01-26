@@ -103,22 +103,12 @@ const Hero: React.FC = () => {
     return (
         <section ref={targetRef} className="relative min-h-[100vh] flex flex-col justify-center items-center px-6 overflow-hidden">
 
-            {/* Ambient Lighting Effects */}
+            {/* Ambient Lighting - Single consistent glow (GlobalBackground provides animated orbs) */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {/* Primary glow - Green accent - Static on mobile */}
-                <div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[180px] opacity-30"
-                />
-
-                {/* Secondary glow - Top right - Static on mobile */}
-                <div
-                    className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] bg-primary/15 rounded-full blur-[150px] opacity-20"
-                />
-
-                {/* Tertiary glow - Bottom left - Static on mobile */}
-                <div
-                    className="absolute -bottom-[10%] -left-[10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] opacity-15"
-                />
+                {/* Single primary glow - Consistent with other pages */}
+                {!isMobile && (
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] opacity-40" />
+                )}
 
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />

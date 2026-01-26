@@ -409,9 +409,9 @@ const RoadmapSection: React.FC = () => {
                 </div>
             </div>
 
-            {/* Ambient Lighting */}
-            <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-primary/5 blur-[200px] -z-10 rounded-full opacity-50" />
-            <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-primary/5 blur-[200px] -z-10 rounded-full opacity-30" />
+            {/* Ambient Lighting - Consistent opacity */}
+            <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-primary/5 blur-[150px] -z-10 rounded-full opacity-40" />
+            <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-primary/5 blur-[150px] -z-10 rounded-full opacity-40" />
         </section>
     );
 };
