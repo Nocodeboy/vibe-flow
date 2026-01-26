@@ -8,7 +8,7 @@ import BlogCard from '../molecules/BlogCard';
 
 const BlogSection: React.FC = () => {
   return (
-    <section id="blog" className="py-32 px-6 bg-[#080808]">
+    <section id="blog" className="py-32 px-6 bg-[#030303]">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div className="max-w-2xl">

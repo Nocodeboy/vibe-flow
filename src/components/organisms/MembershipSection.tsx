@@ -50,7 +50,7 @@ const BenefitCard: React.FC<{ benefit: typeof benefits[0], index: number }> = ({
             whileHover="hover"
             transition={{ delay: index * 0.1, duration: 0.8, ease: EASE_ELITE }}
             viewport={{ once: true }}
-            className={`group relative overflow-hidden rounded-[2.5rem] bg-[#0F0F0F] border border-white/5 hover:border-white/10 transition-colors duration-500 ${benefit.className} min-h-[300px] md:min-h-[340px]`}
+            className={`group relative overflow-hidden rounded-[2.5rem] bg-[#0A0A0A] border border-white/5 hover:border-white/10 transition-colors duration-500 ${benefit.className} min-h-[300px] md:min-h-[340px]`}
         >
             {/* Spotlight Effect */}
             <Spotlight className="absolute inset-0 z-20" size={500} color="rgba(255, 255, 255, 0.05)" />
@@ -100,7 +100,7 @@ const BenefitCard: React.FC<{ benefit: typeof benefits[0], index: number }> = ({
 
 const MembershipSection: React.FC = () => {
     return (
-        <section className="py-32 px-6 bg-[#080808] relative overflow-hidden text-white">
+        <section className="py-32 px-6 bg-[#030303] relative overflow-hidden text-white">
             {/* Background Ambience */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-primary/[0.03] rounded-full blur-[140px] pointer-events-none" />
 

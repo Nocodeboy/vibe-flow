@@ -168,7 +168,7 @@ const TargetAudienceSection: React.FC = () => {
                                 <div className="absolute -inset-0.5 bg-gradient-to-b from-red-500 to-red-900 rounded-[2.5rem] opacity-0 group-hover:opacity-75 transition duration-500 blur-xl group-hover:blur-2xl" />
 
                                 {/* Card Body */}
-                                <div className="relative h-full bg-[#080808] border border-white/5 rounded-[2rem] p-10 overflow-hidden flex flex-col transition-transform duration-500 group-hover:-translate-y-2">
+                                <div className="relative h-full bg-[#0A0A0A] border border-white/5 rounded-[2rem] p-10 overflow-hidden flex flex-col transition-transform duration-500 group-hover:-translate-y-2">
 
                                     {/* Noise Texture Overlay */}
                                     <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
