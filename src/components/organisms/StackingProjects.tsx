@@ -97,7 +97,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                         rotateY,
                         transformStyle: "preserve-3d"
                     }}
-                    className="relative w-[85vw] max-w-[1100px] aspect-[16/9] md:h-[600px] md:aspect-auto bg-[#0A0A0A] rounded-[2.5rem] border border-white/5 overflow-hidden group hover:border-white/10 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303] transition-all duration-500 cursor-pointer"
+                    className="relative w-[90vw] md:w-[85vw] max-w-[1100px] aspect-[4/5] md:aspect-auto md:h-[600px] bg-[#0A0A0A] rounded-[2.5rem] border border-white/5 overflow-hidden group hover:border-white/10 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303] transition-all duration-500 cursor-pointer"
                 >
                     {/* Dynamic Colored Shadow / Glow */}
                     <motion.div
@@ -166,7 +166,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                                 initial={{ y: 20, opacity: 0 }}
                                 whileInView={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.1, duration: 0.8, ease: EASE_ELITE }}
-                                className="text-4xl md:text-6xl font-display italic font-bold text-white mb-6 leading-[0.9] tracking-tight group-hover:text-primary transition-colors duration-300"
+                                className="text-3xl md:text-6xl font-display italic font-bold text-white mb-4 md:mb-6 leading-[0.9] tracking-tight group-hover:text-primary transition-colors duration-300"
                             >
                                 {project.title}
                             </motion.h3>
@@ -183,7 +183,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                                 <Magnetic>
                                     <Button
                                         variant="primary"
-                                        className="rounded-full px-8 bg-white text-black hover:bg-primary whitespace-nowrap opacity-0 md:opacity-100 translate-y-4 md:translate-y-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
+                                        className="rounded-full px-6 md:px-8 py-3 md:py-4 bg-white text-black hover:bg-primary whitespace-nowrap opacity-100 translate-y-0 text-sm md:text-base md:opacity-100 md:translate-y-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
                                         icon={<ArrowUpRight size={18} />}
                                     >
                                         Ver Caso

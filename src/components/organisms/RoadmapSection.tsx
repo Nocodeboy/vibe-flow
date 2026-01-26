@@ -164,13 +164,13 @@ const MilestoneCard: React.FC<{ item: RoadmapItem; index: number; globalScroll: 
     };
 
     return (
-        <div className={`relative flex items-center justify-between mb-48 md:mb-64 w-full ${isEven ? 'flex-row' : 'flex-row-reverse'}`}>
+        <div className={`relative flex flex-col md:flex-row items-center justify-between mb-24 md:mb-64 w-full ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
             {/* Kinetic Background Typography */}
             <motion.div
                 style={{ x: textParallax }}
                 className={`absolute top-1/2 -translate-y-1/2 ${isEven ? '-left-20' : '-right-20'} opacity-[0.02] select-none pointer-events-none z-0`}
             >
-                <span className="text-[15rem] md:text-[25rem] font-display italic font-bold leading-none uppercase">
+                <span className="text-[8rem] md:text-[25rem] font-display italic font-bold leading-none uppercase">
                     {item.id}
                 </span>
             </motion.div>
@@ -189,7 +189,7 @@ const MilestoneCard: React.FC<{ item: RoadmapItem; index: number; globalScroll: 
                     rotateY,
                     perspective: 1000
                 }}
-                className={`z-20 w-full md:w-[55%] glass p-8 md:p-12 rounded-[2.5rem] border-white/5 hover:border-primary/20 transition-colors duration-700 relative group overflow-visible`}
+                className={`z-20 w-full md:w-[55%] glass p-6 md:p-12 rounded-[2.5rem] border-white/5 hover:border-primary/20 transition-colors duration-700 relative group overflow-visible`}
             >
                 {/* Noise Overlay */}
                 <div className="absolute inset-0 opacity-[0.03] pointer-events-none rounded-[2.5rem] overflow-hidden bg-[url('/noise.svg')]" />
@@ -320,27 +320,52 @@ const RoadmapSection: React.FC = () => {
             </div>
 
             <div className="max-w-7xl mx-auto relative min-h-[1300px]">
-                {/* Sinuous Elite Path (Desktop only) */}
-                <div className="hidden md:block absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-full h-full pointer-events-none z-0">
+                {/* Sinuous Elite Path (Responsive) */}
+                <div className="absolute left-1/2 top-0 bottom-0 -translate-x-1/2 w-full h-full pointer-events-none z-0">
                     <svg
                         viewBox="0 0 100 1300"
                         preserveAspectRatio="none"
                         className="w-full h-full"
                     >
+                        {/* Desktop Path */}
                         <path
                             d={d}
                             stroke="rgba(255,255,255,0.02)"
                             strokeWidth="1.5"
                             fill="none"
+                            className="hidden md:block"
                         />
+                        {/* Mobile Path (Narrower) */}
+                        <path
+                            d="M 50 0 C 65 150, 35 250, 50 400 C 65 550, 35 700, 50 850 C 65 1000, 35 1150, 50 1300"
+                            stroke="rgba(255,255,255,0.02)"
+                            strokeWidth="1.5"
+                            fill="none"
+                            className="md:hidden"
+                        />
+
                         <motion.path
                             style={{ pathLength }}
-                            d={d}
+                            d={d} // Using desktop D for now, ideally would switch D based on media query or hook, but CSS hiding simplistic approach:
+                            // Better approach: Use two motion paths controlled by CSS media queries if possible, but framer motion needs 'd' prop.
+                            // Let's render BOTH motion paths and hide/show via CSS class.
                             stroke="url(#pathGradient)"
                             strokeWidth="1"
                             fill="none"
                             strokeDasharray="1"
+                            className="hidden md:block" // Desktop only motion path
                         />
+
+                        <motion.path
+                            style={{ pathLength }}
+                            d="M 50 0 C 65 150, 35 250, 50 400 C 65 550, 35 700, 50 850 C 65 1000, 35 1150, 50 1300"
+                            stroke="url(#pathGradient)"
+                            strokeWidth="1"
+                            fill="none"
+                            strokeDasharray="1"
+                            className="md:hidden" // Mobile only motion path
+                        />
+
                         <defs>
                             <linearGradient id="pathGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                                 <stop offset="0%" stopColor="#98e710" stopOpacity="0" />
@@ -349,6 +374,7 @@ const RoadmapSection: React.FC = () => {
                             </linearGradient>
                         </defs>
 
+                        {/* Moving Circle - Creating 2 for responsive simplicity */}
                         <motion.circle
                             r="3"
                             fill="#98e710"
@@ -356,7 +382,16 @@ const RoadmapSection: React.FC = () => {
                                 offsetPath: `path("${d}")`,
                                 offsetDistance: useTransform(pathLength, [0, 1], ["0%", "100%"])
                             }}
-                            className="shadow-[0_0_20px_rgba(152,231,16,1)]"
+                            className="shadow-[0_0_20px_rgba(152,231,16,1)] hidden md:block"
+                        />
+                        <motion.circle
+                            r="3"
+                            fill="#98e710"
+                            style={{
+                                offsetPath: `path("M 50 0 C 65 150, 35 250, 50 400 C 65 550, 35 700, 50 850 C 65 1000, 35 1150, 50 1300")`,
+                                offsetDistance: useTransform(pathLength, [0, 1], ["0%", "100%"])
+                            }}
+                            className="shadow-[0_0_20px_rgba(152,231,16,1)] md:hidden"
                         />
                     </svg>
                 </div>

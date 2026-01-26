@@ -65,11 +65,11 @@ const TargetAudienceSection: React.FC = () => {
                 </div>
 
                 {/* Premium Accordion / Hover Tabs */}
-                <div className="flex flex-col md:flex-row gap-4 h-[600px] mb-32">
+                <div className="flex flex-col md:flex-row gap-4 h-auto md:h-[600px] mb-32">
                     {personas.map((p) => (
                         <motion.div
                             key={p.id}
-                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] ${activeId === p.id ? 'md:flex-[3]' : 'md:flex-[1]'
+                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] ${activeId === p.id ? 'md:flex-[3] h-[500px] md:h-auto' : 'md:flex-[1] h-[100px] md:h-auto'
                                 } flex-1 min-h-[100px]`}
                             onHoverStart={() => setActiveId(p.id)}
                             onClick={() => setActiveId(p.id)}
