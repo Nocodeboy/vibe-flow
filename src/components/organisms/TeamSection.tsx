@@ -12,7 +12,7 @@ const team = [
     role: "Fundador y Estratega IA",
     bio: "Visionario digital especializado en la convergencia de IA y modelos de negocio escalables.",
     img: "/images/team/german.png",
-    social: { linkedin: "#", twitter: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/germ%C3%A1n-huertas-piquero-b89a80b1/", twitter: "https://x.com/Nocodeboy" }
   },
   {
     name: "Raquel",
@@ -20,7 +20,7 @@ const team = [
     role: "Soporte y Asistencia",
     bio: "Experta en arquitecturas RAG y automatización de procesos empresariales complejos.",
     img: "/images/team/raquel.png",
-    social: { linkedin: "#", globe: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/raquelorganistagarc%C3%ADa/" }
   },
   {
     name: "Daniel",
@@ -28,7 +28,7 @@ const team = [
     role: "Estratega Vibe Flow",
     bio: "Especialista en networking estratégico y construcción de comunidades de alto rendimiento.",
     img: "/images/team/daniel.png",
-    social: { linkedin: "#", twitter: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/daniel-lianes/" }
   }
 ];
 
@@ -65,6 +65,8 @@ const TeamMember: React.FC<{ member: typeof team[0], index: number }> = ({ membe
             <motion.a
               key={key}
               href={href}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 + (index * 0.1) + (i * 0.1) }}
@@ -112,7 +114,7 @@ const TeamSection: React.FC = () => {
   const xParallax = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   return (
-    <section id="team" ref={sectionRef} className="py-40 px-6 bg-[#050505] relative overflow-hidden">
+    <section id="team" ref={sectionRef} className="py-40 px-6 bg-surface relative overflow-hidden">
       {/* Background Parallax Text */}
       <motion.div
         style={{ x: xParallax }}

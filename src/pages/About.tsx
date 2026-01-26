@@ -76,7 +76,7 @@ const About: React.FC = () => {
             </section>
 
             {/* Founder Section */}
-            <section className="py-32 px-6 bg-[#050505] relative border-t border-white/5">
+            <section className="py-32 px-6 bg-surface relative border-t border-white/5">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                         {/* Image */}
@@ -129,10 +129,10 @@ const About: React.FC = () => {
                                 que comparten tu ambición.
                             </p>
                             <div className="flex gap-4">
-                                <a href="#" className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                                <a href="https://www.linkedin.com/in/germ%C3%A1n-huertas-piquero-b89a80b1/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">
                                     <Linkedin size={20} />
                                 </a>
-                                <a href="#" className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                                <a href="https://x.com/Nocodeboy" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">
                                     <Twitter size={20} />
                                 </a>
                             </div>
