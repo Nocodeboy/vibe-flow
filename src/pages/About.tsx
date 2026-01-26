@@ -76,7 +76,7 @@ const About: React.FC = () => {
             </section>
 
             {/* Founder Section */}
-            <section className="py-32 px-6 bg-surface relative border-t border-white/5">
+            <section className="py-32 px-6 bg-background relative border-t border-white/5">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                         {/* Image */}

@@ -18,7 +18,7 @@ const team = [
     name: "Raquel",
     surname: "Organista",
     role: "Soporte y Asistencia",
-    bio: "Experta en arquitecturas RAG y automatización de procesos empresariales complejos.",
+    bio: "Experta en consultoria de procesos empresariales complejosEs.",
     img: "/images/team/raquel.png",
     social: { linkedin: "https://www.linkedin.com/in/raquelorganistagarc%C3%ADa/" }
   },
