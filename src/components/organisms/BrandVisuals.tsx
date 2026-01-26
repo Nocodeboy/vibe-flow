@@ -82,7 +82,7 @@ const ArtCard: React.FC<{ art: typeof artworks[0], index: number }> = ({ art, in
 
 const BrandVisuals: React.FC = () => {
   return (
-    <section id="vision" className="py-32 px-6 bg-[#080808] relative overflow-hidden">
+    <section id="vision" className="py-32 px-6 bg-[#030303] relative overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-primary/[0.02] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
