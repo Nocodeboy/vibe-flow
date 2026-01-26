@@ -93,7 +93,7 @@ const Testimonials: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="relative h-[400px]">
+        <div className="relative h-[650px] md:h-[400px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -102,31 +102,31 @@ const Testimonials: React.FC = () => {
               exit={{ opacity: 0, x: -50 }}
               className="absolute inset-0"
             >
-              <div className="glass p-12 md:p-16 rounded-[3rem] border-white/10 relative overflow-hidden group">
+              <div className="glass p-8 md:p-16 rounded-[3rem] border-white/10 relative overflow-hidden group h-full md:h-auto flex flex-col justify-center">
                 <Quote size={120} className="absolute top-10 right-10 text-white/[0.02] group-hover:text-primary/10 transition-colors duration-500" />
 
-                <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12 items-center h-full">
-                  <div className="md:col-span-4">
-                    <div className="relative w-48 h-48 rounded-full overflow-hidden border-2 border-white/10 mb-6 group-hover:border-primary/50 transition-colors mx-auto md:mx-0">
+                <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center h-full">
+                  <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div className="relative w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-white/10 mb-6 group-hover:border-primary/50 transition-colors mx-auto md:mx-0">
                       <img
                         src={testimonials[activeIndex].img}
                         alt={testimonials[activeIndex].name}
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                       />
                     </div>
-                    <div className="text-center md:text-left">
-                      <h4 className="text-2xl font-display font-bold text-white mb-2">{testimonials[activeIndex].name}</h4>
-                      <p className="text-primary text-sm uppercase tracking-widest font-bold">{testimonials[activeIndex].role}</p>
+                    <div>
+                      <h4 className="text-xl md:text-2xl font-display font-bold text-white mb-2">{testimonials[activeIndex].name}</h4>
+                      <p className="text-primary text-xs md:text-sm uppercase tracking-widest font-bold">{testimonials[activeIndex].role}</p>
                     </div>
                   </div>
 
-                  <div className="md:col-span-8">
-                    <div className="flex gap-2 mb-8">
+                  <div className="md:col-span-8 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div className="flex gap-2 mb-6 md:mb-8">
                       {[1, 2, 3, 4, 5].map(star => (
                         <div key={star} className="w-1.5 h-1.5 rounded-full bg-primary" />
                       ))}
                     </div>
-                    <p className="text-2xl md:text-4xl leading-relaxed font-light text-white/90 italic">
+                    <p className="text-xl md:text-4xl leading-relaxed font-light text-white/90 italic">
                       "{testimonials[activeIndex].text}"
                     </p>
                   </div>

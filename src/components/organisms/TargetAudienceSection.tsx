@@ -69,17 +69,19 @@ const TargetAudienceSection: React.FC = () => {
                     {personas.map((p) => (
                         <motion.div
                             key={p.id}
-                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] ${activeId === p.id ? 'md:flex-[3] h-[500px] md:h-auto' : 'md:flex-[1] h-[100px] md:h-auto'
-                                } flex-1 min-h-[100px]`}
+                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] ${activeId === p.id
+                                ? 'md:flex-[3] h-auto min-h-[500px] md:min-h-0 md:h-auto'
+                                : 'md:flex-[1] h-20 md:h-auto'
+                                } flex-1`}
                             onHoverStart={() => setActiveId(p.id)}
                             onClick={() => setActiveId(p.id)}
                         >
                             {/* Background Image & Overlay */}
                             <div className="absolute inset-0 w-full h-full">
                                 {/* Base dark overlay */}
-                                <div className={`absolute inset-0 bg-black/60 z-10 transition-opacity duration-500 ${activeId === p.id ? 'opacity-40' : 'opacity-80'}`} />
+                                <div className={`absolute inset-0 bg-black/60 z-10 transition-opacity duration-500 ${activeId === p.id ? 'opacity-40' : 'opacity-60 md:opacity-80'}`} />
                                 {/* Strong gradient from bottom for text area */}
-                                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                                <div className={`absolute inset-0 z-10 bg-gradient-to-t from-black via-black/40 to-transparent transition-opacity duration-500 ${activeId === p.id ? 'opacity-100' : 'opacity-0 md:opacity-100'}`} />
                                 <img
                                     src={p.img}
                                     alt={p.title}
@@ -88,8 +90,8 @@ const TargetAudienceSection: React.FC = () => {
                             </div>
 
                             {/* Content */}
-                            <div className="absolute inset-0 z-20 p-8 md:p-12 flex flex-col justify-end">
-                                <div className={`transition-all duration-500 ${activeId === p.id ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-70'}`}>
+                            <div className={`absolute inset-0 z-20 p-6 md:p-12 flex flex-col ${activeId === p.id ? 'justify-end' : 'justify-center md:justify-end'}`}>
+                                <div className={`transition-all duration-500 ${activeId === p.id ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-50 md:translate-y-4 md:opacity-70'}`}>
                                     <p className="text-primary font-mono text-xs uppercase tracking-widest mb-2">{p.subtitle}</p>
                                     <h3 className="text-3xl md:text-5xl font-display italic font-bold text-white mb-4 leading-none">
                                         {p.title}
