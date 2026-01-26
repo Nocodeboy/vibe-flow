@@ -1,0 +1,25 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+dist-ssr
+
+# Logs
+*.log
+logs
+
+# IDE
+.vscode
+.idea
+.DS_Store
+
+# Git
+.git
+
+# Test coverage
+coverage
+
+# Local environment files
+.env.local
+*.local

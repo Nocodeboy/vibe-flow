@@ -11,10 +11,8 @@ import {
   ValidationResult,
 } from '../../utils/validation';
 
-// Use environment variable - webhook should ideally be proxied through a backend
-const CONTACT_ENDPOINT =
-  import.meta.env.VITE_CONTACT_ENDPOINT ||
-  'https://hooks.airtable.com/workflows/v1/genericWebhook/appUb3sR4AI0MHrOc/wflAehnMXnp2GZTog/wtrYLeCa5bnseoFYm';
+// Use serverless API endpoint to avoid CORS issues
+const CONTACT_ENDPOINT = '/api/contact';
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
