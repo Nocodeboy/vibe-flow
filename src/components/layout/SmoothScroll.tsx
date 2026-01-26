@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import { isMobileDevice } from '../../hooks/useIsMobile';
 
 interface SmoothScrollProps {
     children: React.ReactNode;
@@ -7,14 +8,20 @@ interface SmoothScrollProps {
 
 const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     useEffect(() => {
+        // Disable Lenis on mobile for better performance
+        // Native scroll is optimized by browsers for touch devices
+        if (isMobileDevice()) {
+            return;
+        }
+
         const lenis = new Lenis({
-            duration: 2.2, // "Weight" of the scroll. Higher = heavier/smoother
+            duration: 2.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 0.9, // Resistance
-            touchMultiplier: 2, // Responsive touch
+            wheelMultiplier: 0.9,
+            touchMultiplier: 2,
         });
 
         function raf(time: number) {

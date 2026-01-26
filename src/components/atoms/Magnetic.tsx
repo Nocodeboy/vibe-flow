@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 interface MagneticProps {
     children: React.ReactElement;
@@ -12,6 +13,7 @@ export const Magnetic: React.FC<MagneticProps> = ({
     strength = 0.35,
     springConfig = { stiffness: 150, damping: 15, mass: 0.1 }
 }) => {
+    const isMobile = useIsMobile();
     const ref = useRef<HTMLDivElement>(null);
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -21,6 +23,9 @@ export const Magnetic: React.FC<MagneticProps> = ({
     const springY = useSpring(y, springConfig);
 
     const handleMouseMove = (e: React.MouseEvent) => {
+        // Disable magnetic effect on mobile/touch devices
+        if (isMobile) return;
+
         const { clientX, clientY } = e;
         const { left, top, width, height } = ref.current?.getBoundingClientRect() || { left: 0, top: 0, width: 0, height: 0 };
 
@@ -36,17 +41,20 @@ export const Magnetic: React.FC<MagneticProps> = ({
         y.set(0);
     };
 
+    // On mobile, just render children without magnetic effect
+    if (isMobile) {
+        return <div className="inline-block">{children}</div>;
+    }
+
     return (
         <motion.div
             ref={ref}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             style={{ x: springX, y: springY }}
-            className="inline-block" // Ensure it wraps content tightly
+            className="inline-block"
         >
-            {React.cloneElement(children, {
-                // Ensure the child doesn't block pointer events if it has own logic
-            })}
+            {React.cloneElement(children, {})}
         </motion.div>
     );
 };

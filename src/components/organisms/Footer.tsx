@@ -1,20 +1,23 @@
-
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { Linkedin, Twitter, Instagram, ArrowUpRight, Youtube, GraduationCap, Video } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../atoms/Button';
 import { Magnetic } from '../atoms/Magnetic';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 const Footer: React.FC = () => {
     const footerRef = useRef<HTMLDivElement>(null);
+    const isMobile = useIsMobile();
 
-    // Spotlight Effect
+    // Spotlight Effect - only on desktop
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
     function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-        let { left, top } = currentTarget.getBoundingClientRect();
+        // Disable spotlight tracking on mobile
+        if (isMobile) return;
+        const { left, top } = currentTarget.getBoundingClientRect();
         mouseX.set(clientX - left);
         mouseY.set(clientY - top);
     }
@@ -29,19 +32,21 @@ const Footer: React.FC = () => {
                 className="relative h-auto md:fixed md:bottom-0 md:h-[800px] w-full bg-[#050505] text-white overflow-hidden group"
                 onMouseMove={handleMouseMove}
             >
-                {/* Spotlight Overlay */}
-                <motion.div
-                    className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-10"
-                    style={{
-                        background: useMotionTemplate`
-                            radial-gradient(
-                                600px circle at ${mouseX}px ${mouseY}px,
-                                rgba(152, 231, 16, 0.15),
-                                transparent 80%
-                            )
-                        `
-                    }}
-                />
+                {/* Spotlight Overlay - Hidden on mobile for performance */}
+                {!isMobile && (
+                    <motion.div
+                        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-10"
+                        style={{
+                            background: useMotionTemplate`
+                                radial-gradient(
+                                    600px circle at ${mouseX}px ${mouseY}px,
+                                    rgba(152, 231, 16, 0.15),
+                                    transparent 80%
+                                )
+                            `
+                        }}
+                    />
+                )}
 
                 <div className="relative h-auto md:h-full container mx-auto px-6 md:px-12 flex flex-col justify-between py-20 z-20">
 
@@ -125,9 +130,11 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Background Noise/Gradient */}
+                {/* Background Noise/Gradient - Simplified on mobile */}
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-0" />
-                <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none z-0" />
+                {!isMobile && (
+                    <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] pointer-events-none z-0" />
+                )}
             </div>
         </div>
     );

@@ -1,6 +1,9 @@
 /**
  * Centralized animation variants for Framer Motion
  * Extracted from Hero.tsx and HeroVideoB.tsx to eliminate duplication
+ *
+ * Mobile-optimized variants are available with the "Mobile" suffix
+ * or via getter functions that accept an isMobile parameter.
  */
 
 import { EASE_ELITE } from './animation';
@@ -17,6 +20,22 @@ export const containerVariants = {
   },
 };
 
+// Mobile-optimized container (faster stagger, shorter delay)
+export const containerVariantsMobile = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+// Get container variants based on device
+export const getContainerVariants = (isMobile: boolean) =>
+  isMobile ? containerVariantsMobile : containerVariants;
+
 // Alternative container with longer delay (for video heroes)
 export const containerVariantsDelayed = {
   hidden: { opacity: 0 },
@@ -29,7 +48,7 @@ export const containerVariantsDelayed = {
   },
 };
 
-// Standard item fade-in with blur
+// Standard item fade-in with blur (desktop)
 export const itemVariants = {
   hidden: { opacity: 0, y: 60, filter: 'blur(10px)' },
   visible: {
@@ -43,7 +62,24 @@ export const itemVariants = {
   },
 };
 
-// Title entrance with scale
+// Mobile-optimized item (no blur filter - expensive on mobile)
+export const itemVariantsMobile = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: EASE_ELITE,
+    },
+  },
+};
+
+// Get item variants based on device
+export const getItemVariants = (isMobile: boolean) =>
+  isMobile ? itemVariantsMobile : itemVariants;
+
+// Title entrance with scale (desktop)
 export const titleVariants = {
   hidden: { opacity: 0, y: 100, scale: 0.9 },
   visible: {
@@ -56,6 +92,23 @@ export const titleVariants = {
     },
   },
 };
+
+// Mobile-optimized title (no scale - simpler animation)
+export const titleVariantsMobile = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: EASE_ELITE,
+    },
+  },
+};
+
+// Get title variants based on device
+export const getTitleVariants = (isMobile: boolean) =>
+  isMobile ? titleVariantsMobile : titleVariants;
 
 // Fade in from left
 export const fadeInLeft = {
