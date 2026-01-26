@@ -1,8 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useSpring } from 'framer-motion';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
 const CustomCursor: React.FC = () => {
+  const isMobile = useIsMobile();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
@@ -11,6 +12,9 @@ const CustomCursor: React.FC = () => {
   const cursorY = useSpring(0, springConfig);
 
   useEffect(() => {
+    // Don't add event listeners on mobile/touch devices
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
       cursorX.set(e.clientX - 8);
@@ -35,7 +39,10 @@ const CustomCursor: React.FC = () => {
         el.removeEventListener('mouseleave', handleUnhover);
       });
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, isMobile]);
+
+  // Don't render cursor on mobile/touch devices
+  if (isMobile) return null;
 
   return (
     <>

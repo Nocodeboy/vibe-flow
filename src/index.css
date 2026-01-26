@@ -151,22 +151,80 @@
     .blur-\[150px\],
     .blur-\[120px\],
     .blur-\[100px\] {
-        filter: blur(50px) !important;
+        filter: blur(30px) !important;
     }
-    
+
     /* Disable heavy backdrop-filter on mobile */
     .backdrop-blur-md,
-    .backdrop-blur-xl {
+    .backdrop-blur-xl,
+    .backdrop-blur-3xl {
         backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
     }
-    
-    /* Optimize transitions on mobile */
-    * {
-        transition-duration: 0.2s !important;
-    }
-    
+
     /* Disable perspective transforms on mobile */
-    .perspective-1000 {
+    .perspective-1000,
+    [style*="perspective"] {
         perspective: none !important;
+    }
+
+    /* Disable 3D transforms on mobile */
+    [style*="preserve-3d"],
+    .preserve-3d {
+        transform-style: flat !important;
+    }
+
+    /* Optimize will-change on mobile - avoid memory issues */
+    [style*="will-change"],
+    .will-change-transform {
+        will-change: auto !important;
+    }
+
+    /* Reduce shadow blur on mobile */
+    .shadow-\[0_0_8px_rgba\(152\,231\,16\,0\.8\)\] {
+        box-shadow: 0 0 4px rgba(152, 231, 16, 0.6) !important;
+    }
+
+    /* Disable mix-blend-mode on mobile (expensive on GPU) */
+    .mix-blend-screen,
+    .mix-blend-overlay {
+        mix-blend-mode: normal !important;
+    }
+
+    /* Optimize grayscale filter */
+    .grayscale {
+        filter: grayscale(1) !important;
+    }
+
+    /* Reduce animation complexity */
+    .animate-ping {
+        animation: none !important;
+        opacity: 1 !important;
+    }
+
+    /* Disable scale transitions on images for smoother scrolling */
+    img {
+        transition: none !important;
+    }
+
+    /* Optimize background glow elements */
+    [class*="bg-primary/"] {
+        opacity: 0.5 !important;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Disable hover effects on touch devices */
+    .group-hover\:opacity-100,
+    .group-hover\:scale-110,
+    .hover\:scale-105 {
+        transform: none !important;
+    }
+
+    /* Simplify button hover states */
+    button:hover,
+    a:hover {
+        transform: none !important;
     }
 }

@@ -5,13 +5,23 @@ import { useBackground } from '../../contexts/BackgroundContext';
 import { Spotlight } from '../atoms/Spotlight';
 import { Magnetic } from '../atoms/Magnetic';
 import { EASE_ELITE } from '../../styles/animation';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
-// Kinetic Character Component - Awwwards style hover effect
-const KineticChar: React.FC<{ char: string, baseColor: string }> = ({ char, baseColor }) => {
+// Kinetic Character Component - Awwwards style hover effect (disabled on mobile)
+const KineticChar: React.FC<{ char: string, baseColor: string, isMobile: boolean }> = ({ char, baseColor, isMobile }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     // Swap colors on hover: white -> green, green -> white
     const hoverColor = baseColor === "#ffffff" ? "#98e710" : "#ffffff";
+
+    // On mobile, render static span without motion
+    if (isMobile) {
+        return (
+            <span className="inline-block" style={{ color: baseColor }}>
+                {char === " " ? "\u00A0" : char}
+            </span>
+        );
+    }
 
     return (
         <motion.span
@@ -36,54 +46,59 @@ const KineticChar: React.FC<{ char: string, baseColor: string }> = ({ char, base
     );
 };
 
-// Stagger animation variants
-const containerVariants = {
+// Stagger animation variants - simplified for mobile
+const getContainerVariants = (isMobile: boolean) => ({
     hidden: { opacity: 0 },
     visible: {
         opacity: 1,
         transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.3
+            staggerChildren: isMobile ? 0.05 : 0.15,
+            delayChildren: isMobile ? 0.1 : 0.3
         }
     }
-};
+});
 
-const itemVariants = {
-    hidden: { opacity: 0, y: 60, filter: "blur(10px)" },
+const getItemVariants = (isMobile: boolean) => ({
+    hidden: { opacity: 0, y: isMobile ? 20 : 60 },
     visible: {
         opacity: 1,
         y: 0,
-        filter: "blur(0px)",
         transition: {
-            duration: 1,
+            duration: isMobile ? 0.4 : 1,
             ease: EASE_ELITE
         }
     }
-};
+});
 
-const titleVariants = {
-    hidden: { opacity: 0, y: 100, scale: 0.9 },
+const getTitleVariants = (isMobile: boolean) => ({
+    hidden: { opacity: 0, y: isMobile ? 30 : 100, scale: isMobile ? 1 : 0.9 },
     visible: {
         opacity: 1,
         y: 0,
         scale: 1,
         transition: {
-            duration: 1.2,
+            duration: isMobile ? 0.5 : 1.2,
             ease: EASE_ELITE
         }
     }
-};
+});
 
 const Hero: React.FC = () => {
     const { setTheme } = useBackground();
+    const isMobile = useIsMobile();
     const targetRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({ target: targetRef, offset: ["start start", "end start"] });
 
     useEffect(() => { setTheme('nebula'); }, [setTheme]);
 
-    // Parallax
-    const textY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
-    const opacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+    // Parallax - disabled on mobile for performance
+    const textY = useTransform(scrollYProgress, [0, 0.5], [0, isMobile ? 0 : -100]);
+    const opacity = useTransform(scrollYProgress, [0, 0.4], [1, isMobile ? 1 : 0]);
+
+    // Get responsive variants
+    const containerVariants = getContainerVariants(isMobile);
+    const itemVariants = getItemVariants(isMobile);
+    const titleVariants = getTitleVariants(isMobile);
 
     return (
         <section ref={targetRef} className="relative min-h-[100vh] flex flex-col justify-center items-center px-6 overflow-hidden">
@@ -120,12 +135,14 @@ const Hero: React.FC = () => {
                 animate="visible"
                 className="max-w-7xl w-full z-10 text-center flex flex-col items-center relative group"
             >
-                {/* Spotlight Backlight */}
-                <Spotlight
-                    className="absolute -inset-[200px] z-0 opacity-80 pointer-events-none"
-                    size={800}
-                    color="rgba(152, 231, 16, 0.08)"
-                />
+                {/* Spotlight Backlight - Hidden on mobile for performance */}
+                {!isMobile && (
+                    <Spotlight
+                        className="absolute -inset-[200px] z-0 opacity-80 pointer-events-none"
+                        size={800}
+                        color="rgba(152, 231, 16, 0.08)"
+                    />
+                )}
 
                 {/* Badge - Premium Tech Pill */}
                 <motion.div
@@ -149,11 +166,11 @@ const Hero: React.FC = () => {
                     <h1 className="text-[18vw] md:text-[14vw] font-display italic font-bold tracking-tighter flex">
                         {/* Vibe - White */}
                         {"Vibe".split("").map((char, i) => (
-                            <KineticChar key={`vibe-${i}`} char={char} baseColor="#ffffff" />
+                            <KineticChar key={`vibe-${i}`} char={char} baseColor="#ffffff" isMobile={isMobile} />
                         ))}
                         {/* Flow - Primary Green */}
                         {"Flow".split("").map((char, i) => (
-                            <KineticChar key={`flow-${i}`} char={char} baseColor="#98e710" />
+                            <KineticChar key={`flow-${i}`} char={char} baseColor="#98e710" isMobile={isMobile} />
                         ))}
                     </h1>
                 </motion.div>
@@ -208,20 +225,24 @@ const Hero: React.FC = () => {
 
             </motion.div>
 
-            {/* Scroll Indicator */}
+            {/* Scroll Indicator - Simplified on mobile */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-                style={{ opacity }}
+                transition={{ delay: isMobile ? 0.5 : 2, duration: isMobile ? 0.3 : 1 }}
+                style={isMobile ? {} : { opacity }}
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
             >
                 <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white/20 to-transparent">
-                    <motion.div
-                        animate={{ y: ["-100%", "100%"] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                        className="w-full h-1/2 bg-primary blur-[1px]"
-                    />
+                    {isMobile ? (
+                        <div className="w-full h-1/2 bg-primary/50" />
+                    ) : (
+                        <motion.div
+                            animate={{ y: ["-100%", "100%"] }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                            className="w-full h-1/2 bg-primary blur-[1px]"
+                        />
+                    )}
                 </div>
             </motion.div>
 
