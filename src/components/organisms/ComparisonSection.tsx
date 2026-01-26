@@ -237,7 +237,7 @@ const ComparisonSection: React.FC = () => {
                                                         className="p-6 rounded-xl bg-gradient-to-br from-[#98e710] to-[#7dbf0d] relative overflow-hidden flex flex-col justify-between min-h-[160px] group/new shadow-[0_0_30px_rgba(152,231,16,0.15)] border border-white/20"
                                                     >
                                                         <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay" />
-                                                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 blur-[50px] rounded-full translate-x-10 -translate-y-10" />
+                                                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 blur-[100px] rounded-full translate-x-10 -translate-y-10" />
 
                                                         <div className="relative z-10 flex items-start justify-between mb-4">
                                                             <span className="text-[9px] uppercase tracking-widest text-black font-bold bg-black/10 px-2 py-1 rounded backdrop-blur-md">Vibe Flow</span>
