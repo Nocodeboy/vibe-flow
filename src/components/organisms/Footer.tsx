@@ -25,11 +25,11 @@ const Footer: React.FC = () => {
     return (
         <div
             ref={footerRef}
-            className="relative h-auto md:h-[800px]"
-            style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
+            className={`relative ${isMobile ? 'h-auto' : 'h-[800px]'}`}
+            style={isMobile ? {} : { clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
         >
             <div
-                className="relative h-auto md:fixed md:bottom-0 md:h-[800px] w-full bg-[#050505] text-white overflow-hidden group"
+                className={`relative w-full bg-[#050505] text-white overflow-hidden group ${isMobile ? 'h-auto' : 'fixed bottom-0 h-[800px]'}`}
                 onMouseMove={handleMouseMove}
             >
                 {/* Spotlight Overlay - Hidden on mobile for performance */}
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
                     />
                 )}
 
-                <div className="relative h-auto md:h-full container mx-auto px-6 md:px-12 flex flex-col justify-between py-20 z-20">
+                <div className={`relative container mx-auto px-6 md:px-12 flex flex-col justify-between z-20 ${isMobile ? 'py-12' : 'h-full py-20'}`}>
 
                     {/* Top Content */}
                     <div className="flex flex-col md:flex-row justify-between items-start gap-12">
@@ -122,7 +122,7 @@ const Footer: React.FC = () => {
 
                         {/* THE GIANT TEXT - Decorative, not H1 */}
                         <p
-                            className="text-[13vw] font-display italic font-bold leading-[0.8] tracking-tighter text-center text-white/10 select-none bg-gradient-to-b from-white/20 to-transparent bg-clip-text text-transparent hover:text-white/20 transition-colors duration-500"
+                            className={`font-display italic font-bold leading-[0.8] tracking-tighter text-center text-white/10 select-none bg-gradient-to-b from-white/20 to-transparent bg-clip-text text-transparent ${isMobile ? 'text-[15vw] mt-8' : 'text-[13vw] hover:text-white/20 transition-colors duration-500'}`}
                             aria-hidden="true"
                         >
                             VIBE FLOW
