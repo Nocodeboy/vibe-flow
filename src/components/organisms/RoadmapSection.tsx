@@ -86,7 +86,6 @@ const ScrollRevealListItem: React.FC<{ text: string; index: number }> = ({ text,
     });
 
     const color = useTransform(scrollYProgress, [0, 1], ["rgba(255,255,255,0.2)", "rgba(255,255,255,1)"]);
-    const opacity = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
 
     return (
         <motion.li

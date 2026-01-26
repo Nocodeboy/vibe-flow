@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import FAQItem from '../molecules/FAQItem';
 

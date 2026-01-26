@@ -4,7 +4,6 @@ import {
   validateName,
   validateMessage,
   checkRateLimit,
-  recordSubmission,
 } from './validation';
 
 describe('validateEmail', () => {

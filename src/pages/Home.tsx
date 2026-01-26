@@ -10,8 +10,6 @@ import MembershipSection from '../components/organisms/MembershipSection';
 import ContactSection from '../components/organisms/ContactSection';
 import RoadmapSection from '../components/organisms/RoadmapSection';
 import TargetAudienceSection from '../components/organisms/TargetAudienceSection';
-import Footer from '../components/organisms/Footer';
-
 import StackingProjects from '../components/organisms/StackingProjects';
 import { useNavigate } from 'react-router-dom';
 import { useSEO } from '../hooks/useSEO';

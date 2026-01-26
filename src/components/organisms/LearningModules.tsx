@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { Database, Zap, Layers, Cpu, ArrowRight, Sparkles } from 'lucide-react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { Database, Zap, Layers, Cpu, ArrowRight } from 'lucide-react';
 import { EASE_ELITE } from '../../styles/animation';
 
 interface ModuleData {

@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView, AnimatePresence } from 'framer-motion';
-import { Quote, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { Quote, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useBackground } from '../../contexts/BackgroundContext';
 import Button from '../atoms/Button';
 import { Magnetic } from '../atoms/Magnetic';

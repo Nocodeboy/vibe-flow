@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { AlertTriangle, ArrowUpRight } from 'lucide-react';
 import { EASE_ELITE } from '../../styles/animation';
 
 const personas = [

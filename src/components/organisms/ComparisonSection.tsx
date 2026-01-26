@@ -1,10 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, LayoutGroup, useMotionTemplate, useMotionValue, useTransform } from 'framer-motion';
-import { Check, X, Zap, Video, Users, DollarSign, Lock, ArrowRight, Minus, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence, LayoutGroup, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { X, Zap, Video, Users, DollarSign, Lock, ArrowRight, Minus, Sparkles } from 'lucide-react';
 import { EASE_ELITE } from '../../styles/animation';
 import { Magnetic } from '../atoms/Magnetic';
-import { useBackground } from '../../contexts/BackgroundContext';
-import KineticChar from '../atoms/KineticChar';
 
 // Data Refinement
 const comparisonData = [

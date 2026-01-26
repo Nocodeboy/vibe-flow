@@ -31,7 +31,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, targetScale, progress, onProjectClick }) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
+    useScroll({
         target: containerRef,
         offset: ['start end', 'start start']
     });
@@ -182,7 +182,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                                 </p>
                                 <Magnetic>
                                     <Button
-                                        variant="solid"
+                                        variant="primary"
                                         className="rounded-full px-8 bg-white text-black hover:bg-primary whitespace-nowrap opacity-0 md:opacity-100 translate-y-4 md:translate-y-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
                                         icon={<ArrowUpRight size={18} />}
                                     >

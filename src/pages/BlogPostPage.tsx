@@ -2,7 +2,7 @@
 import React from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock, User, Share2, Twitter, Linkedin, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Share2, Twitter, Linkedin } from 'lucide-react';
 import { posts } from '../data/posts';
 import { useSEO } from '../hooks/useSEO';
 

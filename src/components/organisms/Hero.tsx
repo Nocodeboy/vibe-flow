@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { useBackground } from '../../contexts/BackgroundContext';
 import { Spotlight } from '../atoms/Spotlight';
 import { Magnetic } from '../atoms/Magnetic';
-import { EASE_ELITE, DURATION } from '../../styles/animation';
+import { EASE_ELITE } from '../../styles/animation';
 
 // Kinetic Character Component - Awwwards style hover effect
 const KineticChar: React.FC<{ char: string, baseColor: string }> = ({ char, baseColor }) => {

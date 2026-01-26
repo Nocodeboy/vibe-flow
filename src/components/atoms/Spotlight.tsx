@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import { motion, useSpring, useMotionTemplate, useMotionValue } from 'framer-motion';
 
 interface SpotlightProps {

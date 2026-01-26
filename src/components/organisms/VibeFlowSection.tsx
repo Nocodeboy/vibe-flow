@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Users, ExternalLink, Play } from 'lucide-react';
+import { ExternalLink, Play } from 'lucide-react';
 import { Magnetic } from '../atoms/Magnetic';
 
 const VibeFlowSection: React.FC = () => {
