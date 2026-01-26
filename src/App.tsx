@@ -17,6 +17,9 @@ import GlobalBackground from './components/layout/GlobalBackground';
 import CustomCursor from './components/atoms/CustomCursor';
 import NoiseOverlay from './components/atoms/NoiseOverlay';
 
+// Hooks
+import { useIsMobile } from './hooks/useIsMobile';
+
 // Lazy loaded pages for code splitting
 const Home = lazy(() => import('./pages/Home'));
 const Work = lazy(() => import('./pages/Work'));
@@ -55,6 +58,7 @@ const AppContent: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     const footerRef = useRef<HTMLDivElement>(null);
     const [footerHeight, setFooterHeight] = useState(0);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -64,7 +68,9 @@ const AppContent: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (!footerRef.current) return;
+        // Only track footer height on desktop for the sticky reveal effect
+        if (isMobile || !footerRef.current) return;
+
         const resizeObserver = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 setFooterHeight(entry.contentRect.height);
@@ -72,7 +78,7 @@ const AppContent: React.FC = () => {
         });
         resizeObserver.observe(footerRef.current);
         return () => resizeObserver.disconnect();
-    }, []);
+    }, [isMobile]);
 
     return (
         <SmoothScroll>
@@ -124,11 +130,11 @@ const AppContent: React.FC = () => {
                 <Navbar />
                 <ScrollToTop />
 
-                {/* Main Content with Dynamic Bottom Margin for Sticky Footer Reveal */}
+                {/* Main Content with Dynamic Bottom Margin for Sticky Footer Reveal (desktop only) */}
                 <main
                     id="main-content"
                     className="relative z-10 w-full"
-                    style={{ marginBottom: footerHeight }}
+                    style={{ marginBottom: isMobile ? 0 : footerHeight }}
                     tabIndex={-1}
                 >
                     <div className="bg-[#030303] relative z-10 shadow-2xl min-h-screen">
@@ -154,10 +160,10 @@ const AppContent: React.FC = () => {
                     </div>
                 </main>
 
-                {/* Sticky Footer (Fixed at bottom, revealed by scroll) */}
+                {/* Footer - Fixed on desktop for sticky reveal, relative on mobile */}
                 <div
                     ref={footerRef}
-                    className="fixed bottom-0 left-0 right-0 z-0 h-auto"
+                    className={isMobile ? "relative z-10" : "fixed bottom-0 left-0 right-0 z-0 h-auto"}
                 >
                     <Footer />
                 </div>
