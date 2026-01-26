@@ -76,6 +76,13 @@ const AppContent: React.FC = () => {
 
     return (
         <SmoothScroll>
+            {/* Skip Link for Accessibility */}
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-primary focus:text-black focus:rounded-lg focus:font-bold"
+            >
+                Saltar al contenido principal
+            </a>
             <GlobalBackground />
             <NoiseOverlay />
             <div className="relative min-h-screen">
@@ -94,9 +101,9 @@ const AppContent: React.FC = () => {
                                 animate={{ opacity: 1 }}
                                 className="text-center"
                             >
-                                <h1 className="text-4xl md:text-6xl font-display italic font-bold mb-4">
+                                <p className="text-4xl md:text-6xl font-display italic font-bold mb-4" aria-hidden="true">
                                     GHP<span className="text-primary">.</span>
-                                </h1>
+                                </p>
                                 <div className="w-48 h-[1px] bg-white/20 mx-auto overflow-hidden">
                                     <motion.div
                                         className="h-full bg-white"
@@ -119,8 +126,10 @@ const AppContent: React.FC = () => {
 
                 {/* Main Content with Dynamic Bottom Margin for Sticky Footer Reveal */}
                 <main
+                    id="main-content"
                     className="relative z-10 w-full"
                     style={{ marginBottom: footerHeight }}
+                    tabIndex={-1}
                 >
                     <div className="bg-[#030303] relative z-10 shadow-2xl min-h-screen">
                         <Suspense fallback={<PageLoader />}>

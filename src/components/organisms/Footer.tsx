@@ -1,17 +1,13 @@
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { Github, Linkedin, Twitter, Instagram, ArrowUpRight, Youtube, GraduationCap, Video } from 'lucide-react';
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { Linkedin, Twitter, Instagram, ArrowUpRight, Youtube, GraduationCap, Video } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../atoms/Button';
 import { Magnetic } from '../atoms/Magnetic';
 
 const Footer: React.FC = () => {
     const footerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: footerRef,
-        offset: ["start end", "end end"]
-    });
 
     // Spotlight Effect
     const mouseX = useMotionValue(0);
@@ -119,10 +115,13 @@ const Footer: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* THE GIANT TEXT */}
-                        <h1 className="text-[13vw] font-display italic font-bold leading-[0.8] tracking-tighter text-center text-white/10 select-none bg-gradient-to-b from-white/20 to-transparent bg-clip-text text-transparent hover:text-white/20 transition-colors duration-500">
+                        {/* THE GIANT TEXT - Decorative, not H1 */}
+                        <p
+                            className="text-[13vw] font-display italic font-bold leading-[0.8] tracking-tighter text-center text-white/10 select-none bg-gradient-to-b from-white/20 to-transparent bg-clip-text text-transparent hover:text-white/20 transition-colors duration-500"
+                            aria-hidden="true"
+                        >
                             VIBE FLOW
-                        </h1>
+                        </p>
                     </div>
                 </div>
 
