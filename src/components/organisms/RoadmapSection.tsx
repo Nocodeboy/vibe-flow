@@ -146,7 +146,7 @@ const MilestoneCard: React.FC<{ item: RoadmapItem; index: number; globalScroll: 
     const decorParallax = useTransform(globalScroll, [0, 1], [50, -50]);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!cardRef.current) return;
+        if (!cardRef.current || window.innerWidth < 768) return; // Disable 3D tilt on mobile for performance
         const rect = cardRef.current.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;

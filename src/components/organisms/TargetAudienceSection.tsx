@@ -69,10 +69,10 @@ const TargetAudienceSection: React.FC = () => {
                     {personas.map((p) => (
                         <motion.div
                             key={p.id}
-                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] w-full ${activeId === p.id
+                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-[flex,height,opacity,transform] duration-500 ease-[0.16,1,0.3,1] w-full ${activeId === p.id
                                 ? 'md:flex-[3] h-auto min-h-[550px] md:min-h-0 md:h-auto'
                                 : 'md:flex-[1] h-24 md:h-auto'
-                                } md:flex-1 shrink-0`}
+                                } md:flex-1 shrink-0 will-change-[flex,height]`}
                             onHoverStart={() => setActiveId(p.id)}
                             onClick={() => setActiveId(p.id)}
                         >
@@ -85,7 +85,7 @@ const TargetAudienceSection: React.FC = () => {
                                 <img
                                     src={p.img}
                                     alt={p.title}
-                                    className={`w-full h-full object-cover transition-transform duration-1000 ${activeId === p.id ? 'scale-110' : 'scale-100 grayscale'}`}
+                                    className={`w-full h-full object-cover transition-transform duration-700 ${activeId === p.id ? 'scale-110' : 'scale-100 grayscale'}`}
                                 />
                             </div>
 
@@ -101,10 +101,11 @@ const TargetAudienceSection: React.FC = () => {
                                         initial={false}
                                         animate={{
                                             opacity: activeId === p.id ? 1 : 0,
+                                            height: activeId === p.id ? 'auto' : 0,
                                             y: activeId === p.id ? 0 : 10
                                         }}
                                         transition={{ duration: 0.4, ease: EASE_ELITE }}
-                                        className={`text-white text-lg font-light leading-relaxed max-w-md drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${activeId === p.id ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                                        className={`text-white text-lg font-light leading-relaxed max-w-md drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] overflow-hidden ${activeId === p.id ? 'pointer-events-auto' : 'pointer-events-none'}`}
                                     >
                                         {p.desc}
                                     </motion.p>

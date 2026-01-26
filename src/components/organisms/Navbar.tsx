@@ -35,7 +35,6 @@ const Navbar: React.FC = () => {
             {/* Creates a wrapper to center the island */}
             <div className="fixed top-0 left-0 w-full z-[70] pointer-events-none flex justify-center pt-2 md:pt-6">
                 <motion.nav
-                    layout
                     initial={{ width: '100%', y: -100, borderRadius: 0 }}
                     animate={{
                         width: scrolled ? '92%' : '100%', // Mobile friendly width
@@ -48,7 +47,7 @@ const Navbar: React.FC = () => {
                         backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
                         paddingTop: scrolled ? "0.75rem" : "1.5rem",
                         paddingBottom: scrolled ? "0.75rem" : "1.5rem",
-                        paddingLeft: scrolled ? "1.25rem" : "1.5rem", // Less drastic padding change
+                        paddingLeft: scrolled ? "1.25rem" : "1.5rem",
                         paddingRight: scrolled ? "1.25rem" : "1.5rem",
                     }}
                     transition={{ duration: 0.5, ease: EASE_ELITE }}
