@@ -143,3 +143,30 @@
         scroll-behavior: auto !important;
     }
 }
+
+/* Mobile performance optimizations */
+@media (max-width: 767px) {
+    /* Reduce blur radius on mobile for performance */
+    .blur-\[180px\],
+    .blur-\[150px\],
+    .blur-\[120px\],
+    .blur-\[100px\] {
+        filter: blur(50px) !important;
+    }
+    
+    /* Disable heavy backdrop-filter on mobile */
+    .backdrop-blur-md,
+    .backdrop-blur-xl {
+        backdrop-filter: blur(4px) !important;
+    }
+    
+    /* Optimize transitions on mobile */
+    * {
+        transition-duration: 0.2s !important;
+    }
+    
+    /* Disable perspective transforms on mobile */
+    .perspective-1000 {
+        perspective: none !important;
+    }
+}

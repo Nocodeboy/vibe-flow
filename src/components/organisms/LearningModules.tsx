@@ -73,6 +73,9 @@ const ModuleCard: React.FC<{ module: ModuleData; index: number }> = ({ module, i
     const imageY = useTransform(mouseYSpring, [-0.5, 0.5], ["-20px", "20px"]);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        // Disable 3D tilt on mobile for performance
+        if (window.innerWidth < 768) return;
+
         const rect = e.currentTarget.getBoundingClientRect();
         const width = rect.width;
         const height = rect.height;

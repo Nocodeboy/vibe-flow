@@ -72,6 +72,9 @@ const ComparisonSection: React.FC = () => {
 
     // Optimized Handle Mouse Move
     function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+        // Disable spotlight tracking on mobile for performance
+        if (window.innerWidth < 768) return;
+
         const { left, top } = currentTarget.getBoundingClientRect();
         mouseX.set(clientX - left);
         mouseY.set(clientY - top);

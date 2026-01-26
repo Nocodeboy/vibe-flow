@@ -46,6 +46,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
     const mouseY = useSpring(y, { stiffness: 150, damping: 20 });
 
     function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
+        // Disable 3D tilt on mobile for performance
+        if (window.innerWidth < 768) return;
+
         const { left, top, width, height } = currentTarget.getBoundingClientRect();
         const center = { x: left + width / 2, y: top + height / 2 };
         const distance = { x: clientX - center.x, y: clientY - center.y };

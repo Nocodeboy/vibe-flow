@@ -90,49 +90,19 @@ const Hero: React.FC = () => {
 
             {/* Ambient Lighting Effects */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {/* Primary glow - Green accent */}
-                <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.5, 0.3]
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[180px]"
+                {/* Primary glow - Green accent - Static on mobile */}
+                <div
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/20 rounded-full blur-[180px] opacity-30"
                 />
 
-                {/* Secondary glow - Top right */}
-                <motion.div
-                    animate={{
-                        x: [0, 50, 0],
-                        y: [0, -30, 0],
-                        opacity: [0.2, 0.35, 0.2]
-                    }}
-                    transition={{
-                        duration: 12,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] bg-primary/15 rounded-full blur-[150px]"
+                {/* Secondary glow - Top right - Static on mobile */}
+                <div
+                    className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] bg-primary/15 rounded-full blur-[150px] opacity-20"
                 />
 
-                {/* Tertiary glow - Bottom left */}
-                <motion.div
-                    animate={{
-                        x: [0, -30, 0],
-                        y: [0, 20, 0],
-                        opacity: [0.15, 0.25, 0.15]
-                    }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 2
-                    }}
-                    className="absolute -bottom-[10%] -left-[10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px]"
+                {/* Tertiary glow - Bottom left - Static on mobile */}
+                <div
+                    className="absolute -bottom-[10%] -left-[10%] w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] opacity-15"
                 />
 
                 {/* Subtle gradient overlay */}
