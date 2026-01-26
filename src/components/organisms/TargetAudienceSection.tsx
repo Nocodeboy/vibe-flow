@@ -69,10 +69,10 @@ const TargetAudienceSection: React.FC = () => {
                     {personas.map((p) => (
                         <motion.div
                             key={p.id}
-                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] ${activeId === p.id
-                                ? 'md:flex-[3] h-auto min-h-[500px] md:min-h-0 md:h-auto'
-                                : 'md:flex-[1] h-20 md:h-auto'
-                                } flex-1`}
+                            className={`relative rounded-[2rem] overflow-hidden cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] w-full ${activeId === p.id
+                                ? 'md:flex-[3] h-auto min-h-[550px] md:min-h-0 md:h-auto'
+                                : 'md:flex-[1] h-24 md:h-auto'
+                                } md:flex-1 shrink-0`}
                             onHoverStart={() => setActiveId(p.id)}
                             onClick={() => setActiveId(p.id)}
                         >
@@ -90,10 +90,10 @@ const TargetAudienceSection: React.FC = () => {
                             </div>
 
                             {/* Content */}
-                            <div className={`absolute inset-0 z-20 p-6 md:p-12 flex flex-col ${activeId === p.id ? 'justify-end' : 'justify-center md:justify-end'}`}>
-                                <div className={`transition-all duration-500 ${activeId === p.id ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-50 md:translate-y-4 md:opacity-70'}`}>
-                                    <p className="text-primary font-mono text-xs uppercase tracking-widest mb-2">{p.subtitle}</p>
-                                    <h3 className="text-3xl md:text-5xl font-display italic font-bold text-white mb-4 leading-none">
+                            <div className={`absolute inset-0 z-20 p-6 md:p-12 flex flex-col ${activeId === p.id ? 'justify-end' : 'justify-center md:justify-end'} transition-all duration-500`}>
+                                <div className={`transition-all duration-500 ${activeId === p.id ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-60 md:translate-y-4 md:opacity-70'}`}>
+                                    <p className={`text-primary font-mono text-xs uppercase tracking-widest mb-2 ${activeId !== p.id && 'md:hidden'}`}>{p.subtitle}</p>
+                                    <h3 className={`font-display italic font-bold text-white mb-4 leading-none transition-all duration-500 ${activeId === p.id ? 'text-3xl md:text-5xl' : 'text-lg md:text-5xl'}`}>
                                         {p.title}
                                     </h3>
 

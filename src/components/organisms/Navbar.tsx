@@ -33,14 +33,14 @@ const Navbar: React.FC = () => {
     return (
         <>
             {/* Creates a wrapper to center the island */}
-            <div className="fixed top-0 left-0 w-full z-[70] pointer-events-none flex justify-center pt-6">
+            <div className="fixed top-0 left-0 w-full z-[70] pointer-events-none flex justify-center pt-2 md:pt-6">
                 <motion.nav
                     layout
                     initial={{ width: '100%', y: -100, borderRadius: 0 }}
                     animate={{
-                        width: scrolled ? '90%' : '100%',
+                        width: scrolled ? '92%' : '100%', // Mobile friendly width
                         maxWidth: scrolled ? '800px' : '100%',
-                        y: scrolled ? 10 : 0, // Adds floating effect
+                        y: scrolled ? 10 : 0,
                         borderRadius: scrolled ? 9999 : 0,
                         backgroundColor: scrolled ? "rgba(5, 5, 5, 0.85)" : "rgba(5, 5, 5, 0)",
                         borderWidth: scrolled ? 1 : 0,
@@ -48,8 +48,8 @@ const Navbar: React.FC = () => {
                         backdropFilter: scrolled ? "blur(12px)" : "blur(0px)",
                         paddingTop: scrolled ? "0.75rem" : "1.5rem",
                         paddingBottom: scrolled ? "0.75rem" : "1.5rem",
-                        paddingLeft: scrolled ? "1.5rem" : "3rem",
-                        paddingRight: scrolled ? "1.5rem" : "3rem",
+                        paddingLeft: scrolled ? "1.25rem" : "1.5rem", // Less drastic padding change
+                        paddingRight: scrolled ? "1.25rem" : "1.5rem",
                     }}
                     transition={{ duration: 0.5, ease: EASE_ELITE }}
                     className="pointer-events-auto flex justify-between items-center transition-all bg-[#050505]/0"
