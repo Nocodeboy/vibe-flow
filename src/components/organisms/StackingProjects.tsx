@@ -31,7 +31,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, targetScale, progress, onProjectClick }) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
+    useScroll({
         target: containerRef,
         offset: ['start end', 'start start']
     });
@@ -60,6 +60,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
         y.set(0);
     }
 
+    // Keyboard support for accessibility
+    function handleKeyDown(e: React.KeyboardEvent) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onProjectClick(project);
+        }
+    }
+
     // Dynamic rotation based on physics
     const rotateX = mouseY;
     const rotateY = mouseX;
@@ -77,7 +85,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                 className="relative flex flex-col items-center"
             >
                 <motion.div
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Ver proyecto ${project.title}`}
                     onClick={() => onProjectClick(project)}
+                    onKeyDown={handleKeyDown}
                     onMouseMove={handleMouseMove}
                     onMouseLeave={handleMouseLeave}
                     style={{
@@ -85,7 +97,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                         rotateY,
                         transformStyle: "preserve-3d"
                     }}
-                    className="relative w-[85vw] max-w-[1100px] aspect-[16/9] md:h-[600px] md:aspect-auto bg-[#0A0A0A] rounded-[2.5rem] border border-white/5 overflow-hidden group hover:border-white/10 transition-all duration-500 cursor-pointer"
+                    className="relative w-[85vw] max-w-[1100px] aspect-[16/9] md:h-[600px] md:aspect-auto bg-[#0A0A0A] rounded-[2.5rem] border border-white/5 overflow-hidden group hover:border-white/10 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#030303] transition-all duration-500 cursor-pointer"
                 >
                     {/* Dynamic Colored Shadow / Glow */}
                     <motion.div
@@ -118,7 +130,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                         <motion.img
                             style={{ y: imageY }}
                             src={project.img}
-                            alt={project.title}
+                            alt={`Captura de pantalla del proyecto ${project.title}`}
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                         />
                     </motion.div>
@@ -168,7 +182,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                                 </p>
                                 <Magnetic>
                                     <Button
-                                        variant="solid"
+                                        variant="primary"
                                         className="rounded-full px-8 bg-white text-black hover:bg-primary whitespace-nowrap opacity-0 md:opacity-100 translate-y-4 md:translate-y-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
                                         icon={<ArrowUpRight size={18} />}
                                     >
@@ -213,7 +227,7 @@ const StackingProjects: React.FC<StackingProjectsProps> = ({ onProjectClick }) =
                     // Calculate scale for stacking effect
                     const targetScale = 1 - ((projects.length - index) * 0.05);
                     return (
-                        <ProjectCard
+                        <MemoizedProjectCard
                             key={project.id}
                             index={index}
                             project={project}
@@ -236,4 +250,13 @@ const StackingProjects: React.FC<StackingProjectsProps> = ({ onProjectClick }) =
     );
 };
 
-export default StackingProjects;
+// Memoize ProjectCard to prevent unnecessary re-renders
+const MemoizedProjectCard = memo(ProjectCard, (prevProps, nextProps) => {
+    return (
+        prevProps.project.id === nextProps.project.id &&
+        prevProps.index === nextProps.index &&
+        prevProps.targetScale === nextProps.targetScale
+    );
+});
+
+export default memo(StackingProjects);

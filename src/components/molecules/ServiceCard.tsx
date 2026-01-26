@@ -1,4 +1,4 @@
-import React, { useRef, memo, useCallback } from 'react';
+import React, { useRef, memo } from 'react';
 import { motion, useMotionValue } from 'framer-motion';
 import { Service } from '../../data/services';
 import { EASE_ELITE } from '../../styles/animation';

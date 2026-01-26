@@ -153,7 +153,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 blur-[60px] rounded-full" />
               <h4 className="text-white/30 uppercase tracking-widest text-[10px] font-bold mb-12">Indicadores de Éxito</h4>
               <div className="space-y-10">
-                {project.impact.map((stat: string, i: number) => (
+                {project.impact?.map((stat: string, i: number) => (
                   <div key={i} className="flex items-start gap-6">
                     <CheckCircle2 size={22} className="text-primary mt-1 shrink-0" />
                     <span className="text-2xl font-display italic font-bold leading-tight">{stat}</span>

@@ -12,11 +12,29 @@ export default defineConfig(({ mode }) => {
       plugins: [react()],
       // NOTE: API keys should NEVER be exposed in client-side code
       // Use a backend proxy for API calls instead
-      // define: { 'process.env.GEMINI_API_KEY': ... } - REMOVED for security
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      build: {
+        // Optimize chunk splitting for better caching
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+              'vendor-animation': ['framer-motion'],
+              'vendor-ui': ['lucide-react'],
+              'vendor-scroll': ['lenis'],
+            },
+          },
+        },
+        // Increase chunk size warning limit
+        chunkSizeWarningLimit: 600,
+        // Enable source maps for production debugging
+        sourcemap: mode === 'development',
+        // Minify for production
+        minify: mode === 'production' ? 'esbuild' : false,
+      },
     };
 });

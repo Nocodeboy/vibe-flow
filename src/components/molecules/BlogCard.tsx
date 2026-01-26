@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { EASE_ELITE } from '../../styles/animation';
 
 export interface BlogPost {
-    id: number;
+    id: string | number;
     slug: string;
     title: string;
     excerpt: string;

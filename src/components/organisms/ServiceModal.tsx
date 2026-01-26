@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useId } from 'react';
 import ReactDOM from 'react-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, X, Check, Sparkles, Clock, Users } from 'lucide-react';
 import { Service } from '../../data/services';
 import Button from '../atoms/Button';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 
 interface ServiceModalProps {
     service: Service;
@@ -11,6 +12,11 @@ interface ServiceModalProps {
 }
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
+    const modalId = useId();
+    const titleId = `modal-title-${modalId}`;
+    const descId = `modal-desc-${modalId}`;
+    const modalRef = useFocusTrap<HTMLDivElement>(true);
+
     // Prevent body scroll when modal is open
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -30,6 +36,11 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
 
     const modalContent = (
         <motion.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            aria-describedby={descId}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -82,9 +93,10 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                                 onClick={onClose}
                                 whileHover={{ scale: 1.1, rotate: 90 }}
                                 whileTap={{ scale: 0.9 }}
-                                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all"
+                                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                                aria-label="Cerrar modal"
                             >
-                                <X size={18} className="text-white/60" />
+                                <X size={18} className="text-white/60" aria-hidden="true" />
                             </motion.button>
 
                             {/* Service number watermark */}
@@ -118,14 +130,15 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                                     >
                                         Servicio {service.num}
                                     </motion.span>
-                                    <motion.h3
+                                    <motion.h2
+                                        id={titleId}
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.2 }}
                                         className="text-2xl md:text-3xl font-display italic font-bold leading-tight"
                                     >
                                         {service.title}
-                                    </motion.h3>
+                                    </motion.h2>
                                 </div>
                             </div>
 
@@ -162,7 +175,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                                     <span className="w-8 h-[1px] bg-white/20" />
                                     Descripción
                                 </h4>
-                                <p className="text-white/60 leading-relaxed text-[15px]">
+                                <p id={descId} className="text-white/60 leading-relaxed text-[15px]">
                                     {service.details.fullDesc}
                                 </p>
                             </motion.div>

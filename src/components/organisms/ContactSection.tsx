@@ -1,55 +1,80 @@
-
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 
-// Fixed imports
 import Button from '../atoms/Button';
 import { EASE_ELITE } from '../../styles/animation';
 import { Magnetic } from '../atoms/Magnetic';
+import {
+  validateContactForm,
+  recordSubmission,
+  ValidationResult,
+} from '../../utils/validation';
 
-const AIRTABLE_WEBHOOK_URL = 'https://hooks.airtable.com/workflows/v1/genericWebhook/appUb3sR4AI0MHrOc/wflAehnMXnp2GZTog/wtrYLeCa5bnseoFYm';
+// Use environment variable - webhook should ideally be proxied through a backend
+const CONTACT_ENDPOINT =
+  import.meta.env.VITE_CONTACT_ENDPOINT ||
+  'https://hooks.airtable.com/workflows/v1/genericWebhook/appUb3sR4AI0MHrOc/wflAehnMXnp2GZTog/wtrYLeCa5bnseoFYm';
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
+interface FormErrors {
+  general?: string;
+}
 
 const ContactSection: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
+  const [errors, setErrors] = useState<FormErrors>({});
+
+  const clearErrors = useCallback(() => {
+    setErrors({});
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    clearErrors();
+
+    // Validate form with rate limiting
+    const validation: ValidationResult = validateContactForm({ name, email, message });
+
+    if (!validation.isValid) {
+      setErrors({ general: validation.error });
+      return;
+    }
+
     setStatus('loading');
 
     try {
-      const response = await fetch(AIRTABLE_WEBHOOK_URL, {
+      const response = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name,
-          email,
-          message,
+          name: name.trim(),
+          email: email.trim(),
+          message: message.trim(),
           submittedAt: new Date().toISOString(),
         }),
       });
 
       if (response.ok) {
+        recordSubmission();
         setStatus('success');
         setName('');
         setEmail('');
         setMessage('');
-        // Reset status after 5 seconds
         setTimeout(() => setStatus('idle'), 5000);
       } else {
         throw new Error('Failed to submit');
       }
     } catch (error) {
-      console.error('Form submission error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('[ContactForm] Submission error:', errorMessage);
       setStatus('error');
-      // Reset status after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
     }
   };
@@ -133,25 +158,44 @@ const ContactSection: React.FC = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary transition-all group-focus-within:w-full" aria-hidden="true" />
               </div>
 
+              {/* Validation Error */}
+              {errors.general && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-3 text-red-400 bg-red-400/10 p-4 rounded-xl"
+                  role="alert"
+                  aria-live="polite"
+                >
+                  <AlertCircle size={20} aria-hidden="true" />
+                  <p>{errors.general}</p>
+                </motion.div>
+              )}
+
               {/* Status Messages */}
               {status === 'success' && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="flex items-center gap-3 text-green-400 bg-green-400/10 p-4 rounded-xl"
+                  role="status"
+                  aria-live="polite"
+                  aria-atomic="true"
                 >
-                  <CheckCircle size={20} />
+                  <CheckCircle size={20} aria-hidden="true" />
                   <p>¡Mensaje enviado! Te contactaremos pronto.</p>
                 </motion.div>
               )}
 
-              {status === 'error' && (
+              {status === 'error' && !errors.general && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="flex items-center gap-3 text-red-400 bg-red-400/10 p-4 rounded-xl"
+                  role="alert"
+                  aria-live="assertive"
                 >
-                  <AlertCircle size={20} />
+                  <AlertCircle size={20} aria-hidden="true" />
                   <p>Error al enviar. Inténtalo de nuevo.</p>
                 </motion.div>
               )}

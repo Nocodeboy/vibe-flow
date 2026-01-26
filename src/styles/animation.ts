@@ -1,7 +1,7 @@
 // Cubic bezier curve for the signature "Vibe Flow" managed stop
 // This matches the "Elite Designer" prompt specification exactly.
 // Origin: cubic-bezier(0.16, 1, 0.3, 1) - Expo Out / Snappy
-export const EASE_ELITE = [0.16, 1, 0.3, 1];
+export const EASE_ELITE = [0.16, 1, 0.3, 1] as const;
 
 // Standard durations to maintain rhythm
 export const DURATION = {
