@@ -9,16 +9,16 @@ const base = new Airtable({
 const TABLE_NAME = 'News';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    // Enable CORS just in case
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-
     if (req.method === 'OPTIONS') {
         res.status(200).end();
         return;
     }
 
     try {
+        if (!process.env.AIRTABLE_API_KEY) {
+            throw new Error('Missing AIRTABLE_API_KEY environment variable');
+        }
+
         const records = await base(TABLE_NAME).select({
             view: 'Grid view',
             sort: [{ field: 'Fecha de Publicación', direction: 'desc' }]
@@ -62,8 +62,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
 
         res.status(200).json(posts);
-    } catch (error) {
+    } catch (error: any) {
         console.error('Airtable API Error:', error);
-        res.status(500).json({ error: 'Failed to fetch posts' });
+        res.status(500).json({
+            error: 'Failed to fetch posts',
+            details: error.message || String(error)
+        });
     }
 }
