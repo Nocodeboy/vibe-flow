@@ -75,9 +75,9 @@ const Footer: React.FC = () => {
                             <div className="space-y-4">
                                 <span className="text-xs uppercase tracking-[0.2em] text-white/30 block mb-4">Sitemap</span>
                                 {['Inicio', 'Servicios', 'Comunidad', 'Nosotros', 'Blog'].map(link => (
-                                    <a key={link} href={`/${link.toLowerCase() === 'inicio' ? '' : link.toLowerCase()}`} className="block text-white/60 hover:text-white transition-colors text-lg">
+                                    <Link key={link} to={`/${link.toLowerCase() === 'inicio' ? '' : link.toLowerCase()}`} className="block text-white/60 hover:text-white transition-colors text-lg">
                                         {link}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                             <div className="space-y-4">

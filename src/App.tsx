@@ -44,28 +44,43 @@ const PageLoader: React.FC = () => (
     </div>
 );
 
-// ScrollToTop Component to handle route changes
+// ScrollToTop Component to handle route changes - Compatible with Lenis
 const ScrollToTop = () => {
     const { pathname } = useLocation();
+    const prevPathname = useRef<string>(pathname);
+
     useEffect(() => {
-        window.scrollTo(0, 0);
+        // Solo hacer scroll si realmente cambió la ruta (no solo el hash)
+        if (prevPathname.current !== pathname) {
+            // Dar tiempo a que Lenis se inicialice y la página se renderice
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            });
+            prevPathname.current = pathname;
+        }
     }, [pathname]);
     return null;
 };
 
 const AppContent: React.FC = () => {
     const location = useLocation();
-    const [isLoading, setIsLoading] = useState(true);
+    // Loader solo aparece la primera vez por sesión
+    const [isLoading, setIsLoading] = useState(() => {
+        return !sessionStorage.getItem('app_loaded');
+    });
     const footerRef = useRef<HTMLDivElement>(null);
     const [footerHeight, setFooterHeight] = useState(0);
     const isMobile = useIsMobile();
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-        return () => clearTimeout(timer);
-    }, []);
+        if (isLoading) {
+            const timer = setTimeout(() => {
+                setIsLoading(false);
+                sessionStorage.setItem('app_loaded', 'true');
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [isLoading]);
 
     useEffect(() => {
         // Only track footer height on desktop for the sticky reveal effect

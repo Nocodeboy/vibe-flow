@@ -101,7 +101,7 @@ const Community: React.FC = () => {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-3 px-10 py-5 bg-primary text-black font-bold uppercase tracking-widest text-sm rounded-full hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all duration-500"
                         >
-                            Únete Ahora por $24/mes
+                            Únete Ahora por $29/mes
                             <ArrowRight size={18} />
                         </a>
                     </motion.div>
