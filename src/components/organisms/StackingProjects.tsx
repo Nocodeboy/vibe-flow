@@ -185,7 +185,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                         {/* Footer Info */}
                         <div className="max-w-2xl overflow-hidden">
                             {isMobile ? (
-                                <h3 className="text-3xl font-display italic font-bold text-white mb-4 leading-[0.9] tracking-tight">
+                                <h3 className="text-2xl font-display italic font-bold text-white mb-4 leading-tight tracking-tight">
                                     {project.title}
                                 </h3>
                             ) : (
@@ -193,7 +193,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, range, target
                                     initial={{ y: 20, opacity: 0 }}
                                     whileInView={{ y: 0, opacity: 1 }}
                                     transition={{ delay: 0.1, duration: 0.8, ease: EASE_ELITE }}
-                                    className="text-3xl md:text-6xl font-display italic font-bold text-white mb-4 md:mb-6 leading-[0.9] tracking-tight group-hover:text-primary transition-colors duration-300"
+                                    className="text-2xl md:text-4xl font-display italic font-bold text-white mb-4 md:mb-6 leading-tight tracking-tight group-hover:text-primary transition-colors duration-300"
                                 >
                                     {project.title}
                                 </motion.h3>

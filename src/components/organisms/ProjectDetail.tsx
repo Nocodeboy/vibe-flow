@@ -65,7 +65,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[14vw] md:text-[9vw] font-display italic font-bold leading-[0.85] tracking-tighter"
+              className="text-4xl md:text-7xl font-display italic font-bold leading-[0.9] tracking-tighter"
             >
               {project.title.split(" ").map((word: string, i: number) => (
                 <span key={i} className={i === 1 ? 'text-white/60' : 'text-white'}>
