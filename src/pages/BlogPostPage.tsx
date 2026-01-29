@@ -14,7 +14,7 @@ const BlogPostPage: React.FC = () => {
     const navigate = useNavigate();
 
     const [post, setPost] = useState<BlogPost | null>(null);
-    const [loading, setLoading] = true);
+    const [loading, setLoading] = useState(true);
     const [relatedPosts, setRelatedPosts] = useState<{ next?: BlogPost, prev?: BlogPost }>({});
 
     useEffect(() => {
