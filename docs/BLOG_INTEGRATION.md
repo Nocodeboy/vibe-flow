@@ -58,7 +58,9 @@ The blog is fully optimized for semantic SEO and Social Sharing.
 5.  **Live:** The post will appear on `vibeflow.es/blog` in approx 60 seconds (Cache TTL).
 
 ## 5. Deployment & Maintenance
-- **API Key:** Managed in Vercel Environment Variables (`AIRTABLE_API_KEY`, `AIRTABLE_BASE_ID`).
+- **API Key:** Managed in Vercel Environment Variables (`AIRTABLE_API_KEY`).
+- **Base ID:** The code uses a default Base ID (`appSaEaDYNrloBTkT`) if `AIRTABLE_BASE_ID` is not set in env vars.
+- **Contact Form:** Uses `AIRTABLE_WEBHOOK_URL` (separate from Blog system).
 - **Cache Strategy:** `s-maxage=60, stale-while-revalidate=300`.
 - **Local Dev:** Reads from the same live Airtable (or `.env` equivalent).
 
