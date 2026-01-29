@@ -24,7 +24,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         const records = await base(TABLE_NAME).select({
             // Optimization: Only fetch fields we actually use
-            fields: ['Nuevo Título', 'Publicación de blog', 'Url', 'Fecha de Publicación', 'Creada 2', 'Url img', 'SEO:Title', 'Nombre (from Editor - Nombre)', 'Título'],
+            fields: [
+                'Nuevo Título',
+                'Publicación de blog',
+                'Url',
+                'Fecha de Publicación',
+                'Creada 2',
+                'Url img',
+                'SEO:Title',
+                'SEO:Description',
+                'SEO:Slug',
+                'Social:Image',
+                'Nombre (from Editor - Nombre)',
+                'Título'
+            ],
             sort: [{ field: 'Fecha de Publicación', direction: 'desc' }]
         }).all();
 
@@ -39,11 +52,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 return String(val);
             };
 
+            // Helper for attachment images (Social:Image is an array of attachments)
+            const getImage = (val: any): string => {
+                if (Array.isArray(val) && val.length > 0) {
+                    return val[0].url;
+                }
+                return getString(val);
+            };
+
             // Slug generation logic
-            const rawUrl = (fields['Url'] as string) || '';
-            let slug = rawUrl;
-            if (rawUrl.startsWith('http')) {
-                slug = rawUrl.split('/').filter(Boolean).pop() || '';
+            let slug = getString(fields['SEO:Slug']);
+            if (!slug) {
+                const rawUrl = (fields['Url'] as string) || '';
+                if (rawUrl.startsWith('http')) {
+                    slug = rawUrl.split('/').filter(Boolean).pop() || '';
+                }
             }
             if (!slug) {
                 slug = getString(fields['Nuevo Título'] || fields['Título'] || 'untitled')
@@ -57,11 +80,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 id: record.id,
                 slug: slug,
                 title: getString(fields['Nuevo Título']) || getString(fields['Título']) || 'Sin Título',
-                excerpt: getString(fields['SEO:Title']) || getString(fields['Publicación de blog']).substring(0, 150) + '...' || '',
+                excerpt: getString(fields['SEO:Description']) || getString(fields['SEO:Title']) || getString(fields['Publicación de blog']).substring(0, 150) + '...' || '',
                 category: 'Blog',
                 date: getString(fields['Fecha de Publicación']) || getString(fields['Creada 2']) || new Date().toISOString(),
                 readTime: '5 min',
-                img: getString(fields['Url img']) || '/images/blog/placeholder.webp',
+                img: getImage(fields['Social:Image']) || getString(fields['Url img']) || '/images/blog/placeholder.webp',
                 author: {
                     name: Array.isArray(fields['Nombre (from Editor - Nombre)'])
                         ? fields['Nombre (from Editor - Nombre)'][0]
