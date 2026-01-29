@@ -22,6 +22,7 @@ const Community: React.FC = () => {
     useSEO({
         title: 'Comunidad',
         description: 'Únete a la comunidad de élite para aprender IA y automatización haciendo proyectos reales. 2 sesiones semanales en vivo, mentoría, y acceso a proyectos de agencia.',
+        image: 'https://vibeflow.es/images/seo/og-image-comunity.webp',
         url: 'https://vibeflow.es/comunidad'
     });
 

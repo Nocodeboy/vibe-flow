@@ -12,6 +12,7 @@ const Services: React.FC = () => {
     useSEO({
         title: 'Servicios',
         description: 'Proyectos llave en mano de IA y automatización. Desarrollo web, CRMs, chatbots IA y automatizaciones desde 2.000€. Resultados garantizados.',
+        image: 'https://vibeflow.es/images/seo/og-image-services.webp',
         url: 'https://vibeflow.es/servicios'
     });
 

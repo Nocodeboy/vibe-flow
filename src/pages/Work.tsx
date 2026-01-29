@@ -7,6 +7,7 @@ const Work: React.FC = () => {
     useSEO({
         title: 'Portfolio',
         description: 'Explora nuestros casos de éxito en automatización, CRMs, chatbots IA y desarrollo web. Proyectos reales con resultados medibles.',
+        image: 'https://vibeflow.es/images/seo/og-image-projects.webp',
         url: 'https://vibeflow.es/proyectos'
     });
 

@@ -20,6 +20,7 @@ const Home: React.FC = () => {
     useSEO({
         title: 'Comunidad de IA y Automatización para Creadores Digitales',
         description: 'Aprende IA y automatización haciendo, no viendo videos. Sesiones en vivo, mentoría real, y acceso a proyectos de 2.000€-15.000€. Únete por $24/mes.',
+        image: 'https://vibeflow.es/images/seo/og-image-home.webp',
         url: 'https://vibeflow.es/'
     });
 

@@ -31,6 +31,7 @@ const About: React.FC = () => {
     useSEO({
         title: 'Sobre Nosotros',
         description: 'Conoce la historia de Vibe Flow, nuestro equipo y los valores que nos impulsan a construir la mejor comunidad de IA y automatización en español.',
+        image: 'https://vibeflow.es/images/seo/og-image-about.webp',
         url: 'https://vibeflow.es/nosotros'
     });
 

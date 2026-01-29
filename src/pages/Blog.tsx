@@ -16,6 +16,7 @@ const Blog: React.FC = () => {
     useSEO({
         title: 'Blog',
         description: 'Ideas, tutoriales y reflexiones sobre IA, automatización y la construcción de negocios digitales escalables.',
+        image: 'https://vibeflow.es/images/seo/og-image-blog.webp',
         url: 'https://vibeflow.es/blog'
     });
 
