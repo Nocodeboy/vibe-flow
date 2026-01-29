@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { posts } from '../../data/posts';
 import BlogCard from '../molecules/BlogCard';
+import BlogGrid from './BlogGrid';
 
 
 import { BlogPost } from '../../data/posts';
@@ -51,11 +52,7 @@ const BlogSection: React.FC<BlogSectionProps> = ({ posts: externalPosts, showTit
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-          {displayPosts.map((post, i) => (
-            <BlogCard key={post.id} post={post} index={i} />
-          ))}
-        </div>
+        <BlogGrid posts={displayPosts} />
       </div>
     </section>
   );

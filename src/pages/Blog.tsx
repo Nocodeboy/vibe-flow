@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Search, Tag } from 'lucide-react';
-import BlogSection from '../components/organisms/BlogSection';
+import BlogGrid from '../components/organisms/BlogGrid';
 import { useSEO } from '../hooks/useSEO';
 import { getPosts } from '../services/airtable';
 import { BlogPost } from '../data/posts';
@@ -75,7 +75,7 @@ const Blog: React.FC = () => {
                         className="text-6xl md:text-8xl font-display italic font-bold leading-[0.9] tracking-tight mb-8"
                     >
                         Blog & <br />
-                        <span className="text-white/40">Pensamiento.</span>
+                        <span className="text-white/40">Ideas.</span>
                     </motion.h1>
 
                     <motion.p
@@ -114,13 +114,15 @@ const Blog: React.FC = () => {
                 </div>
             </section>
 
-            {/* Blog Grid - Reusing BlogSection */}
+            {/* Blog Grid */}
             {loading ? (
                 <div className="flex justify-center py-20">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                 </div>
             ) : (
-                <BlogSection posts={filteredPosts} showTitle={false} />
+                <div className="max-w-7xl mx-auto px-6">
+                    <BlogGrid posts={filteredPosts} />
+                </div>
             )}
 
             {/* Newsletter CTA */}
