@@ -184,14 +184,36 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="flex gap-4 px-6"
+              className="space-y-8 px-6"
             >
-              <button className="flex-1 py-6 bg-white text-black rounded-full flex items-center justify-center gap-4 font-bold uppercase tracking-widest text-[10px] hover:bg-primary transition-all duration-500">
-                Visitar Live <Globe size={16} />
-              </button>
-              <button className="p-6 glass rounded-full border-white/10 hover:bg-white/10 transition-all">
-                <Share2 size={20} />
-              </button>
+              {/* Metadatos Adicionales */}
+              <div className="grid grid-cols-2 gap-4">
+                {project.devTime && (
+                  <div className="glass p-4 rounded-2xl border-white/5">
+                    <span className="text-[10px] uppercase font-bold text-white/40 block mb-2">Tiempo Desarrollo</span>
+                    <span className="text-sm font-display font-bold text-white">{project.devTime}</span>
+                  </div>
+                )}
+                {project.service && (
+                  <div className="glass p-4 rounded-2xl border-white/5">
+                    <span className="text-[10px] uppercase font-bold text-white/40 block mb-2">Servicio</span>
+                    <span className="text-sm font-display font-bold text-white leading-tight">{project.service}</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-4">
+                <button
+                  onClick={() => project.link && window.open(project.link, '_blank')}
+                  disabled={!project.link}
+                  className={`flex-1 py-6 rounded-full flex items-center justify-center gap-4 font-bold uppercase tracking-widest text-[10px] transition-all duration-500 ${project.link ? 'bg-white text-black hover:bg-primary cursor-pointer' : 'bg-white/10 text-white/20 cursor-not-allowed'}`}
+                >
+                  Visitar Live <Globe size={16} />
+                </button>
+                <button className="p-6 glass rounded-full border-white/10 hover:bg-white/10 transition-all">
+                  <Share2 size={20} />
+                </button>
+              </div>
             </motion.div>
           </aside>
 

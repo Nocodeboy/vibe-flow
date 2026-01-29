@@ -15,6 +15,9 @@ export interface Project {
     challenge?: string;
     solution?: string;
     impact?: string[];
+    link?: string;
+    devTime?: string;
+    service?: string;
 }
 
 export interface Service {
