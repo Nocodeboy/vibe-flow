@@ -1,73 +1,54 @@
-
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import React from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock, Share2, Twitter, Linkedin } from 'lucide-react';
-import { posts as staticPosts, BlogPost } from '../data/posts';
+import { Calendar, User, Twitter, Linkedin, Share2 } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
 import { getPosts } from '../services/airtable';
+import { BlogPost } from '../data/posts';
+import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import CommunityCTA from '../components/molecules/CommunityCTA';
 
 const BlogPostPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
-    const navigate = useNavigate();
-
     const [post, setPost] = useState<BlogPost | null>(null);
     const [loading, setLoading] = useState(true);
-    const [relatedPosts, setRelatedPosts] = useState<{ next?: BlogPost, prev?: BlogPost }>({});
+    const [relatedPosts, setRelatedPosts] = useState<{ prev?: BlogPost; next?: BlogPost }>({});
 
     useEffect(() => {
-        const loadData = async () => {
-            if (!slug) return;
-            setLoading(true);
+        const loadPost = async () => {
             try {
-                // Fetch all to determine next/prev
-                const allPosts = await getPosts();
+                const posts = await getPosts();
+                const currentIndex = posts.findIndex(p => p.slug === slug);
 
-                // Fallback to static if no airtable posts (or empty array)
-                const postsSource = allPosts.length > 0 ? allPosts : staticPosts;
-
-                const currentIndex = postsSource.findIndex(p => p.slug === slug);
-
-                if (currentIndex >= 0) {
-                    setPost(postsSource[currentIndex]);
+                if (currentIndex !== -1) {
+                    setPost(posts[currentIndex]);
                     setRelatedPosts({
-                        next: postsSource[currentIndex + 1],
-                        prev: postsSource[currentIndex - 1]
+                        prev: currentIndex > 0 ? posts[currentIndex - 1] : undefined,
+                        next: currentIndex < posts.length - 1 ? posts[currentIndex + 1] : undefined
                     });
-                } else {
-                    setPost(null);
                 }
-            } catch (e) {
-                console.error(e);
+            } catch (error) {
+                console.error("Failed to load post", error);
             } finally {
                 setLoading(false);
             }
         };
-        loadData();
+
+        loadPost();
     }, [slug]);
 
-    // Use derived state for SEO, fallback to defaults if loading
-    const seoTitle = post?.title || 'Cargando...';
-    const seoDesc = post?.excerpt || '';
-
     useSEO({
-        title: seoTitle,
-        description: seoDesc,
-        image: post?.img ? `https://vibeflow.es${post.img}` : undefined,
-        url: `https://vibeflow.es/blog/${slug}`,
-        type: 'article',
-        article: {
-            publishedTime: post?.date,
-            author: post?.author.name,
-            section: post?.category
-        }
+        title: post?.title || 'Blog Post',
+        description: post?.excerpt || '',
+        image: post?.img || 'https://vibeflow.es/images/seo/og-image-blog.webp',
+        url: `https://vibeflow.es/blog/${slug}`
     });
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+            <div className="flex justify-center py-40">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
@@ -75,117 +56,75 @@ const BlogPostPage: React.FC = () => {
 
     if (!post) {
         return (
-            <div className="h-screen flex items-center justify-center bg-black text-white">
-                <div className="text-center">
-                    <h2 className="text-4xl font-bold mb-4">Artículo no encontrado</h2>
-                    <button onClick={() => navigate('/blog')} className="text-primary underline">
-                        Volver al blog
-                    </button>
-                </div>
+            <div className="text-center py-40">
+                <h2 className="text-4xl font-display italic font-bold mb-4">Post no encontrado</h2>
+                <Link to="/blog" className="text-primary hover:underline">Volver al blog</Link>
             </div>
         );
     }
 
     return (
-        <article className="min-h-screen bg-[#030303]">
-            {/* Hero */}
-            <section className="relative pt-32 pb-20 px-6">
-                <div className="max-w-4xl mx-auto">
-                    {/* Back Link */}
-                    <motion.button
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        onClick={() => navigate('/blog')}
-                        className="group flex items-center gap-2 text-white/40 hover:text-primary transition-colors mb-12"
-                    >
-                        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                        <span className="text-sm uppercase tracking-widest">Volver al Blog</span>
-                    </motion.button>
-
-                    {/* Category */}
-                    <motion.span
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="inline-block px-4  py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6"
-                    >
+        <article className="pt-24 md:pt-32">
+            {/* Minimal Hero */}
+            <div className="max-w-4xl mx-auto px-6 mb-16 text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="inline-flex gap-4 items-center justify-center text-sm text-white/40 mb-8"
+                >
+                    <span className="bg-primary/10 text-primary px-3 py-1 rounded-full uppercase tracking-wider text-xs font-bold">
                         {post.category}
-                    </motion.span>
+                    </span>
+                    <span className="flex items-center gap-2">
+                        <Calendar size={14} />
+                        {new Date(post.date).toLocaleDateString('es-ES', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        })}
+                    </span>
+                    <span className="flex items-center gap-2">
+                        <User size={14} />
+                        {post.author.name}
+                    </span>
+                </motion.div>
 
-                    {/* Title */}
-                    <motion.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-6xl font-display italic font-bold leading-[1.1] tracking-tight mb-8"
-                    >
-                        {post.title}
-                    </motion.h1>
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-4xl md:text-6xl font-display italic font-bold leading-tight mb-8"
+                >
+                    {post.title}
+                </motion.h1>
 
-                    {/* Meta */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="flex flex-wrap items-center gap-6 text-white/40 text-sm mb-12"
-                    >
-                        <div className="flex items-center gap-3">
-                            <img
-                                src={post.author.avatar}
-                                alt={post.author.name}
-                                className="w-10 h-10 rounded-full object-cover border border-white/10"
-                            />
-                            <div>
-                                <p className="text-white font-medium">{post.author.name}</p>
-                                <p className="text-xs">{post.author.role}</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Calendar size={14} />
-                            <span>{post.date}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Clock size={14} />
-                            <span>{post.readTime} de lectura</span>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Featured Image */}
-            <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 }}
-                className="max-w-5xl mx-auto px-6 mb-16"
-            >
-                <div className="aspect-[16/9] rounded-[2rem] overflow-hidden bg-zinc-900">
-                    <img
-                        src={post.img}
-                        alt={post.title}
-                        className="w-full h-full object-cover"
-                    />
-                </div>
-            </motion.div>
+                <motion.img
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                    src={post.img}
+                    alt={post.title}
+                    className="w-full h-[400px] md:h-[500px] object-cover rounded-[2rem] border border-white/5"
+                />
+            </div>
 
             {/* Content */}
             <section className="max-w-3xl mx-auto px-6 pb-20">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    className="prose prose-lg prose-invert max-w-none"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="prose prose-invert prose-lg max-w-none"
                 >
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         components={{
-                            p: ({ node, ...props }: any) => <p className="text-lg text-white/70 leading-relaxed mb-6" {...props} />,
-                            h1: ({ node, ...props }: any) => <h1 className="text-3xl font-display font-bold text-white mt-12 mb-6" {...props} />,
-                            h2: ({ node, ...props }: any) => <h2 className="text-2xl font-display font-bold text-white mt-10 mb-5" {...props} />,
-                            h3: ({ node, ...props }: any) => <h3 className="text-xl font-display font-bold text-white mt-8 mb-4" {...props} />,
-                            ul: ({ node, ...props }: any) => <ul className="list-disc list-outside ml-6 text-white/70 mb-6 space-y-2" {...props} />,
-                            ol: ({ node, ...props }: any) => <ol className="list-decimal list-outside ml-6 text-white/70 mb-6 space-y-2" {...props} />,
+                            p: ({ node, ...props }: any) => <p className="text-white/80 leading-relaxed mb-6 font-light" {...props} />,
+                            h2: ({ node, ...props }: any) => <h2 className="text-3xl font-display italic font-bold mt-12 mb-6 text-white" {...props} />,
+                            h3: ({ node, ...props }: any) => <h3 className="text-2xl font-display font-bold mt-8 mb-4 text-white" {...props} />,
+                            ul: ({ node, ...props }: any) => <ul className="list-disc pl-6 mb-6 space-y-2 text-white/80" {...props} />,
+                            ol: ({ node, ...props }: any) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-white/80" {...props} />,
                             li: ({ node, ...props }: any) => <li className="pl-2" {...props} />,
-                            strong: ({ node, ...props }: any) => <strong className="text-white font-bold" {...props} />,
                             a: ({ node, ...props }: any) => <a className="text-primary hover:underline transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
                             blockquote: ({ node, ...props }: any) => <blockquote className="border-l-4 border-primary pl-6 py-2 my-8 italic text-white/60 bg-white/5 rounded-r-lg" {...props} />,
                             code: ({ node, ...props }: any) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono text-primary" {...props} />,
@@ -195,8 +134,10 @@ const BlogPostPage: React.FC = () => {
                     </ReactMarkdown>
                 </motion.div>
 
+                <CommunityCTA />
+
                 {/* Share */}
-                <div className="mt-16 pt-8 border-t border-white/10">
+                <div className="pt-8 border-t border-white/10">
                     <p className="text-sm text-white/40 uppercase tracking-widest mb-4">Compartir</p>
                     <div className="flex gap-4">
                         <a href="#" className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">

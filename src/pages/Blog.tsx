@@ -12,6 +12,8 @@ const Blog: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const POSTS_PER_PAGE = 9;
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -40,7 +42,24 @@ const Blog: React.FC = () => {
         }
 
         setFilteredPosts(result);
+        setCurrentPage(1);
     }, [searchTerm, posts]);
+
+    // Pagination Logic
+    const indexOfLastPost = currentPage * POSTS_PER_PAGE;
+    const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE;
+    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
+    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+
+    const paginate = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+        const blogSection = document.getElementById('blog-grid-section');
+        if (blogSection) {
+            blogSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
 
     useSEO({
         title: 'Blog',
@@ -120,8 +139,50 @@ const Blog: React.FC = () => {
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
                 </div>
             ) : (
-                <div className="max-w-7xl mx-auto px-6">
-                    <BlogGrid posts={filteredPosts} />
+                <div id="blog-grid-section" className="max-w-7xl mx-auto px-6">
+                    <BlogGrid posts={currentPosts} />
+
+                    {/* Pagination Controls */}
+                    {totalPages > 1 && (
+                        <div className="flex justify-center mt-16 gap-4">
+                            <button
+                                onClick={() => paginate(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${currentPage === 1
+                                        ? 'opacity-50 cursor-not-allowed text-white/30 border border-white/5'
+                                        : 'glass border border-white/10 hover:border-primary/50 text-white hover:text-primary'
+                                    }`}
+                            >
+                                Anterior
+                            </button>
+
+                            <div className="flex items-center gap-2">
+                                {Array.from({ length: totalPages }, (_, i) => (
+                                    <button
+                                        key={i + 1}
+                                        onClick={() => paginate(i + 1)}
+                                        className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold transition-all ${currentPage === i + 1
+                                                ? 'bg-primary text-black'
+                                                : 'text-white/50 hover:text-white hover:bg-white/5'
+                                            }`}
+                                    >
+                                        {i + 1}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={() => paginate(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${currentPage === totalPages
+                                        ? 'opacity-50 cursor-not-allowed text-white/30 border border-white/5'
+                                        : 'glass border border-white/10 hover:border-primary/50 text-white hover:text-primary'
+                                    }`}
+                            >
+                                Siguiente
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
 
