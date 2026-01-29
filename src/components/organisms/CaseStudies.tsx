@@ -98,7 +98,7 @@ const ProjectCard = ({ project, onClick }: { key?: string, project: Project, onC
 
         {/* Bottom Row */}
         <div>
-          <h3 className="text-3xl md:text-5xl font-display italic font-bold text-white mb-3 group-hover:text-primary transition-colors drop-shadow-lg">
+          <h3 className="text-2xl md:text-3xl font-display italic font-bold text-white mb-3 group-hover:text-primary transition-colors drop-shadow-lg leading-tight">
             {project.title}
           </h3>
           <p className="text-white/60 text-sm md:text-base max-w-lg mb-4 line-clamp-2 group-hover:text-white/80 transition-colors">

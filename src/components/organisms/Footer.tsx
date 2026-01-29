@@ -61,7 +61,7 @@ const Footer: React.FC = () => {
                             </h3>
                             <Magnetic>
                                 <Button
-                                    href="mailto:contact@vibeflow.es"
+                                    href="/contacto"
                                     size="lg"
                                     className="inline-flex items-center gap-4 text-xl px-8 py-4 rounded-full bg-white text-black hover:scale-105 transition-transform duration-300 font-bold"
                                 >

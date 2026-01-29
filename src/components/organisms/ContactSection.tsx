@@ -25,6 +25,7 @@ const ContactSection: React.FC = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
+  const [accepted, setAccepted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
 
   const clearErrors = useCallback(() => {
@@ -40,6 +41,11 @@ const ContactSection: React.FC = () => {
 
     if (!validation.isValid) {
       setErrors({ general: validation.error });
+      return;
+    }
+
+    if (!accepted) {
+      setErrors({ general: 'Debes aceptar la política de privacidad para continuar.' });
       return;
     }
 
@@ -197,6 +203,25 @@ const ContactSection: React.FC = () => {
                   <p>Error al enviar. Inténtalo de nuevo.</p>
                 </motion.div>
               )}
+
+              <div className="flex items-start gap-3 pt-2">
+                <div className="relative flex items-center">
+                  <input
+                    type="checkbox"
+                    id="gdpr-check"
+                    checked={accepted}
+                    onChange={(e) => {
+                      setAccepted(e.target.checked);
+                      if (e.target.checked) clearErrors();
+                    }}
+                    className="peer h-5 w-5 appearance-none rounded-md border border-white/20 bg-white/5 checked:bg-primary checked:border-primary transition-all cursor-pointer"
+                  />
+                  <CheckCircle size={14} className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-black opacity-0 peer-checked:opacity-100 transition-opacity" />
+                </div>
+                <label htmlFor="gdpr-check" className="text-sm text-white/40 leading-tight cursor-pointer select-none">
+                  He leído y acepto la <a href="/politica-privacidad" className="text-white hover:text-primary underline decoration-white/20 hover:decoration-primary transition-all">política de privacidad</a> y consiento el tratamiento de mis datos para la gestión de la solicitud.
+                </label>
+              </div>
 
               <Magnetic>
                 <Button
