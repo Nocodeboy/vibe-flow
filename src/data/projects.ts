@@ -5,51 +5,51 @@ export type { Project };
 
 export const projects: Project[] = [
     {
-        id: 'clinica-dental',
-        title: "Clínica Dr. Martínez",
-        category: "CRM + Automatización",
-        img: "/images/projects/nexus.webp",
-        description: "Sistema completo de gestión de pacientes con recordatorios automáticos y seguimiento de citas.",
-        tags: ["Airtable", "Make", "WhatsApp"],
+        id: 'omkin-kay',
+        title: "Omkin-Kay Digital - Oráculo de Autoconocimiento",
+        category: "SaaS + Mentoría Cuántica",
+        img: "/images/projects/omkin-kay.png",
+        description: "Plataforma de autoconocimiento que combina cálculo numerológico avanzado con un embudo de conversión para servicios de mentoría.",
+        tags: ["React", "Lucide React", "Stripe", "Supabase"],
         className: "md:col-span-8 md:row-span-2 h-[600px] md:h-auto",
-        challenge: "La clínica perdía el 30% de sus citas por falta de recordatorios y gestionaba todo en hojas de Excel desactualizadas.",
-        solution: "Implementamos un CRM en Airtable conectado a WhatsApp Business que envía recordatorios automáticos 24h y 2h antes de cada cita.",
-        impact: ["85% menos citas perdidas", "15h/semana ahorradas", "Pacientes más satisfechos"]
+        challenge: "Profesionales y emprendedores sufren 'parálisis por análisis' y desconexión con su propósito, buscando respuestas precisas.",
+        solution: "Oráculo digital con estética 'Quiet Luxury' que calcula la esencia y personalidad, ofreciendo un mapa de vida claro y accionable.",
+        impact: ["Alta conversión a consultas", "Apselling a programas", "Reducción de estrés"]
     },
     {
-        id: 'ecommerce-ropa',
-        title: "KLÄRE Clothing",
-        category: "Automatización IA",
-        img: "/images/projects/vibeflow-app.webp",
-        description: "Automatización de atención al cliente con chatbot IA para tienda de ropa online.",
-        tags: ["Botpress", "OpenAI", "Shopify"],
+        id: 'photo-pack-ai',
+        title: "Photo Pack AI - Estudio Fotográfico Virtual",
+        category: "SaaS + IA Generativa",
+        img: "/images/projects/photopack.png",
+        description: "Estudio fotográfico IA que transforma selfies en sesiones editoriales profesionales usando Gemini 3.0 Pro.",
+        tags: ["React 19", "Gemini 3.0", "Framer Motion", "Tailwind"],
         className: "md:col-span-4 md:row-span-1 h-[300px] md:h-auto",
-        challenge: "La dueña respondía manualmente 50+ mensajes diarios sobre tallas, envíos y devoluciones, robándole tiempo de gestión.",
-        solution: "Creamos un chatbot IA entrenado con su catálogo que responde FAQs, recomienda tallas y gestiona el estado de pedidos 24/7.",
-        impact: ["80% consultas automatizadas", "Ventas +25%", "0€ en personal adicional"]
+        challenge: "La fotografía profesional es costosa y lenta. Los usuarios necesitan inmediatez y versatilidad sin perder calidad de estudio.",
+        solution: "SaaS que sintetiza packs de fotos ultra-realistas en <30seg, preservando la identidad del usuario a través de múltiples estilos.",
+        impact: ["Tiempo de entrega <30seg", "Calidad 8K (Upscaling)", "Privacy First"]
     },
     {
-        id: 'inmobiliaria',
-        title: "Fincas Mediterráneo",
-        category: "Dashboard + CRM",
-        img: "/images/projects/quantum-strat.webp",
-        description: "Panel de control para inmobiliaria local con seguimiento de propiedades y clientes.",
-        tags: ["SmartSuite", "Make", "Portal Web"],
+        id: 'viralth-saas',
+        title: "Viralth - Ingeniería Viral Potenciada por IA",
+        category: "SaaS + IA Generativa",
+        img: "/images/projects/viralth.png",
+        description: "Motor de ingeniería viral que automatiza la creación de miniaturas de alto impacto con IA Generativa multimodal.",
+        tags: ["React & Vite", "Gemini AI", "Supabase", "Stripe"],
         className: "md:col-span-4 md:row-span-1 h-[300px] md:h-auto",
-        challenge: "El equipo de 3 agentes usaba WhatsApp y notas en papel para seguir leads, perdiendo oportunidades por falta de organización.",
-        solution: "Base de datos relacional con portal web para clientes, automatización de seguimientos y dashboard de métricas en tiempo real.",
-        impact: ["Conversión +40%", "0 leads olvidados", "Visibilidad total del pipeline"]
+        challenge: "El ecosistema actual impide iterar rápido ante las tendencias, con procesos de diseño lentos e inconsistencia visual.",
+        solution: "SaaS que sintetiza 4 variantes de miniaturas únicas en segundos usando IA, con refinamiento en lenguaje natural y SEO integrado.",
+        impact: ["Tiempo de diseño -90%", "Optimización de CTR", "Escalabilidad Global"]
     },
     {
-        id: 'agencia-marketing',
-        title: "Nómada Studio",
-        category: "Flujos de Trabajo",
-        img: "/images/projects/ethical-ia.webp",
-        description: "Automatización end-to-end desde briefing de cliente hasta entrega de assets.",
-        tags: ["Notion", "Make", "Claude", "Slack"],
+        id: 'vibeflow-community',
+        title: "Vibe Flow - Comunidad de Élite NoCode & IA",
+        category: "Comunidad / EdTech",
+        img: "/images/vibeflow_community.webp",
+        description: "Ecosistema de construcción colectiva para VibeCoders que buscan facturar con proyectos reales de IA y Automatización.",
+        tags: ["React 19", "TypeScript", "Vite", "Tailwind"],
         className: "md:col-span-12 md:row-span-1 h-[350px] md:h-[400px]",
-        challenge: "Agencia de 5 personas con proyectos caóticos: briefings perdidos en emails, entregas retrasadas y clientes frustrados.",
-        solution: "Sistema de intake automático que genera tareas en Notion, asigna responsables, resume briefs con IA y notifica deadlines en Slack.",
-        impact: ["Entregas a tiempo +60%", "Clientes más felices", "Equipo menos estresado"]
+        challenge: "La brecha entre 'aprender tecnología' y 'ganar dinero' es enorme. Los creadores sufren soledad y falta de proyectos reales.",
+        solution: "Plataforma de 'Build in Public' con sesiones en vivo, acceso a leads de agencia y mentoría continua para pasar de tutorial a facturación.",
+        impact: ["+500 Miembros Activos", "Proyectos Reales", "Networking de Élite"]
     }
 ];
