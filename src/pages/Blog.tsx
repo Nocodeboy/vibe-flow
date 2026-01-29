@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { Sparkles, Search, Tag } from 'lucide-react';
 import BlogSection from '../components/organisms/BlogSection';
 import { useSEO } from '../hooks/useSEO';
+import { getPosts } from '../services/airtable';
+import { BlogPost } from '../data/posts';
+import { useState, useEffect } from 'react';
 
 const categories = [
     { name: "Todos", count: 12 },
@@ -12,7 +15,47 @@ const categories = [
     { name: "Tutoriales", count: 2 },
 ];
 
+
 const Blog: React.FC = () => {
+    const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('Todos');
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const data = await getPosts();
+                setPosts(data);
+                setFilteredPosts(data);
+            } catch (error) {
+                console.error("Failed to fetch posts", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPosts();
+    }, []);
+
+    useEffect(() => {
+        let result = posts;
+
+        if (selectedCategory !== 'Todos') {
+            result = result.filter(post => post.category === selectedCategory);
+        }
+
+        if (searchTerm) {
+            const term = searchTerm.toLowerCase();
+            result = result.filter(post =>
+                post.title.toLowerCase().includes(term) ||
+                post.excerpt.toLowerCase().includes(term)
+            );
+        }
+
+        setFilteredPosts(result);
+    }, [searchTerm, selectedCategory, posts]);
+
     useSEO({
         title: 'Blog',
         description: 'Ideas, tutoriales y reflexiones sobre IA, automatización y la construcción de negocios digitales escalables.',
@@ -69,17 +112,18 @@ const Blog: React.FC = () => {
                         <div className="flex flex-wrap justify-center md:justify-start gap-3">
                             {categories.map((cat, i) => (
                                 <motion.button
+                                    onClick={() => setSelectedCategory(cat.name)}
                                     key={cat.name}
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.05 }}
-                                    className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${i === 0
+                                    className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${selectedCategory === cat.name
                                         ? 'bg-primary text-black'
                                         : 'glass border border-white/5 text-white/60 hover:text-white hover:border-primary/30'
                                         }`}
                                 >
                                     {cat.name}
-                                    <span className="ml-2 text-[10px] opacity-50">({cat.count})</span>
+                                    {/* <span className="ml-2 text-[10px] opacity-50">({cat.count})</span> Remove hardcoded count or calc dynamic */}
                                 </motion.button>
                             ))}
                         </div>
@@ -95,6 +139,8 @@ const Blog: React.FC = () => {
                             <input
                                 type="text"
                                 placeholder="Buscar artículos..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full md:w-[300px] pl-12 pr-6 py-3 rounded-full glass border border-white/5 bg-white/[0.02] text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/30 transition-colors"
                             />
                         </motion.div>
@@ -103,7 +149,13 @@ const Blog: React.FC = () => {
             </section>
 
             {/* Blog Grid - Reusing BlogSection */}
-            <BlogSection />
+            {loading ? (
+                <div className="flex justify-center py-20">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+                </div>
+            ) : (
+                <BlogSection posts={filteredPosts} />
+            )}
 
             {/* Newsletter CTA */}
             <section className="py-32 px-6">

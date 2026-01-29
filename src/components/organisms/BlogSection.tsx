@@ -6,7 +6,15 @@ import { posts } from '../../data/posts';
 import BlogCard from '../molecules/BlogCard';
 
 
-const BlogSection: React.FC = () => {
+import { BlogPost } from '../../data/posts';
+
+interface BlogSectionProps {
+  posts?: BlogPost[];
+}
+
+const BlogSection: React.FC<BlogSectionProps> = ({ posts: externalPosts }) => {
+  const displayPosts = externalPosts || posts;
+
   return (
     <section id="blog" className="py-32 px-6 bg-[#030303]">
       <div className="max-w-7xl mx-auto">
@@ -41,7 +49,7 @@ const BlogSection: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
-          {posts.map((post, i) => (
+          {displayPosts.map((post, i) => (
             <BlogCard key={post.id} post={post} index={i} />
           ))}
         </div>

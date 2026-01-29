@@ -1,23 +1,58 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Share2, Twitter, Linkedin } from 'lucide-react';
-import { posts } from '../data/posts';
+import { posts as staticPosts, BlogPost } from '../data/posts';
 import { useSEO } from '../hooks/useSEO';
+import { getPosts } from '../services/airtable';
 
 const BlogPostPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
 
-    const post = posts.find(p => p.slug === slug);
-    const currentIndex = posts.findIndex(p => p.slug === slug);
-    const nextPost = posts[currentIndex + 1];
-    const prevPost = posts[currentIndex - 1];
+    const [post, setPost] = useState<BlogPost | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [relatedPosts, setRelatedPosts] = useState<{ next?: BlogPost, prev?: BlogPost }>({});
+
+    useEffect(() => {
+        const loadData = async () => {
+            if (!slug) return;
+            setLoading(true);
+            try {
+                // Fetch all to determine next/prev
+                const allPosts = await getPosts();
+
+                // Fallback to static if no airtable posts (or empty array)
+                const postsSource = allPosts.length > 0 ? allPosts : staticPosts;
+
+                const currentIndex = postsSource.findIndex(p => p.slug === slug);
+
+                if (currentIndex >= 0) {
+                    setPost(postsSource[currentIndex]);
+                    setRelatedPosts({
+                        next: postsSource[currentIndex + 1],
+                        prev: postsSource[currentIndex - 1]
+                    });
+                } else {
+                    setPost(null);
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadData();
+    }, [slug]);
+
+    // Use derived state for SEO, fallback to defaults if loading
+    const seoTitle = post?.title || 'Cargando...';
+    const seoDesc = post?.excerpt || '';
 
     useSEO({
-        title: post?.title || 'Artículo',
-        description: post?.excerpt || 'Lee nuestro artículo sobre IA y automatización.',
+        title: seoTitle,
+        description: seoDesc,
         image: post?.img ? `https://vibeflow.es${post.img}` : undefined,
         url: `https://vibeflow.es/blog/${slug}`,
         type: 'article',
@@ -27,6 +62,14 @@ const BlogPostPage: React.FC = () => {
             section: post?.category
         }
     });
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            </div>
+        );
+    }
 
     if (!post) {
         return (
@@ -157,25 +200,25 @@ const BlogPostPage: React.FC = () => {
             {/* Navigation */}
             <section className="max-w-5xl mx-auto px-6 pb-32">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {prevPost && (
+                    {relatedPosts.prev && (
                         <Link
-                            to={`/blog/${prevPost.slug}`}
+                            to={`/blog/${relatedPosts.prev.slug}`}
                             className="group p-8 rounded-[2rem] glass border border-white/5 hover:border-primary/30 transition-colors"
                         >
                             <span className="text-xs text-white/40 uppercase tracking-widest">Anterior</span>
                             <p className="text-xl font-display italic font-bold mt-2 group-hover:text-primary transition-colors">
-                                {prevPost.title}
+                                {relatedPosts.prev.title}
                             </p>
                         </Link>
                     )}
-                    {nextPost && (
+                    {relatedPosts.next && (
                         <Link
-                            to={`/blog/${nextPost.slug}`}
+                            to={`/blog/${relatedPosts.next.slug}`}
                             className="group p-8 rounded-[2rem] glass border border-white/5 hover:border-primary/30 transition-colors text-right md:col-start-2"
                         >
                             <span className="text-xs text-white/40 uppercase tracking-widest">Siguiente</span>
                             <p className="text-xl font-display italic font-bold mt-2 group-hover:text-primary transition-colors">
-                                {nextPost.title}
+                                {relatedPosts.next.title}
                             </p>
                         </Link>
                     )}
