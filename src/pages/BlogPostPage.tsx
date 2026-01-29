@@ -43,7 +43,13 @@ const BlogPostPage: React.FC = () => {
         title: post?.title || 'Blog Post',
         description: post?.excerpt || '',
         image: post?.img || 'https://vibeflow.es/images/seo/og-image-blog.webp',
-        url: `https://vibeflow.es/blog/${slug}`
+        url: `https://vibeflow.es/blog/${slug}`,
+        type: 'article',
+        article: {
+            publishedTime: post?.date,
+            author: post?.author.name,
+            section: 'Technology'
+        }
     });
 
     if (loading) {
@@ -140,13 +146,44 @@ const BlogPostPage: React.FC = () => {
                 <div className="pt-8 border-t border-white/10">
                     <p className="text-sm text-white/40 uppercase tracking-widest mb-4">Compartir</p>
                     <div className="flex gap-4">
-                        <a href="#" className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                        <a
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://vibeflow.es/blog/${slug}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all"
+                            aria-label="Compartir en Twitter"
+                        >
                             <Twitter size={18} />
                         </a>
-                        <a href="#" className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                        <a
+                            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://vibeflow.es/blog/${slug}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all"
+                            aria-label="Compartir en LinkedIn"
+                        >
                             <Linkedin size={18} />
                         </a>
-                        <button className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all">
+                        <button
+                            onClick={async () => {
+                                if (navigator.share) {
+                                    try {
+                                        await navigator.share({
+                                            title: post.title,
+                                            text: post.excerpt,
+                                            url: `https://vibeflow.es/blog/${slug}`
+                                        });
+                                    } catch (err) {
+                                        console.error('Error sharing:', err);
+                                    }
+                                } else {
+                                    await navigator.clipboard.writeText(`https://vibeflow.es/blog/${slug}`);
+                                    alert('¡Enlace copiado al portapapeles!');
+                                }
+                            }}
+                            className="w-12 h-12 rounded-full glass flex items-center justify-center hover:bg-primary hover:text-black transition-all"
+                            aria-label="Compartir"
+                        >
                             <Share2 size={18} />
                         </button>
                     </div>
