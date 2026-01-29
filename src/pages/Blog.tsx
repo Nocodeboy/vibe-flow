@@ -157,18 +157,53 @@ const Blog: React.FC = () => {
                             </button>
 
                             <div className="flex items-center gap-2">
-                                {Array.from({ length: totalPages }, (_, i) => (
-                                    <button
-                                        key={i + 1}
-                                        onClick={() => paginate(i + 1)}
-                                        className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold transition-all ${currentPage === i + 1
-                                                ? 'bg-primary text-black'
-                                                : 'text-white/50 hover:text-white hover:bg-white/5'
-                                            }`}
-                                    >
-                                        {i + 1}
-                                    </button>
-                                ))}
+                                {(() => {
+                                    const windowSize = 1;
+                                    const range = [];
+                                    const rangeWithDots = [];
+
+                                    range.push(1);
+
+                                    for (let i = Math.max(2, currentPage - windowSize); i <= Math.min(totalPages - 1, currentPage + windowSize); i++) {
+                                        range.push(i);
+                                    }
+
+                                    if (totalPages > 1) {
+                                        range.push(totalPages);
+                                    }
+
+                                    const uniqueRange = [...new Set(range)].sort((a, b) => a - b);
+
+                                    let l;
+                                    for (let i of uniqueRange) {
+                                        if (l) {
+                                            if (i - l === 2) {
+                                                rangeWithDots.push(l + 1);
+                                            } else if (i - l !== 1) {
+                                                rangeWithDots.push('...');
+                                            }
+                                        }
+                                        rangeWithDots.push(i);
+                                        l = i;
+                                    }
+
+                                    return rangeWithDots.map((page, index) => (
+                                        page === '...' ? (
+                                            <span key={`dots-${index}`} className="px-2 text-white/30">...</span>
+                                        ) : (
+                                            <button
+                                                key={page}
+                                                onClick={() => paginate(page as number)}
+                                                className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold transition-all ${currentPage === page
+                                                        ? 'bg-primary text-black'
+                                                        : 'text-white/50 hover:text-white hover:bg-white/5'
+                                                    }`}
+                                            >
+                                                {page}
+                                            </button>
+                                        )
+                                    ));
+                                })()}
                             </div>
 
                             <button
