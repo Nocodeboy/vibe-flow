@@ -14,12 +14,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return;
     }
 
+    // Cache the response for 60 seconds, revalidate in background (SWR)
+    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
+
     try {
         if (!process.env.AIRTABLE_API_KEY) {
             throw new Error('Missing AIRTABLE_API_KEY environment variable');
         }
 
         const records = await base(TABLE_NAME).select({
+            // Optimization: Only fetch fields we actually use
+            fields: ['Nuevo Título', 'Publicación de blog', 'Url', 'Fecha de Publicación', 'Creada 2', 'Url img', 'SEO:Title', 'Nombre (from Editor - Nombre)', 'Título'],
             sort: [{ field: 'Fecha de Publicación', direction: 'desc' }]
         }).all();
 
@@ -34,14 +39,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 return String(val);
             };
 
-            // Slug generation logic (duplicated from service to avoid import issues in serverless)
+            // Slug generation logic
             const rawUrl = (fields['Url'] as string) || '';
             let slug = rawUrl;
             if (rawUrl.startsWith('http')) {
                 slug = rawUrl.split('/').filter(Boolean).pop() || '';
             }
             if (!slug) {
-                slug = getString(fields['Título'] || 'untitled')
+                slug = getString(fields['Nuevo Título'] || fields['Título'] || 'untitled')
                     .toString()
                     .toLowerCase()
                     .replace(/[^a-z0-9]+/g, '-')
@@ -51,8 +56,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return {
                 id: record.id,
                 slug: slug,
-                title: getString(fields['Título']) || 'Sin Título',
-                excerpt: getString(fields['SEO:Title']) || getString(fields['Noticia Completa']).substring(0, 150) + '...' || '',
+                title: getString(fields['Nuevo Título']) || getString(fields['Título']) || 'Sin Título',
+                excerpt: getString(fields['SEO:Title']) || getString(fields['Publicación de blog']).substring(0, 150) + '...' || '',
                 category: 'Blog',
                 date: getString(fields['Fecha de Publicación']) || getString(fields['Creada 2']) || new Date().toISOString(),
                 readTime: '5 min',
@@ -64,7 +69,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                     avatar: '/images/team/german.webp',
                     role: 'Editor'
                 },
-                content: [getString(fields['Noticia Completa'])]
+                content: [getString(fields['Publicación de blog'])]
             };
         });
 
