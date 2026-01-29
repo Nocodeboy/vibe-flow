@@ -20,7 +20,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
 
         const records = await base(TABLE_NAME).select({
-            view: 'Grid view',
             sort: [{ field: 'Fecha de Publicación', direction: 'desc' }]
         }).all();
 
