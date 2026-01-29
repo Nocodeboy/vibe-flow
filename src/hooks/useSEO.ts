@@ -85,6 +85,44 @@ export const useSEO = ({
             canonical.setAttribute('href', url || defaultMeta.url);
         }
 
+        // JSON-LD for Articles
+        if (type === 'article' && article) {
+            const schemaData = {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": fullTitle,
+                "image": image || defaultMeta.image,
+                "datePublished": article.publishedTime,
+                "author": {
+                    "@type": "Person",
+                    "name": article.author || "Vibe Flow Team",
+                    "url": "https://vibeflow.es"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Vibe Flow",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://vibeflow.es/logo.png"
+                    }
+                },
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": url || defaultMeta.url
+                }
+            };
+
+            let script = document.querySelector('script[type="application/ld+json"]');
+            if (script) {
+                script.textContent = JSON.stringify(schemaData);
+            } else {
+                script = document.createElement('script');
+                script.setAttribute('type', 'application/ld+json');
+                script.textContent = JSON.stringify(schemaData);
+                document.head.appendChild(script);
+            }
+        }
+
     }, [title, description, image, url, type, article]);
 };
 
