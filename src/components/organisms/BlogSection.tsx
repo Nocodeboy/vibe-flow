@@ -3,7 +3,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { posts } from '../../data/posts';
-import BlogCard from '../molecules/BlogCard';
 import BlogGrid from './BlogGrid';
 
 
