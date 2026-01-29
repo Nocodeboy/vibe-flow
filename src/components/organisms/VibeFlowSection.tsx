@@ -66,7 +66,7 @@ const VibeFlowSection: React.FC = () => {
           <div className="relative lg:w-2/5 min-h-[500px] flex items-center justify-center overflow-hidden">
             <div className="absolute inset-0">
               <img
-                src="/images/vibeflow_community.png"
+                src="/images/vibeflow_community.webp"
                 alt="Community"
                 className="w-full h-full object-cover grayscale brightness-[0.3] scale-110 group-hover:scale-100 transition-transform duration-1000"
               />

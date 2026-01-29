@@ -88,7 +88,7 @@ const About: React.FC = () => {
                         >
                             <div className="aspect-[4/5] rounded-[3rem] overflow-hidden bg-zinc-900">
                                 <img
-                                    src="/images/team/german.png"
+                                    src="/images/team/german.webp"
                                     alt="Germán Huertas Piquero"
                                     className="w-full h-full object-cover"
                                 />

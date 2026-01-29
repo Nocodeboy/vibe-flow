@@ -24,7 +24,7 @@ const modules: ModuleData[] = [
         icon: <Database className="w-5 h-5" />,
         tags: ['AIRTABLE', 'SUPABASE', 'INTERFACES'],
         gradient: 'from-blue-500/20 to-cyan-500/20',
-        image: '/images/services/crms.png'
+        image: '/images/services/crms.webp'
     },
     {
         id: 'auto',
@@ -34,7 +34,7 @@ const modules: ModuleData[] = [
         icon: <Zap className="w-5 h-5" />,
         tags: ['MAKE', 'N8N', 'IA'],
         gradient: 'from-amber-500/20 to-orange-500/20',
-        image: '/images/services/automatizaciones.png'
+        image: '/images/services/automatizaciones.webp'
     },
     {
         id: 'ai',
@@ -44,7 +44,7 @@ const modules: ModuleData[] = [
         icon: <Layers className="w-5 h-5" />,
         tags: ['CLAUDE', 'GEMINI', 'OPENAI'],
         gradient: 'from-primary/20 to-green-500/20',
-        image: '/images/services/integraciones.png'
+        image: '/images/services/integraciones.webp'
     },
     {
         id: 'bots',
@@ -54,7 +54,7 @@ const modules: ModuleData[] = [
         icon: <Cpu className="w-5 h-5" />,
         tags: ['VAPI', 'BOTPRESS', 'WHATSAPP'],
         gradient: 'from-purple-500/20 to-pink-500/20',
-        image: '/images/services/chatbots.png'
+        image: '/images/services/chatbots.webp'
     }
 ];
 

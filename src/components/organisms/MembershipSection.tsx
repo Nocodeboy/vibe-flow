@@ -12,7 +12,7 @@ const benefits = [
         title: "2x Llamadas Semanales",
         tag: "VALOR: 964€/AÑO",
         desc: "Mentoría en vivo. Resolvemos tus bloqueos técnicos y estratégicos cara a cara. Sin filtros.",
-        img: "/images/community/llamadas-semanales.png",
+        img: "/images/community/llamadas-semanales.webp",
         icon: <Phone size={24} />,
         className: "md:col-span-2 md:row-span-1"
     },
@@ -20,7 +20,7 @@ const benefits = [
         title: "Plantillas 'Plug & Play'",
         tag: "AHORRA +100H",
         desc: "No empieces de cero. Clona nuestros sistemas de automatización probados.",
-        img: "/images/community/plantillas-listas.png",
+        img: "/images/community/plantillas-listas.webp",
         icon: <FileCode size={24} />,
         className: "md:col-span-1 md:row-span-1"
     },
@@ -28,7 +28,7 @@ const benefits = [
         title: "Actualizaciones Perpetuas",
         tag: "SIEMPRE AL DÍA",
         desc: "La IA cambia cada semana. Tu formación también debería hacerlo.",
-        img: "/images/community/actualizaciones.png",
+        img: "/images/community/actualizaciones.webp",
         icon: <RefreshCw size={24} />,
         className: "md:col-span-1 md:row-span-1"
     },
@@ -36,7 +36,7 @@ const benefits = [
         title: "Acceso a Proyectos",
         tag: "OPORTUNIDAD EXCLUSIVA",
         desc: "Bolsa de trabajo interna. Asignamos proyectos de clientes reales (2k€ - 15k€) a miembros certificados.",
-        img: "/images/community/proyectos-agencia.png",
+        img: "/images/community/proyectos-agencia.webp",
         icon: <Briefcase size={24} />,
         className: "md:col-span-2 md:row-span-1"
     }

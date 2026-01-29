@@ -24,10 +24,10 @@ export const posts: BlogPost[] = [
         category: "Estrategia",
         date: "12 Oct, 2026",
         readTime: "5 min",
-        img: "/images/blog/paradoja-ia.png",
+        img: "/images/blog/paradoja-ia.webp",
         author: {
             name: "Germán Huertas Piquero",
-            avatar: "/images/team/german.png",
+            avatar: "/images/team/german.webp",
             role: "Fundador"
         },
         content: [
@@ -48,10 +48,10 @@ export const posts: BlogPost[] = [
         category: "Tecnología",
         date: "05 Oct, 2026",
         readTime: "8 min",
-        img: "/images/blog/arquitecturas-rag.png",
+        img: "/images/blog/arquitecturas-rag.webp",
         author: {
             name: "Germán Huertas Piquero",
-            avatar: "/images/team/german.png",
+            avatar: "/images/team/german.webp",
             role: "Fundador"
         },
         content: [
@@ -73,10 +73,10 @@ export const posts: BlogPost[] = [
         category: "Comunidad",
         date: "28 Sep, 2026",
         readTime: "6 min",
-        img: "/images/blog/comunidades.png",
+        img: "/images/blog/comunidades.webp",
         author: {
             name: "Germán Huertas Piquero",
-            avatar: "/images/team/german.png",
+            avatar: "/images/team/german.webp",
             role: "Fundador"
         },
         content: [
@@ -98,10 +98,10 @@ export const posts: BlogPost[] = [
         category: "Tutoriales",
         date: "15 Sep, 2026",
         readTime: "10 min",
-        img: "/images/blog/whatsapp-business.png",
+        img: "/images/blog/whatsapp-business.webp",
         author: {
             name: "Germán Huertas Piquero",
-            avatar: "/images/team/german.png",
+            avatar: "/images/team/german.webp",
             role: "Fundador"
         },
         content: [
@@ -123,10 +123,10 @@ export const posts: BlogPost[] = [
         category: "Comunidad",
         date: "01 Sep, 2026",
         readTime: "7 min",
-        img: "/images/blog/freelance-ia.png",
+        img: "/images/blog/freelance-ia.webp",
         author: {
             name: "Germán Huertas Piquero",
-            avatar: "/images/team/german.png",
+            avatar: "/images/team/german.webp",
             role: "Fundador"
         },
         content: [

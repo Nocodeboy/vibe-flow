@@ -10,35 +10,35 @@ const personas = [
         title: "Explorador Técnico",
         subtitle: "Developer / QA / Soporte",
         desc: "Construye en días lo que te llevaría meses. Tecnología moderna, casos reales, sin relleno.",
-        img: "/images/personas/explorador-tecnico.png"
+        img: "/images/personas/explorador-tecnico.webp"
     },
     {
         id: 'entrepreneur',
         title: "Emprendedor Atascado",
         subtitle: "Freelance / Consultor",
         desc: "Automatiza tu negocio sin contratar equipo técnico. Plantillas listas para usar HOY.",
-        img: "/images/personas/emprendedor.png"
+        img: "/images/personas/emprendedor.webp"
     },
     {
         id: 'student',
         title: "Estudiante Ambicioso",
         subtitle: "Recién Graduado / Junior",
         desc: "Construye un portafolio que impresione. Proyectos reales que el mercado paga 2.000€-15.000€.",
-        img: "/images/personas/estudiante.png"
+        img: "/images/personas/estudiante.webp"
     },
     {
         id: 'transition',
         title: "Profesional en Transición",
         subtitle: "Marketing / Ventas / PM",
         desc: "Reinventa tu carrera sin volver a estudiar 4 años. De 0 a facturar en 90 días.",
-        img: "/images/personas/profesional-transicion.png"
+        img: "/images/personas/profesional-transicion.webp"
     },
     {
         id: 'disillusioned',
         title: "Desencantado de Cursos",
         subtitle: "Ex-Coleccionista de Formaciones",
         desc: "No más cursos que no terminas. Aprender haciendo con seguimiento real. 2 sesiones semanales en vivo.",
-        img: "/images/personas/desencantado-cursos.png"
+        img: "/images/personas/desencantado-cursos.webp"
     }
 ];
 

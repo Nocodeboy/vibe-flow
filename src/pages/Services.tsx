@@ -254,14 +254,14 @@ const Services: React.FC = () => {
                             {
                                 title: "Clínica Dr. Martínez",
                                 category: "CRM + Automatización",
-                                img: "/images/projects/nexus.png",
+                                img: "/images/projects/nexus.webp",
                                 result: "85% menos citas perdidas",
                                 id: "clinica-dental"
                             },
                             {
                                 title: "Fincas Mediterráneo",
                                 category: "Dashboard + CRM",
-                                img: "/images/projects/quantum-strat.png",
+                                img: "/images/projects/quantum-strat.webp",
                                 result: "Conversión +40%",
                                 id: "inmobiliaria"
                             }

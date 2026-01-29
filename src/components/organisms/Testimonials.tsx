@@ -12,42 +12,42 @@ const testimonials = [
     name: "Gianro y Paloma",
     role: "Freelancers - Gialoma.com",
     text: "La estructura de Vibe Flow nos permitió escalar nuestra agencia en tiempo récord. El contenido es puramente práctico.",
-    img: "/images/testimonials/testimonial-1.png"
+    img: "/images/testimonials/testimonial-1.webp"
   },
   {
     id: 2,
     name: "Paco Nogueras",
     role: "Emprendedor",
     text: "He pasado de no entender nada de IA a implementar agentes complejos para mi negocio. La comunidad es oro puro.",
-    img: "/images/testimonials/testimonial-2.png"
+    img: "/images/testimonials/testimonial-2.webp"
   },
   {
     id: 3,
     name: "Valería Loto",
     role: "Consultora Turismo",
     text: "Automatizar mis procesos me ha ahorrado más de 20 horas semanales. El soporte técnico es inmejorable.",
-    img: "/images/testimonials/testimonial-3.png"
+    img: "/images/testimonials/testimonial-3.webp"
   },
   {
     id: 4,
     name: "Martín",
     role: "Freelance Ecommerce",
     text: "Lo mejor es que todo está orientado a resultados reales. Nada de teoría aburrida, directo a la implementación.",
-    img: "/images/testimonials/testimonial-4.png"
+    img: "/images/testimonials/testimonial-4.webp"
   },
   {
     id: 5,
     name: "Maite",
     role: "Terapeuta",
     text: "No sabía si esto era para mí, pero la guía paso a paso lo hace accesible para cualquiera. Muy recomendada.",
-    img: "/images/testimonials/testimonial-5.png"
+    img: "/images/testimonials/testimonial-5.webp"
   },
   {
     id: 6,
     name: "Oscar",
     role: "Especialista IT",
     text: "Incluso con experiencia técnica, he aprendido muchísimo sobre agentes y nuevas herramientas de IA. Contenido top.",
-    img: "/images/testimonials/testimonial-6.png"
+    img: "/images/testimonials/testimonial-6.webp"
   }
 ];
 

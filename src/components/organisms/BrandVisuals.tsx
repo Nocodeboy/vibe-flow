@@ -7,17 +7,17 @@ import { EASE_ELITE } from '../../styles/animation';
 const artworks = [
   {
     title: "Arquitectura de Datos",
-    img: "/images/blog/arquitecturas-rag.png",
+    img: "/images/blog/arquitecturas-rag.webp",
     tag: "LOGIC & FLOW"
   },
   {
     title: "Convergencia Digital",
-    img: "/images/blog/comunidades.png",
+    img: "/images/blog/comunidades.webp",
     tag: "STRATEGIC SYNC"
   },
   {
     title: "Visión Sistémica",
-    img: "/images/blog/paradoja-ia.png",
+    img: "/images/blog/paradoja-ia.webp",
     tag: "EXPONENTIAL GROWTH"
   }
 ];

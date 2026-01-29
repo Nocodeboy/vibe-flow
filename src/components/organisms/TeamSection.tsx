@@ -11,7 +11,7 @@ const team = [
     surname: "Piquero",
     role: "Fundador y Estratega IA",
     bio: "Visionario digital especializado en la convergencia de IA y modelos de negocio escalables.",
-    img: "/images/team/german.png",
+    img: "/images/team/german.webp",
     social: { linkedin: "https://www.linkedin.com/in/germ%C3%A1n-huertas-piquero-b89a80b1/", twitter: "https://x.com/Nocodeboy" }
   },
   {
@@ -19,7 +19,7 @@ const team = [
     surname: "Organista",
     role: "Soporte y Asistencia",
     bio: "Experta en consultoria de procesos empresariales complejosEs.",
-    img: "/images/team/raquel.png",
+    img: "/images/team/raquel.webp",
     social: { linkedin: "https://www.linkedin.com/in/raquelorganistagarc%C3%ADa/" }
   },
   {
@@ -27,7 +27,7 @@ const team = [
     surname: "Lianes",
     role: "Estratega Vibe Flow",
     bio: "Especialista en networking estratégico y construcción de comunidades de alto rendimiento.",
-    img: "/images/team/daniel.png",
+    img: "/images/team/daniel.webp",
     social: { linkedin: "https://www.linkedin.com/in/daniel-lianes/" }
   }
 ];
