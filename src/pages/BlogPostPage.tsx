@@ -6,13 +6,15 @@ import { ArrowLeft, Calendar, Clock, Share2, Twitter, Linkedin } from 'lucide-re
 import { posts as staticPosts, BlogPost } from '../data/posts';
 import { useSEO } from '../hooks/useSEO';
 import { getPosts } from '../services/airtable';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const BlogPostPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
 
     const [post, setPost] = useState<BlogPost | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = true);
     const [relatedPosts, setRelatedPosts] = useState<{ next?: BlogPost, prev?: BlogPost }>({});
 
     useEffect(() => {
@@ -173,11 +175,24 @@ const BlogPostPage: React.FC = () => {
                     transition={{ delay: 0.4 }}
                     className="prose prose-lg prose-invert max-w-none"
                 >
-                    {post.content.map((paragraph, i) => (
-                        <p key={i} className="text-lg text-white/70 leading-relaxed mb-6">
-                            {paragraph}
-                        </p>
-                    ))}
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                            p: ({ node, ...props }: any) => <p className="text-lg text-white/70 leading-relaxed mb-6" {...props} />,
+                            h1: ({ node, ...props }: any) => <h1 className="text-3xl font-display font-bold text-white mt-12 mb-6" {...props} />,
+                            h2: ({ node, ...props }: any) => <h2 className="text-2xl font-display font-bold text-white mt-10 mb-5" {...props} />,
+                            h3: ({ node, ...props }: any) => <h3 className="text-xl font-display font-bold text-white mt-8 mb-4" {...props} />,
+                            ul: ({ node, ...props }: any) => <ul className="list-disc list-outside ml-6 text-white/70 mb-6 space-y-2" {...props} />,
+                            ol: ({ node, ...props }: any) => <ol className="list-decimal list-outside ml-6 text-white/70 mb-6 space-y-2" {...props} />,
+                            li: ({ node, ...props }: any) => <li className="pl-2" {...props} />,
+                            strong: ({ node, ...props }: any) => <strong className="text-white font-bold" {...props} />,
+                            a: ({ node, ...props }: any) => <a className="text-primary hover:underline transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
+                            blockquote: ({ node, ...props }: any) => <blockquote className="border-l-4 border-primary pl-6 py-2 my-8 italic text-white/60 bg-white/5 rounded-r-lg" {...props} />,
+                            code: ({ node, ...props }: any) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono text-primary" {...props} />,
+                        }}
+                    >
+                        {post.content.join('\n')}
+                    </ReactMarkdown>
                 </motion.div>
 
                 {/* Share */}
