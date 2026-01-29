@@ -7,21 +7,11 @@ import { getPosts } from '../services/airtable';
 import { BlogPost } from '../data/posts';
 import { useState, useEffect } from 'react';
 
-const categories = [
-    { name: "Todos", count: 12 },
-    { name: "IA & Automatización", count: 5 },
-    { name: "Estrategia", count: 3 },
-    { name: "Comunidad", count: 2 },
-    { name: "Tutoriales", count: 2 },
-];
-
-
 const Blog: React.FC = () => {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('Todos');
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -41,10 +31,6 @@ const Blog: React.FC = () => {
     useEffect(() => {
         let result = posts;
 
-        if (selectedCategory !== 'Todos') {
-            result = result.filter(post => post.category === selectedCategory);
-        }
-
         if (searchTerm) {
             const term = searchTerm.toLowerCase();
             result = result.filter(post =>
@@ -54,7 +40,7 @@ const Blog: React.FC = () => {
         }
 
         setFilteredPosts(result);
-    }, [searchTerm, selectedCategory, posts]);
+    }, [searchTerm, posts]);
 
     useSEO({
         title: 'Blog',
@@ -104,36 +90,16 @@ const Blog: React.FC = () => {
                 </div>
             </section>
 
-            {/* Categories & Search Bar */}
+            {/* Search Bar Only */}
             <section className="py-12 px-6 border-y border-white/5">
                 <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-                        {/* Categories */}
-                        <div className="flex flex-wrap justify-center md:justify-start gap-3">
-                            {categories.map((cat, i) => (
-                                <motion.button
-                                    onClick={() => setSelectedCategory(cat.name)}
-                                    key={cat.name}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.05 }}
-                                    className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${selectedCategory === cat.name
-                                        ? 'bg-primary text-black'
-                                        : 'glass border border-white/5 text-white/60 hover:text-white hover:border-primary/30'
-                                        }`}
-                                >
-                                    {cat.name}
-                                    {/* <span className="ml-2 text-[10px] opacity-50">({cat.count})</span> Remove hardcoded count or calc dynamic */}
-                                </motion.button>
-                            ))}
-                        </div>
-
+                    <div className="flex justify-center">
                         {/* Search */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="relative w-full md:w-auto"
+                            className="relative w-full max-w-md"
                         >
                             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
                             <input
@@ -141,7 +107,7 @@ const Blog: React.FC = () => {
                                 placeholder="Buscar artículos..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full md:w-[300px] pl-12 pr-6 py-3 rounded-full glass border border-white/5 bg-white/[0.02] text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/30 transition-colors"
+                                className="w-full pl-12 pr-6 py-3 rounded-full glass border border-white/5 bg-white/[0.02] text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/30 transition-colors"
                             />
                         </motion.div>
                     </div>
