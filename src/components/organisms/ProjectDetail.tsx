@@ -20,7 +20,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   return (
     <div className="min-h-screen bg-[#050505]">
       {/* Sticky Header Nav */}
-      <div className="fixed top-8 left-8 z-[60]">
+      <div className="fixed top-24 left-8 z-[60]">
         <motion.button
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -35,13 +35,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section className="relative h-screen w-full overflow-hidden group">
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0">
           <motion.img
             layoutId={`project-img-${project.id}`}
             src={project.img}
             alt={project.title}
-            className="w-full h-full object-cover grayscale brightness-50 contrast-125 scale-105"
+            className="w-full h-full object-cover grayscale brightness-50 contrast-125 scale-105 group-hover:grayscale-0 group-hover:brightness-100 group-hover:contrast-100 transition-all duration-700"
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#050505]" />

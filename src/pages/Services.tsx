@@ -5,6 +5,7 @@ import Button from '../components/atoms/Button';
 import ServiceCard from '../components/molecules/ServiceCard';
 import ServiceModal from '../components/organisms/ServiceModal';
 import { services, processSteps, guarantees, Service } from '../data/services';
+import { projects } from '../data/projects';
 import { useSEO } from '../hooks/useSEO';
 
 const Services: React.FC = () => {
@@ -250,22 +251,7 @@ const Services: React.FC = () => {
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {[
-                            {
-                                title: "Clínica Dr. Martínez",
-                                category: "CRM + Automatización",
-                                img: "/images/projects/nexus.webp",
-                                result: "85% menos citas perdidas",
-                                id: "clinica-dental"
-                            },
-                            {
-                                title: "Fincas Mediterráneo",
-                                category: "Dashboard + CRM",
-                                img: "/images/projects/quantum-strat.webp",
-                                result: "Conversión +40%",
-                                id: "inmobiliaria"
-                            }
-                        ].map((project, i) => (
+                        {projects.slice(0, 2).map((project, i) => (
                             <motion.a
                                 key={project.id}
                                 href={`/proyectos/${project.id}`}
@@ -292,7 +278,7 @@ const Services: React.FC = () => {
                                     </h3>
                                     <p className="text-white/60 text-sm flex items-center gap-2">
                                         <Sparkles size={14} className="text-primary" />
-                                        {project.result}
+                                        {project.impact?.[0] || "Resultado Garantizado"}
                                     </p>
                                 </div>
 
