@@ -35,7 +35,7 @@ const Services: React.FC = () => {
             </AnimatePresence>
 
             {/* Ambient Background */}
-            <div className="fixed inset-0 pointer-events-none">
+            <div className="fixed inset-0 z-0 pointer-events-none">
                 <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/[0.03] rounded-full blur-[150px]" />
                 <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-white/[0.02] rounded-full blur-[120px]" />
             </div>
