@@ -237,7 +237,7 @@ const LearningModules: React.FC = () => {
 
     // Desktop: Horizontal scroll effect
     return (
-        <section ref={targetRef} className="relative h-[300vh] bg-[#030303]">
+        <section ref={targetRef} className="relative h-[200vh] bg-[#030303]">
             <div className="sticky top-0 flex h-screen items-center overflow-hidden">
                 <div className="relative w-full max-w-[100vw]">
                     <div className="max-w-7xl mx-auto px-6 mb-12 relative z-10">
