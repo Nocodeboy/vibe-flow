@@ -62,13 +62,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // 2. Define Static Pages
         const staticPages = [
             { url: 'https://vibeflow.es/', changefreq: 'weekly', priority: '1.0' },
-            { url: 'https://vibeflow.es/services', changefreq: 'monthly', priority: '0.9' },
-            { url: 'https://vibeflow.es/work', changefreq: 'monthly', priority: '0.8' },
-            { url: 'https://vibeflow.es/about', changefreq: 'monthly', priority: '0.7' },
+            { url: 'https://vibeflow.es/servicios', changefreq: 'monthly', priority: '0.9' },
+            { url: 'https://vibeflow.es/proyectos', changefreq: 'monthly', priority: '0.8' },
+            { url: 'https://vibeflow.es/nosotros', changefreq: 'monthly', priority: '0.7' },
             { url: 'https://vibeflow.es/blog', changefreq: 'daily', priority: '0.9' },
-            { url: 'https://vibeflow.es/community', changefreq: 'weekly', priority: '0.8' },
-            { url: 'https://vibeflow.es/contact', changefreq: 'monthly', priority: '0.7' },
-            { url: 'https://vibeflow.es/methodology', changefreq: 'monthly', priority: '0.6' }
+            { url: 'https://vibeflow.es/comunidad', changefreq: 'weekly', priority: '0.8' },
+            { url: 'https://vibeflow.es/contacto', changefreq: 'monthly', priority: '0.7' },
+            { url: 'https://vibeflow.es/metodologia', changefreq: 'monthly', priority: '0.6' }
         ];
 
         // 3. Build XML
