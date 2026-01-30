@@ -16,6 +16,7 @@ import ErrorBoundary from './components/layout/ErrorBoundary';
 import GlobalBackground from './components/layout/GlobalBackground';
 import CustomCursor from './components/atoms/CustomCursor';
 import NoiseOverlay from './components/atoms/NoiseOverlay';
+import CookieBanner from './components/molecules/CookieBanner';
 
 // Hooks
 import { useIsMobile } from './hooks/useIsMobile';
@@ -33,6 +34,7 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const LegalNotice = lazy(() => import('./pages/LegalNotice'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const CookiePolicy = lazy(() => import('./pages/CookiePolicy'));
 
 // Loading fallback component
 const PageLoader: React.FC = () => (
@@ -142,6 +144,7 @@ const AppContent: React.FC = () => {
                 </AnimatePresence>
 
                 <CustomCursor />
+                <CookieBanner />
                 <Navbar />
                 <ScrollToTop />
 
@@ -169,6 +172,7 @@ const AppContent: React.FC = () => {
                                     <Route path="/contacto" element={<PageTransition><Contact /></PageTransition>} />
                                     <Route path="/aviso-legal" element={<PageTransition><LegalNotice /></PageTransition>} />
                                     <Route path="/politica-privacidad" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
+                                    <Route path="/politica-cookies" element={<PageTransition><CookiePolicy /></PageTransition>} />
                                 </Routes>
                             </AnimatePresence>
                         </Suspense>

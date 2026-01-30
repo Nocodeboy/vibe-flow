@@ -68,7 +68,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             { url: 'https://vibeflow.es/blog', changefreq: 'daily', priority: '0.9' },
             { url: 'https://vibeflow.es/comunidad', changefreq: 'weekly', priority: '0.8' },
             { url: 'https://vibeflow.es/contacto', changefreq: 'monthly', priority: '0.7' },
-            { url: 'https://vibeflow.es/metodologia', changefreq: 'monthly', priority: '0.6' }
+            { url: 'https://vibeflow.es/metodologia', changefreq: 'monthly', priority: '0.6' },
+            { url: 'https://vibeflow.es/politica-cookies', changefreq: 'yearly', priority: '0.3' },
+            { url: 'https://vibeflow.es/politica-privacidad', changefreq: 'yearly', priority: '0.3' },
+            { url: 'https://vibeflow.es/aviso-legal', changefreq: 'yearly', priority: '0.3' }
         ];
 
         // 3. Build XML
