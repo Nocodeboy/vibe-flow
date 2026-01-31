@@ -4,17 +4,27 @@ import { motion } from 'framer-motion';
 import { Sparkles, Search, Tag } from 'lucide-react';
 import BlogGrid from '../components/organisms/BlogGrid';
 import { useSEO } from '../hooks/useSEO';
+import { useAnalytics } from '../hooks/useAnalytics';
 import { getPosts } from '../services/airtable';
 import { BlogPost } from '../data/posts';
 import { useState, useEffect } from 'react';
 
 const Blog: React.FC = () => {
+    const { trackEvent } = useAnalytics();
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const POSTS_PER_PAGE = 9;
+
+    const handleCommunityClick = () => {
+        trackEvent('cta_click', {
+            event_category: 'engagement',
+            event_label: 'blog_cta_community',
+            cta_text: 'Descubre Vibe Flow'
+        });
+    };
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -246,6 +256,7 @@ const Blog: React.FC = () => {
 
                             <Link
                                 to="/comunidad"
+                                onClick={handleCommunityClick}
                                 className="inline-block px-10 py-5 bg-primary text-black font-bold uppercase tracking-widest text-[10px] rounded-full hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all"
                             >
                                 Descubre Vibe Flow

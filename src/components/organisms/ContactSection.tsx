@@ -10,6 +10,7 @@ import {
   recordSubmission,
   ValidationResult,
 } from '../../utils/validation';
+import { useAnalytics } from '../../hooks/useAnalytics';
 
 // Use serverless API endpoint to avoid CORS issues
 const CONTACT_ENDPOINT = '/api/contact';
@@ -21,6 +22,7 @@ interface FormErrors {
 }
 
 const ContactSection: React.FC = () => {
+  const { trackEvent } = useAnalytics();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -67,6 +69,10 @@ const ContactSection: React.FC = () => {
 
       if (response.ok) {
         recordSubmission();
+        trackEvent('contact_form_submit', {
+          event_category: 'engagement',
+          event_label: 'contact_form'
+        });
         setStatus('success');
         setName('');
         setEmail('');
@@ -78,6 +84,10 @@ const ContactSection: React.FC = () => {
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       console.error('[ContactForm] Submission error:', errorMessage);
+      trackEvent('contact_form_error', {
+        event_category: 'engagement',
+        event_label: errorMessage
+      });
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }
