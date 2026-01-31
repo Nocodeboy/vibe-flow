@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 
-const GA_MEASUREMENT_ID = 'G-E8GYYX5P7D';
+const GA_MEASUREMENT_ID = 'G-N2MBMH1DWS';
 
 declare global {
     interface Window {
