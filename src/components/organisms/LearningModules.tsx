@@ -270,4 +270,87 @@ const LearningModules: React.FC = () => {
     );
 };
 
-export default LearningModules;
+// Wrapper component that forces remount when isMobile changes
+// This fixes framer-motion MotionValue issues during resize
+const LearningModulesWrapper: React.FC = () => {
+    const isMobile = useIsMobile();
+    return <LearningModulesInner key={isMobile ? 'mobile' : 'desktop'} isMobile={isMobile} />;
+};
+
+const LearningModulesInner: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
+    const targetRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+    });
+
+    // Transform scroll progress to horizontal movement - only on desktop
+    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
+
+    // Mobile: Simple vertical layout
+    if (isMobile) {
+        return (
+            <section className="relative bg-[#030303] py-20 px-4">
+                <div className="max-w-7xl mx-auto mb-10">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="w-8 h-[1px] bg-primary" />
+                        <span className="text-primary font-bold uppercase tracking-[0.4em] text-[10px]">
+                            ACADEMIA VIBE FLOW
+                        </span>
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-display font-medium tracking-tighter text-white">
+                        Áreas de <br />
+                        <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-white/50 to-transparent">
+                            Dominio.
+                        </span>
+                    </h2>
+                </div>
+
+                {/* Mobile: Vertical card list */}
+                <div className="flex flex-col gap-6">
+                    {modules.map((module, idx) => (
+                        <ModuleCard key={module.id} module={module} index={idx} isMobile={true} />
+                    ))}
+                </div>
+            </section>
+        );
+    }
+
+    // Desktop: Horizontal scroll effect
+    return (
+        <section ref={targetRef} className="relative h-[200vh] bg-[#030303]">
+            <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+                <div className="relative w-full max-w-[100vw]">
+                    <div className="max-w-7xl mx-auto px-6 mb-12 relative z-10">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+                            <div>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="w-8 h-[1px] bg-primary" />
+                                    <span className="text-primary font-bold uppercase tracking-[0.4em] text-[10px]">
+                                        ACADEMIA VIBE FLOW
+                                    </span>
+                                </div>
+                                <h2 className="text-6xl md:text-8xl font-display font-medium tracking-tighter text-white">
+                                    Áreas de <br />
+                                    <span className="italic font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-white/50 to-transparent">
+                                        Dominio.
+                                    </span>
+                                </h2>
+                            </div>
+                            <p className="max-w-sm text-white/40 text-sm leading-relaxed md:text-right">
+                                Cada módulo está diseñado para que aprendas haciendo. Proyectos reales, herramientas profesionales, resultados medibles.
+                            </p>
+                        </div>
+                    </div>
+
+                    <motion.div style={{ x }} className="flex gap-8 px-6 md:px-[max(calc((100vw-80rem)/2),1.5rem)]">
+                        {modules.map((module, idx) => (
+                            <ModuleCard key={module.id} module={module} index={idx} isMobile={false} />
+                        ))}
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+export default LearningModulesWrapper;
