@@ -1,5 +1,6 @@
 
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Linkedin, Twitter, Globe, ArrowUpRight } from 'lucide-react';
 import { EASE_ELITE } from '../../styles/animation';
@@ -155,9 +156,9 @@ const TeamSection: React.FC = () => {
             <p className="text-right text-white/40 text-sm max-w-[280px] leading-relaxed">
               Combinamos visión estratégica con ejecución técnica para materializar el futuro de tu industria.
             </p>
-            <button className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em] hover:text-primary transition-colors">
+            <Link to="/comunidad" className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em] hover:text-primary transition-colors">
               Únete al equipo <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </button>
+            </Link>
           </motion.div>
         </div>
 
@@ -180,9 +181,9 @@ const TeamSection: React.FC = () => {
             <p className="text-white/40 text-sm uppercase tracking-widest">Estamos buscando partners, no solo clientes.</p>
           </div>
           <Magnetic>
-            <button className="px-10 py-5 bg-primary text-black font-bold uppercase tracking-widest text-[10px] rounded-full hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all duration-500">
+            <Link to="/contacto" className="inline-block px-10 py-5 bg-primary text-black font-bold uppercase tracking-widest text-[10px] rounded-full hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all duration-500">
               Inicia una conversación
-            </button>
+            </Link>
           </Magnetic>
         </motion.div>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Sparkles, Search, Tag } from 'lucide-react';
 import BlogGrid from '../components/organisms/BlogGrid';
@@ -149,8 +150,8 @@ const Blog: React.FC = () => {
                                 onClick={() => paginate(currentPage - 1)}
                                 disabled={currentPage === 1}
                                 className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${currentPage === 1
-                                        ? 'opacity-50 cursor-not-allowed text-white/30 border border-white/5'
-                                        : 'glass border border-white/10 hover:border-primary/50 text-white hover:text-primary'
+                                    ? 'opacity-50 cursor-not-allowed text-white/30 border border-white/5'
+                                    : 'glass border border-white/10 hover:border-primary/50 text-white hover:text-primary'
                                     }`}
                             >
                                 Anterior
@@ -195,8 +196,8 @@ const Blog: React.FC = () => {
                                                 key={page}
                                                 onClick={() => paginate(page as number)}
                                                 className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold transition-all ${currentPage === page
-                                                        ? 'bg-primary text-black'
-                                                        : 'text-white/50 hover:text-white hover:bg-white/5'
+                                                    ? 'bg-primary text-black'
+                                                    : 'text-white/50 hover:text-white hover:bg-white/5'
                                                     }`}
                                             >
                                                 {page}
@@ -210,8 +211,8 @@ const Blog: React.FC = () => {
                                 onClick={() => paginate(currentPage + 1)}
                                 disabled={currentPage === totalPages}
                                 className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${currentPage === totalPages
-                                        ? 'opacity-50 cursor-not-allowed text-white/30 border border-white/5'
-                                        : 'glass border border-white/10 hover:border-primary/50 text-white hover:text-primary'
+                                    ? 'opacity-50 cursor-not-allowed text-white/30 border border-white/5'
+                                    : 'glass border border-white/10 hover:border-primary/50 text-white hover:text-primary'
                                     }`}
                             >
                                 Siguiente
@@ -221,7 +222,7 @@ const Blog: React.FC = () => {
                 </div>
             )}
 
-            {/* Newsletter CTA */}
+            {/* Community CTA */}
             <section className="py-32 px-6">
                 <div className="max-w-4xl mx-auto">
                     <motion.div
@@ -236,23 +237,19 @@ const Blog: React.FC = () => {
                         <div className="relative z-10">
                             <Tag size={32} className="text-primary mx-auto mb-6" />
                             <h3 className="text-4xl md:text-5xl font-display italic font-bold mb-4">
-                                Únete al Newsletter
+                                Únete a la Comunidad
                             </h3>
                             <p className="text-white/50 max-w-lg mx-auto mb-8">
-                                Recibe las últimas ideas sobre IA, automatización y estrategias de crecimiento
-                                directamente en tu inbox. Sin spam, solo valor.
+                                Aprende IA y automatización haciendo, no viendo vídeos.
+                                Sesiones en vivo, mentoría real y acceso a proyectos de agencia.
                             </p>
 
-                            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                                <input
-                                    type="email"
-                                    placeholder="tu@email.com"
-                                    className="flex-1 px-6 py-4 rounded-full glass border border-white/10 bg-white/[0.02] text-sm placeholder:text-white/30 focus:outline-none focus:border-primary/30 transition-colors"
-                                />
-                                <button className="px-8 py-4 bg-primary text-black font-bold uppercase tracking-widest text-[10px] rounded-full hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all">
-                                    Suscribirse
-                                </button>
-                            </div>
+                            <Link
+                                to="/comunidad"
+                                className="inline-block px-10 py-5 bg-primary text-black font-bold uppercase tracking-widest text-[10px] rounded-full hover:shadow-[0_0_60px_rgba(152,231,16,0.4)] transition-all"
+                            >
+                                Descubre Vibe Flow
+                            </Link>
                         </div>
                     </motion.div>
                 </div>
