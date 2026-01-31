@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const MOBILE_BREAKPOINT = 768;
 
@@ -7,25 +7,19 @@ const MOBILE_BREAKPOINT = 768;
  * 1. Screen width (< 768px)
  * 2. Touch capability
  *
- * Used to disable heavy animations and effects on mobile devices.
+ * IMPORTANT: This value is determined ONCE on initial load and does NOT update
+ * on window resize. This is intentional to prevent React crashes with framer-motion
+ * MotionValues when components switch between mobile/desktop layouts.
+ * 
+ * For responsive layouts, use CSS media queries instead.
  */
 export const useIsMobile = (): boolean => {
-  const [isMobile, setIsMobile] = useState<boolean>(() => {
+  const [isMobile] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
-    return window.innerWidth < MOBILE_BREAKPOINT || 'ontouchstart' in window;
+    const isSmallScreen = window.innerWidth < MOBILE_BREAKPOINT;
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    return isSmallScreen || isTouchDevice;
   });
-
-  useEffect(() => {
-    const checkMobile = () => {
-      const isSmallScreen = window.innerWidth < MOBILE_BREAKPOINT;
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      setIsMobile(isSmallScreen || isTouchDevice);
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   return isMobile;
 };
@@ -40,3 +34,4 @@ export const isMobileDevice = (): boolean => {
 };
 
 export default useIsMobile;
+
