@@ -16,7 +16,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Cache the sitemap for 1 hour (3600s), stale-while-revalidate for 1 day
     res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-    res.setHeader('Content-Type', 'application/xml');
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
 
     try {
         // 1. Fetch all blog posts for dynamic URLs
