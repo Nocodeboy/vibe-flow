@@ -3,30 +3,37 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, User, Twitter, Linkedin, Share2 } from 'lucide-react';
 import { useSEO } from '../hooks/useSEO';
-import { getPosts } from '../services/airtable';
+import { getPostBySlug } from '../services/airtable';
 import { BlogPost } from '../data/posts';
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import CommunityCTA from '../components/molecules/CommunityCTA';
 
+interface RelatedPosts {
+    prev?: { slug: string; title: string };
+    next?: { slug: string; title: string };
+}
+
 const BlogPostPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const [post, setPost] = useState<BlogPost | null>(null);
     const [loading, setLoading] = useState(true);
-    const [relatedPosts, setRelatedPosts] = useState<{ prev?: BlogPost; next?: BlogPost }>({});
+    const [relatedPosts, setRelatedPosts] = useState<RelatedPosts>({});
 
     useEffect(() => {
         const loadPost = async () => {
-            try {
-                const posts = await getPosts();
-                const currentIndex = posts.findIndex(p => p.slug === slug);
+            if (!slug) return;
 
-                if (currentIndex !== -1) {
-                    setPost(posts[currentIndex]);
+            try {
+                // Use dedicated endpoint for individual post (much faster than loading all posts)
+                const result = await getPostBySlug(slug);
+
+                if (result) {
+                    setPost(result.post);
                     setRelatedPosts({
-                        prev: currentIndex > 0 ? posts[currentIndex - 1] : undefined,
-                        next: currentIndex < posts.length - 1 ? posts[currentIndex + 1] : undefined
+                        prev: result.navigation.prev || undefined,
+                        next: result.navigation.next || undefined
                     });
                 }
             } catch (error) {

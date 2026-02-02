@@ -15,10 +15,24 @@ export const getPosts = async (): Promise<BlogPost[]> => {
     }
 };
 
-export const getPostBySlug = async (slug: string): Promise<BlogPost | null> => {
+interface PostWithNavigation {
+    post: BlogPost;
+    navigation: {
+        prev: { slug: string; title: string } | null;
+        next: { slug: string; title: string } | null;
+    };
+}
+
+export const getPostBySlug = async (slug: string): Promise<PostWithNavigation | null> => {
     try {
-        const posts = await getPosts();
-        return posts.find(p => p.slug === slug) || null;
+        // Use dedicated endpoint for individual post with full content
+        const response = await fetch(`/api/post?slug=${encodeURIComponent(slug)}`);
+        if (!response.ok) {
+            if (response.status === 404) return null;
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data as PostWithNavigation;
     } catch (error) {
         console.error('Error fetching post:', error);
         return null;
