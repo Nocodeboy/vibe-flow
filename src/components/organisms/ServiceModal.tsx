@@ -1,7 +1,7 @@
 import React, { useId } from 'react';
 import ReactDOM from 'react-dom';
-import { motion } from 'framer-motion';
-import { ArrowRight, X, Check, Sparkles, Clock, Users } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, X, Check, Sparkles, Clock, Users, Shield, Zap, Globe } from 'lucide-react';
 import { Service } from '../../data/services';
 import Button from '../atoms/Button';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
@@ -17,7 +17,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
     const descId = `modal-desc-${modalId}`;
     const modalRef = useFocusTrap<HTMLDivElement>(true);
 
-    // Prevent body scroll when modal is open
+    // Prevent body scroll
     React.useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
@@ -36,234 +36,223 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
 
     const modalContent = (
         <motion.div
-            ref={modalRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
             aria-describedby={descId}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[9999]"
-            style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh' }}
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-6"
         >
-            {/* Backdrop with blur */}
+            {/* Backdrop */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/90 backdrop-blur-md"
+                transition={{ duration: 0.4 }}
+                className="absolute inset-0 bg-black/80 backdrop-blur-xl"
                 onClick={onClose}
             />
 
-            {/* Ambient glow */}
-            <div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[150px] opacity-20 pointer-events-none"
-                style={{ background: service.color }}
-            />
+            {/* Modal Container */}
+            <motion.div
+                ref={modalRef}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="relative w-full max-w-6xl max-h-[90vh] md:h-[800px] flex flex-col md:flex-row bg-[#080808] border border-white/[0.08] rounded-[32px] overflow-hidden shadow-2xl shadow-black/80 ring-1 ring-white/5"
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* Background Noise/Texture */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("/noise.png")' }} />
 
-            {/* Modal Container - centered */}
-            <div className="absolute inset-0 flex items-center justify-center p-4 md:p-8">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 30 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-full max-w-2xl max-h-[85vh] rounded-[2rem] bg-gradient-to-b from-[#111111] to-[#0a0a0a] border border-white/[0.08] shadow-2xl shadow-black/50 overflow-hidden"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    {/* Top gradient line */}
-                    <div
-                        className="absolute top-0 left-0 right-0 h-[2px]"
-                        style={{ background: `linear-gradient(90deg, transparent, ${service.color}, transparent)` }}
-                    />
+                {/* Left Column (Hero) */}
+                <div className="relative w-full md:w-[400px] flex-shrink-0 flex flex-col justify-between p-8 md:p-10 overflow-hidden">
+                    {/* Dynamic Background */}
+                    <div className="absolute inset-0 opacity-20">
+                        <div
+                            className="absolute top-0 left-0 w-full h-full"
+                            style={{
+                                background: `radial-gradient(circle at top left, ${service.color}, transparent 70%)`
+                            }}
+                        />
+                        <div
+                            className="absolute bottom-[-20%] right-[-20%] w-[300px] h-[300px] rounded-full blur-[100px]"
+                            style={{ background: service.color }}
+                        />
+                    </div>
 
-                    {/* Scrollable content with custom scrollbar */}
-                    <div
-                        className="overflow-y-auto max-h-[85vh] modal-scrollbar"
-                        style={{
-                            scrollbarWidth: 'thin',
-                            scrollbarColor: `${service.color}40 transparent`
-                        }}
+                    {/* Top Info */}
+                    <div className="relative z-10">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6"
+                        >
+                            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: service.color }} />
+                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/80">{service.priceRange}</span>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ delay: 0.3, type: "spring" }}
+                            className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 text-black"
+                            style={{
+                                background: service.color,
+                                boxShadow: `0 10px 40px -10px ${service.color}60`
+                            }}
+                        >
+                            {React.cloneElement(service.icon as React.ReactElement, { size: 40, color: '#000' })}
+                        </motion.div>
+
+                        <motion.h2
+                            id={titleId}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="text-4xl md:text-5xl font-display italic font-bold leading-tight text-white mb-4"
+                        >
+                            {service.title.split(' ').map((word, i) => (
+                                <span key={i} className="block">{word}</span>
+                            ))}
+                        </motion.h2>
+
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="h-1 w-20 rounded-full"
+                            style={{ background: service.color }}
+                        />
+                    </div>
+
+                    {/* Bottom Info - Number */}
+                    <div className="relative z-10 mt-auto pt-10">
+                        <span className="text-[140px] leading-none font-display italic font-bold text-transparent bg-clip-text bg-gradient-to-b from-white/10 to-transparent absolute -bottom-16 -left-6 select-none pointer-events-none">
+                            {service.num}
+                        </span>
+                    </div>
+                </div>
+
+                {/* Right Column (Content Grid) */}
+                <div className="flex-1 overflow-y-auto modal-scrollbar relative z-10 bg-[#0a0a0a]/50 backdrop-blur-md md:rounded-l-[32px] md:-ml-8 border-l border-white/5">
+                    {/* Close Button Mobile - Absolute top right */}
+                    <button
+                        onClick={onClose}
+                        className="absolute top-6 right-6 z-50 p-2 rounded-full bg-black/40 border border-white/10 hover:bg-white/10 transition-colors text-white/70 hover:text-white"
                     >
-                        {/* Header - Fixed look */}
-                        <div className="relative p-8 pb-6">
-                            {/* Close button */}
-                            <motion.button
-                                onClick={onClose}
-                                whileHover={{ scale: 1.1, rotate: 90 }}
-                                whileTap={{ scale: 0.9 }}
-                                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 hover:border-white/20 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                                aria-label="Cerrar modal"
-                            >
-                                <X size={18} className="text-white/60" aria-hidden="true" />
-                            </motion.button>
+                        <X size={20} />
+                    </button>
 
-                            {/* Service number watermark */}
-                            <div className="absolute top-4 right-20 text-[120px] font-display italic font-bold text-white/[0.02] leading-none pointer-events-none">
-                                {service.num}
-                            </div>
+                    <div className="p-8 md:p-12 pt-16 md:pt-12 grid gap-6">
 
-                            {/* Icon and title */}
-                            <div className="flex items-start gap-5">
-                                <motion.div
-                                    initial={{ scale: 0.8, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ delay: 0.1 }}
-                                    className="w-16 h-16 rounded-2xl flex items-center justify-center border-2 flex-shrink-0"
-                                    style={{
-                                        borderColor: `${service.color}50`,
-                                        background: `linear-gradient(135deg, ${service.color}20, ${service.color}05)`,
-                                        color: service.color,
-                                        boxShadow: `0 0 40px ${service.color}20`
-                                    }}
-                                >
-                                    {service.icon}
-                                </motion.div>
-                                <div className="flex-1 pr-12">
-                                    <motion.span
-                                        initial={{ opacity: 0, y: -10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.15 }}
-                                        className="text-[10px] uppercase tracking-[0.3em] font-bold mb-2 block"
-                                        style={{ color: service.color }}
-                                    >
-                                        Servicio {service.num}
-                                    </motion.span>
-                                    <motion.h2
-                                        id={titleId}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.2 }}
-                                        className="text-2xl md:text-3xl font-display italic font-bold leading-tight"
-                                    >
-                                        {service.title}
-                                    </motion.h2>
-                                </div>
-                            </div>
+                        {/* 1. Description Card */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="p-6 md:p-8 rounded-3xl bg-white/[0.02] border border-white/[0.04] backdrop-blur-sm"
+                        >
+                            <h3 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-4 flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-white/40" /> Resumen
+                            </h3>
+                            <p id={descId} className="text-lg md:text-xl text-white/80 leading-relaxed font-light">
+                                {service.details.fullDesc}
+                            </p>
+                        </motion.div>
 
-                            {/* Price badge */}
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.25 }}
-                                className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border"
-                                style={{
-                                    borderColor: `${service.color}30`,
-                                    background: `linear-gradient(135deg, ${service.color}10, transparent)`
-                                }}
-                            >
-                                <Sparkles size={14} style={{ color: service.color }} />
-                                <span className="text-sm font-bold" style={{ color: service.color }}>
-                                    {service.priceRange}
-                                </span>
-                            </motion.div>
-                        </div>
-
-                        {/* Divider */}
-                        <div className="mx-8 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-                        {/* Content */}
-                        <div className="p-8 pt-6 space-y-8">
-                            {/* Description */}
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 }}
-                            >
-                                <h4 className="text-xs uppercase tracking-[0.2em] text-white/30 mb-4 flex items-center gap-2">
-                                    <span className="w-8 h-[1px] bg-white/20" />
-                                    Descripción
-                                </h4>
-                                <p id={descId} className="text-white/60 leading-relaxed text-[15px]">
-                                    {service.details.fullDesc}
-                                </p>
-                            </motion.div>
-
+                        {/* 2. Grid for Bento Items */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Deliverables */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.35 }}
+                                transition={{ delay: 0.5 }}
+                                className="row-span-2 p-6 md:p-8 rounded-3xl bg-white/[0.02] border border-white/[0.04] backdrop-blur-sm flex flex-col"
                             >
-                                <h4 className="text-xs uppercase tracking-[0.2em] text-white/30 mb-4 flex items-center gap-2">
-                                    <span className="w-8 h-[1px] bg-white/20" />
-                                    Qué Incluye
-                                </h4>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <h3 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-6">Qué Incluye</h3>
+                                <div className="space-y-3 flex-1">
                                     {service.details.deliverables.map((item, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.4 + i * 0.05 }}
-                                            className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-white/10 transition-colors group"
-                                        >
-                                            <div
-                                                className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0"
-                                                style={{ background: `${service.color}15` }}
-                                            >
-                                                <Check size={12} style={{ color: service.color }} />
+                                        <div key={i} className="flex items-start gap-3 group">
+                                            <div className="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 bg-white/5 group-hover:bg-white/10 transition-colors border border-white/5">
+                                                <Check size={10} style={{ color: service.color }} />
                                             </div>
-                                            <span className="text-white/60 text-sm group-hover:text-white/80 transition-colors">
+                                            <span className="text-sm text-white/60 group-hover:text-white/80 transition-colors leading-tight py-0.5">
                                                 {item}
                                             </span>
-                                        </motion.div>
+                                        </div>
                                     ))}
                                 </div>
                             </motion.div>
 
-                            {/* Timeline & Ideal - Cards */}
+                            {/* Timeline */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5 }}
-                                className="grid grid-cols-2 gap-4"
+                                transition={{ delay: 0.6 }}
+                                className="p-6 rounded-3xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/[0.04]"
                             >
-                                <div className="p-5 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/[0.06]">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <Clock size={14} className="text-white/30" />
-                                        <h4 className="text-[10px] uppercase tracking-widest text-white/30">Tiempo</h4>
-                                    </div>
-                                    <p className="text-xl font-display italic font-bold" style={{ color: service.color }}>
-                                        {service.details.timeline}
-                                    </p>
+                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-4 text-white/70">
+                                    <Clock size={18} />
                                 </div>
-                                <div className="p-5 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/[0.06]">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <Users size={14} className="text-white/30" />
-                                        <h4 className="text-[10px] uppercase tracking-widest text-white/30">Ideal Para</h4>
-                                    </div>
-                                    <p className="text-sm text-white/50 leading-relaxed">
-                                        {service.details.ideal}
-                                    </p>
-                                </div>
+                                <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-1">Tiempo Estimado</h4>
+                                <p className="text-2xl font-bold text-white">{service.details.timeline}</p>
                             </motion.div>
 
-                            {/* CTA */}
+                            {/* Ideal For */}
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.55 }}
-                                className="pt-6 border-t border-white/[0.06]"
+                                transition={{ delay: 0.7 }}
+                                className="p-6 rounded-3xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/[0.04]"
                             >
+                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-4 text-white/70">
+                                    <Users size={18} />
+                                </div>
+                                <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 mb-2">Ideal Para</h4>
+                                <p className="text-sm text-white/60 leading-relaxed">{service.details.ideal}</p>
+                            </motion.div>
+                        </div>
+
+                        {/* CTA Section */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8 }}
+                            className="mt-4 flex flex-col md:flex-row gap-6 items-center justify-between p-6 md:p-8 rounded-3xl relative overflow-hidden group"
+                        >
+                            {/* Background glow for CTA */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-white/[0.03] to-transparent opacity-100 transition-opacity" />
+                            <div
+                                className="absolute right-0 top-0 w-64 h-64 rounded-full blur-[80px] opacity-20 group-hover:opacity-40 transition-opacity duration-700"
+                                style={{ background: service.color }}
+                            />
+
+                            <div className="relative z-10">
+                                <h3 className="text-xl font-bold text-white mb-2">¿Te encaja este servicio?</h3>
+                                <p className="text-sm text-white/50">Agenda una llamada o pide presupuesto sin compromiso.</p>
+                            </div>
+
+                            <div className="relative z-10 flex-shrink-0">
                                 <Button
                                     href="mailto:contact@vibeflow.es"
                                     external
                                     size="lg"
-                                    className="w-full justify-center py-4 text-base font-bold group"
-                                    icon={<ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />}
+                                    shape="pill"
+                                    className="border-none text-black font-bold shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-shadow"
+                                    style={{ background: service.color }}
+                                    icon={<ArrowRight size={18} />}
                                 >
-                                    Solicitar Presupuesto
+                                    Solicitar Ahora
                                 </Button>
-                                <p className="text-center text-white/30 text-xs mt-4">
-                                    Respuesta en menos de 24 horas
-                                </p>
-                            </motion.div>
-                        </div>
+                            </div>
+                        </motion.div>
+
                     </div>
-                </motion.div>
-            </div>
+                </div>
+
+            </motion.div>
         </motion.div>
     );
 
