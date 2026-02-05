@@ -1,7 +1,7 @@
 import React, { useId } from 'react';
 import ReactDOM from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X, Check, Sparkles, Clock, Users, Shield, Zap, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, X, Check, Clock, Users } from 'lucide-react';
 import { Service } from '../../data/services';
 import Button from '../atoms/Button';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
@@ -19,9 +19,20 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
 
     // Prevent body scroll
     React.useEffect(() => {
+        // Save original styles
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        const originalPaddingRight = document.body.style.paddingRight;
+
+        // Add padding to prevent layout shift from scrollbar disappearing
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden'; // Lock html too
+
         return () => {
-            document.body.style.overflow = 'unset';
+            document.body.style.overflow = originalStyle;
+            document.documentElement.style.overflow = '';
+            document.body.style.paddingRight = originalPaddingRight;
         };
     }, []);
 
@@ -103,7 +114,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                                 boxShadow: `0 10px 40px -10px ${service.color}60`
                             }}
                         >
-                            {React.cloneElement(service.icon as React.ReactElement, { size: 40, color: '#000' })}
+                            {React.isValidElement(service.icon) && React.cloneElement(service.icon as React.ReactElement<any>, { size: 40, color: '#000' })}
                         </motion.div>
 
                         <motion.h2
@@ -111,11 +122,9 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="text-4xl md:text-5xl font-display italic font-bold leading-tight text-white mb-4"
+                            className="text-4xl md:text-5xl font-display italic font-bold leading-[0.9] text-white mb-4 break-words"
                         >
-                            {service.title.split(' ').map((word, i) => (
-                                <span key={i} className="block">{word}</span>
-                            ))}
+                            {service.title}
                         </motion.h2>
 
                         <motion.div
