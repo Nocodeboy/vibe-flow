@@ -20,6 +20,7 @@ import CookieBanner from './components/molecules/CookieBanner';
 
 // Hooks
 import { useIsMobile } from './hooks/useIsMobile';
+import useAnalytics from './hooks/useAnalytics';
 
 // Lazy loaded pages for code splitting
 const Home = lazy(() => import('./pages/Home'));
@@ -66,6 +67,7 @@ const ScrollToTop = () => {
 
 const AppContent: React.FC = () => {
     const location = useLocation();
+    const { trackPageView } = useAnalytics();
     // Loader solo aparece la primera vez por sesión
     const [isLoading, setIsLoading] = useState(() => {
         return !sessionStorage.getItem('app_loaded');
@@ -83,6 +85,10 @@ const AppContent: React.FC = () => {
             return () => clearTimeout(timer);
         }
     }, [isLoading]);
+
+    useEffect(() => {
+        trackPageView(location.pathname);
+    }, [location, trackPageView]);
 
     useEffect(() => {
         // Only track footer height on desktop for the sticky reveal effect

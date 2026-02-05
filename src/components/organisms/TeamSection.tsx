@@ -19,7 +19,7 @@ const team = [
     name: "Raquel",
     surname: "Organista",
     role: "Soporte y Asistencia",
-    bio: "Experta en consultoria de procesos empresariales complejosEs.",
+    bio: "Experta en consultoria de procesos empresariales complejos.",
     img: "/images/team/raquel.webp",
     social: { linkedin: "https://www.linkedin.com/in/raquelorganistagarc%C3%ADa/" }
   },
@@ -27,7 +27,7 @@ const team = [
     name: "Daniel",
     surname: "Lianes",
     role: "Estratega Vibe Flow",
-    bio: "Especialista en networking estratégico y construcción de comunidades de alto rendimiento.",
+    bio: "Especialista en networking estratégico y agencias de alto rendimiento.",
     img: "/images/team/daniel.webp",
     social: { linkedin: "https://www.linkedin.com/in/daniel-lianes/" }
   }
