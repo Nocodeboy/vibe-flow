@@ -114,7 +114,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                                 boxShadow: `0 10px 40px -10px ${service.color}60`
                             }}
                         >
-                            {React.isValidElement(service.icon) && React.cloneElement(service.icon as React.ReactElement<any>, { size: 40, color: '#000' })}
+                            {React.isValidElement<{ size?: number; color?: string }>(service.icon) && React.cloneElement(service.icon, { size: 40, color: '#000' })}
                         </motion.div>
 
                         <motion.h2

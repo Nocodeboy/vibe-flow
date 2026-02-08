@@ -7,6 +7,7 @@ import { getPostBySlug } from '../services/airtable';
 import { BlogPost } from '../data/posts';
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import CommunityCTA from '../components/molecules/CommunityCTA';
 
@@ -14,6 +15,19 @@ interface RelatedPosts {
     prev?: { slug: string; title: string };
     next?: { slug: string; title: string };
 }
+
+
+const markdownComponents: Components = {
+    p: ({ ...props }) => <p className="text-white/80 leading-relaxed mb-6 font-light" {...props} />,
+    h2: ({ ...props }) => <h2 className="text-3xl font-display italic font-bold mt-12 mb-6 text-white" {...props} />,
+    h3: ({ ...props }) => <h3 className="text-2xl font-display font-bold mt-8 mb-4 text-white" {...props} />,
+    ul: ({ ...props }) => <ul className="list-disc pl-6 mb-6 space-y-2 text-white/80" {...props} />,
+    ol: ({ ...props }) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-white/80" {...props} />,
+    li: ({ ...props }) => <li className="pl-2" {...props} />,
+    a: ({ ...props }) => <a className="text-primary hover:underline transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
+    blockquote: ({ ...props }) => <blockquote className="border-l-4 border-primary pl-6 py-2 my-8 italic text-white/60 bg-white/5 rounded-r-lg" {...props} />,
+    code: ({ ...props }) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono text-primary" {...props} />,
+};
 
 const BlogPostPage: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
@@ -131,17 +145,7 @@ const BlogPostPage: React.FC = () => {
                 >
                     <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
-                        components={{
-                            p: ({ node, ...props }: any) => <p className="text-white/80 leading-relaxed mb-6 font-light" {...props} />,
-                            h2: ({ node, ...props }: any) => <h2 className="text-3xl font-display italic font-bold mt-12 mb-6 text-white" {...props} />,
-                            h3: ({ node, ...props }: any) => <h3 className="text-2xl font-display font-bold mt-8 mb-4 text-white" {...props} />,
-                            ul: ({ node, ...props }: any) => <ul className="list-disc pl-6 mb-6 space-y-2 text-white/80" {...props} />,
-                            ol: ({ node, ...props }: any) => <ol className="list-decimal pl-6 mb-6 space-y-2 text-white/80" {...props} />,
-                            li: ({ node, ...props }: any) => <li className="pl-2" {...props} />,
-                            a: ({ node, ...props }: any) => <a className="text-primary hover:underline transition-colors" target="_blank" rel="noopener noreferrer" {...props} />,
-                            blockquote: ({ node, ...props }: any) => <blockquote className="border-l-4 border-primary pl-6 py-2 my-8 italic text-white/60 bg-white/5 rounded-r-lg" {...props} />,
-                            code: ({ node, ...props }: any) => <code className="bg-white/10 px-1.5 py-0.5 rounded text-sm font-mono text-primary" {...props} />,
-                        }}
+                        components={markdownComponents}
                     >
                         {post.content.join('\n')}
                     </ReactMarkdown>

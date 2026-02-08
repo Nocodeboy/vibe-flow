@@ -77,13 +77,16 @@ const AppContent: React.FC = () => {
     const isMobile = useIsMobile();
 
     useEffect(() => {
-        if (isLoading) {
-            const timer = setTimeout(() => {
-                setIsLoading(false);
-                sessionStorage.setItem('app_loaded', 'true');
-            }, 2000);
-            return () => clearTimeout(timer);
+        if (!isLoading) {
+            return undefined;
         }
+
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+            sessionStorage.setItem('app_loaded', 'true');
+        }, 2000);
+
+        return () => clearTimeout(timer);
     }, [isLoading]);
 
     useEffect(() => {
