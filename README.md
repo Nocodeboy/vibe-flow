@@ -11,9 +11,10 @@
 - [Visión y Misión](#-visión--misión)
 - [Tech Stack](#-tech-stack)
 - [Arquitectura](#-arquitectura)
-- [Instalación](#-instalación)
-- [Scripts Disponibles](#-scripts-disponibles)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Instalación](#instalación-entorno-limpio)
+- [Scripts de package.json](#scripts-de-packagejson)
+- [Flujo local de desarrollo](#flujo-local-de-desarrollo)
+- [Estructura del Proyecto](#estructura-del-proyecto)
 - [Estándares de Código](#-estándares-de-código)
 - [Testing](#-testing)
 - [Accesibilidad](#-accesibilidad)
@@ -89,56 +90,63 @@ src/
 | **Layout** | Componentes estructurales y wrappers | `SmoothScroll`, `ErrorBoundary`, `PageTransition` |
 | **Pages** | Componentes de página completa | `Home`, `Work`, `Services` |
 
-## Instalación
+## Instalación (entorno limpio)
 
-### Requisitos Previos
+### Requisitos
 
-- Node.js 18.x o superior
-- npm 9.x o superior
+- Node.js 20 LTS (mínimo 18)
+- npm 10 (mínimo 9)
 
-### Pasos
+### Setup desde cero
 
-1. **Clonar el repositorio:**
-   ```bash
-   git clone https://github.com/Nocodeboy/vibe-flow.git
-   cd vibe-flow
-   ```
+```bash
+# 1) Clona el repositorio
+git clone https://github.com/Nocodeboy/vibe-flow.git
+cd vibe-flow
 
-2. **Instalar dependencias:**
-   ```bash
-   npm install
-   ```
+# 2) Instala dependencias exactas del lockfile (recomendado para entorno limpio)
+npm ci
 
-3. **Configurar variables de entorno:**
-   ```bash
-   cp .env.example .env
-   ```
+# 3) Crea variables de entorno locales
+cp .env.example .env
 
-   Editar `.env` con tus valores:
-   ```env
-   VITE_CONTACT_ENDPOINT=https://tu-endpoint-de-contacto
-   ```
+# 4) Arranca el entorno de desarrollo
+npm run dev
+```
 
-4. **Iniciar el servidor de desarrollo:**
-   ```bash
-   npm run dev
-   ```
+La aplicación queda disponible en `http://localhost:3000`.
 
-   El sitio estará disponible en `http://localhost:3000`.
+## Scripts de package.json
 
-## Scripts Disponibles
+| Script | ¿Cuándo usarlo? | Qué hace |
+|--------|------------------|----------|
+| `npm run dev` | Desarrollo diario | Levanta Vite en modo desarrollo |
+| `npm run build` | Antes de desplegar o validar producción | Genera el build optimizado en `dist/` |
+| `npm run preview` | Revisar el build localmente | Sirve el build generado por `npm run build` |
+| `npm run lint` | Antes de commit/PR | Ejecuta ESLint sobre `src` |
+| `npm run lint:fix` | Corregir estilo automáticamente | Ejecuta ESLint con `--fix` |
+| `npm run format` | Uniformar formato de código | Formatea `src/**/*.{ts,tsx,css}` con Prettier |
+| `npm run type-check` | Validación de tipos | Ejecuta TypeScript en modo `--noEmit` |
+| `npm run test` | Verificación funcional rápida | Ejecuta la suite de Vitest |
+| `npm run test:coverage` | Auditoría de cobertura | Ejecuta tests y reporte de coverage |
 
-| Script | Descripción |
-|--------|-------------|
-| `npm run dev` | Inicia el servidor de desarrollo |
-| `npm run build` | Genera build de producción |
-| `npm run preview` | Previsualiza el build de producción |
-| `npm run lint` | Ejecuta ESLint para verificar código |
-| `npm run lint:fix` | Ejecuta ESLint y corrige automáticamente |
-| `npm run format` | Formatea código con Prettier |
-| `npm run test` | Ejecuta tests con Vitest |
-| `npm run test:coverage` | Ejecuta tests con reporte de cobertura |
-| `npm run type-check` | Verifica tipos TypeScript |
+## Flujo local de desarrollo
+
+1. **Sincroniza rama y dependencias**
+   - `git pull`
+   - `npm ci` (si cambió el lockfile)
+2. **Desarrollo iterativo**
+   - `npm run dev`
+   - Implementa cambios en `src/`
+3. **Calidad mínima antes de commit**
+   - `npm run lint`
+   - `npm run type-check`
+   - `npm run test`
+4. **Validación de producción local (opcional, recomendado)**
+   - `npm run build`
+   - `npm run preview`
+
+> Referencia ampliada de calidad y troubleshooting: `docs/development-workflow.md`.
 
 ## Estructura del Proyecto
 
