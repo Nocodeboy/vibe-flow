@@ -54,6 +54,10 @@
 
 | Documento | Descripción |
 | --- | --- |
+| [Runbook: Analíticas sin datos](./runbooks/analytics-without-data.md) | Diagnóstico de pérdida de eventos y tráfico en analítica. |
+| [Runbook: Errores de build](./runbooks/build-errors.md) | Guía de triage para fallos de compilación local/CI. |
+| [Runbook: Rutas rotas](./runbooks/broken-routes.md) | Resolución de 404, deep links y problemas de navegación. |
+| [Runbook: Formularios y eventos](./runbooks/forms-and-events-issues.md) | Diagnóstico de envío, validación y tracking de formularios. |
 | [Configuración](./getting-started/configuration.md) | Errores comunes al configurar el entorno. |
 | [Deployment](./deployment/README.md) | Incidencias típicas de despliegue. |
 | [Git workflow](./development/git-workflow.md) | Problemas frecuentes de ramas/PR. |
