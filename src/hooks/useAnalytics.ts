@@ -4,8 +4,8 @@ const GA_MEASUREMENT_ID = 'G-N2MBMH1DWS';
 
 declare global {
     interface Window {
-        dataLayer: any[];
-        gtag: (...args: any[]) => void;
+        dataLayer: unknown[];
+        gtag: (...args: unknown[]) => void;
     }
 }
 
@@ -47,7 +47,7 @@ const loadGoogleAnalytics = (): void => {
 
     // Initialize gtag
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag(...args: any[]) {
+    window.gtag = function gtag(...args: unknown[]) {
         window.dataLayer.push(args);
     };
     window.gtag('js', new Date());
@@ -66,7 +66,7 @@ export const useAnalytics = () => {
         }
     }, []);
 
-    const trackEvent = useCallback((eventName: string, params?: Record<string, any>) => {
+    const trackEvent = useCallback((eventName: string, params?: Record<string, unknown>) => {
         if (hasAnalyticsConsent() && window.gtag) {
             window.gtag('event', eventName, params);
         }
