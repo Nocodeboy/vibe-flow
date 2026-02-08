@@ -1,124 +1,112 @@
-# Vibe Flow - Documentación
+# Vibe Flow Docs Hub
 
-> Documentación completa del proyecto Vibe Flow
+> Índice principal y estándares de la documentación de Vibe Flow.
 
 ---
 
-## Índice de Documentación
+## Índice principal
 
-### Inicio Rápido
+### Getting Started
 
 | Documento | Descripción |
-|-----------|-------------|
-| [Instalación](./getting-started/installation.md) | Guía completa de instalación |
-| [Inicio Rápido](./getting-started/quick-start.md) | Primeros pasos con el proyecto |
-| [Configuración](./getting-started/configuration.md) | Configuración del entorno |
+| --- | --- |
+| [Instalación](./getting-started/installation.md) | Preparar el entorno local. |
+| [Quick Start](./getting-started/quick-start.md) | Levantar el proyecto en minutos. |
+| [Configuración](./getting-started/configuration.md) | Variables, ajustes y defaults. |
 
 ### Arquitectura
 
 | Documento | Descripción |
-|-----------|-------------|
-| [Visión General](./architecture/overview.md) | Arquitectura del sistema |
-| [Estructura del Proyecto](./architecture/project-structure.md) | Organización de archivos |
-| [Sistema de Componentes](./architecture/components.md) | Arquitectura de componentes (Atomic Design) |
-| [Decisiones de Arquitectura](./architecture/decisions/README.md) | ADRs (Architecture Decision Records) |
+| --- | --- |
+| [Overview](./architecture/overview.md) | Vista global del sistema. |
+| [Project Structure](./architecture/project-structure.md) | Organización de carpetas y capas. |
+| [Components](./architecture/components.md) | Sistema de componentes y patrones. |
+| [ADRs](./architecture/decisions/README.md) | Decisiones de arquitectura registradas. |
 
-### Desarrollo
-
-| Documento | Descripción |
-|-----------|-------------|
-| [Guía de Desarrollo](./development/README.md) | Guías para desarrolladores |
-| [Estándares de Código](./development/code-style.md) | Convenciones y estilo |
-| [Testing](./development/testing.md) | Estrategia y guía de testing |
-| [Flujo de Git](./development/git-workflow.md) | Flujo de trabajo con Git |
-| [Contribuir](./development/contributing.md) | Guía de contribución |
-
-### Guías Técnicas
+### Operación
 
 | Documento | Descripción |
-|-----------|-------------|
-| [Estilos y Tailwind](./guides/styling.md) | Sistema de estilos |
-| [Animaciones](./guides/animations.md) | Framer Motion y animaciones |
-| [Accesibilidad](./guides/accessibility.md) | WCAG 2.1 y a11y |
-| [Rendimiento](./guides/performance.md) | Optimización y performance |
-| [Seguridad](./guides/security.md) | Prácticas de seguridad |
+| --- | --- |
+| [Deployment](./deployment/README.md) | Flujo de despliegue oficial. |
+| [Vercel](./deployment/vercel.md) | Configuración de plataforma. |
+| [Environment](./deployment/environment.md) | Gestión de variables de entorno. |
+| [Seguridad](./guides/security.md) | Buenas prácticas operativas de seguridad. |
+| [Performance](./guides/performance.md) | Monitoreo y optimización operativa. |
 
-### API Reference
-
-| Documento | Descripción |
-|-----------|-------------|
-| [Componentes](./api/components/README.md) | Documentación de componentes |
-| [Hooks](./api/hooks.md) | Custom React hooks |
-| [Contexts](./api/contexts.md) | React Context providers |
-| [Utilidades](./api/utils.md) | Funciones de utilidad |
-
-### Deployment
+### Producto
 
 | Documento | Descripción |
-|-----------|-------------|
-| [Guía de Deployment](./deployment/README.md) | Despliegue del proyecto |
-| [Vercel](./deployment/vercel.md) | Configuración en Vercel |
-| [Variables de Entorno](./deployment/environment.md) | Configuración de entorno |
+| --- | --- |
+| [Visión y misión](./business/vision-mission.md) | Objetivos y propósito del producto. |
+| [Público objetivo](./business/target-audience.md) | Segmentos y personas clave. |
+| [Roadmap](./business/roadmap.md) | Plan de evolución del producto. |
+| [Brand guidelines](./design/brand-guidelines.md) | Sistema visual de marca. |
 
-### Diseño
-
-| Documento | Descripción |
-|-----------|-------------|
-| [Guías de Marca](./design/brand-guidelines.md) | Identidad visual |
-| [Guía de Estilos](./design/style-guide.md) | Sistema de diseño |
-| [Prompt para Diseñadores](./design/designer-prompt.md) | Guía para AI designers |
-
-### Negocio
+### QA
 
 | Documento | Descripción |
-|-----------|-------------|
-| [Visión y Misión](./business/vision-mission.md) | Propósito del proyecto |
-| [Público Objetivo](./business/target-audience.md) | Personas y audiencia |
-| [Roadmap](./business/roadmap.md) | Plan de desarrollo |
+| --- | --- |
+| [Testing](./development/testing.md) | Estrategia de pruebas y cobertura. |
+| [Accesibilidad](./guides/accessibility.md) | Criterios a11y y validación WCAG. |
+| [Contributing](./development/contributing.md) | Flujo para aportar cambios de calidad. |
+
+### Troubleshooting
+
+| Documento | Descripción |
+| --- | --- |
+| [Configuración](./getting-started/configuration.md) | Errores comunes al configurar el entorno. |
+| [Deployment](./deployment/README.md) | Incidencias típicas de despliegue. |
+| [Git workflow](./development/git-workflow.md) | Problemas frecuentes de ramas/PR. |
+| [Guía de estilo de docs](./style-guide.md) | Criterios para mantener consistencia y evitar errores de documentación. |
 
 ---
 
-## Stack Tecnológico
+## Plantilla estándar de documentos
 
-| Categoría | Tecnología | Versión |
-|-----------|------------|---------|
-| Framework | React | 19.x |
-| Lenguaje | TypeScript | 5.8.x |
-| Build Tool | Vite | 6.x |
-| Estilos | Tailwind CSS | 3.4.x |
-| Animaciones | Framer Motion | 12.x |
-| Scroll | Lenis | 1.3.x |
-| Routing | React Router | 7.x |
-| Testing | Vitest | 4.x |
+Todos los documentos nuevos dentro de `docs/` deben seguir, como mínimo, esta estructura:
 
----
+```md
+# Título del documento
 
-## Enlaces Rápidos
+## Objetivo
+Explica qué resuelve este documento y para quién.
 
-- [README Principal](../README.md) - Documentación del repositorio
-- [CONTRIBUTING](../CONTRIBUTING.md) - Guía de contribución
-- [Sitio Web](https://vibeflow.es) - Vibe Flow en producción
+## Prerequisitos
+Lista de accesos, herramientas o conocimientos necesarios.
 
----
+## Pasos
+1. Paso concreto y verificable.
+2. Paso concreto y verificable.
+3. Paso concreto y verificable.
 
-## Convenciones de Documentación
+## Validación
+Describe cómo comprobar que el resultado esperado se cumplió.
 
-Esta documentación sigue las siguientes convenciones:
+## Problemas comunes
+- Problema: síntoma observable.
+- Causa probable: por qué ocurre.
+- Solución: acción recomendada.
 
-- **Idioma**: Español (con términos técnicos en inglés cuando es estándar)
-- **Formato**: Markdown con GitHub Flavored Markdown
-- **Código**: Bloques con syntax highlighting
-- **Enlaces**: Relativos dentro de docs/, absolutos para externos
-
-### Iconos de Estado
-
-| Icono | Significado |
-|-------|-------------|
-| ✅ | Implementado/Disponible |
-| ⚠️ | En desarrollo/Parcial |
-| ❌ | No disponible/Deprecado |
-| 📝 | Requiere documentación |
+> Última actualización: YYYY-MM-DD
+```
 
 ---
 
-*Última actualización: Enero 2026*
+## Convenciones de documentación
+
+- **Idioma principal**: Español neutro.
+- **Nombres de archivo**: `kebab-case.md` (por ejemplo: `release-checklist.md`).
+- **Formato de comandos**: usar bloque fenced con `bash` y prompt `$`.
+
+```bash
+$ npm install
+$ npm run dev
+```
+
+- **Bloque de actualización**: cerrar cada documento con el bloque:
+
+```md
+> Última actualización: YYYY-MM-DD
+```
+
+Para más detalle editorial y de formato, consultar la [guía de estilo mínima](./style-guide.md).
