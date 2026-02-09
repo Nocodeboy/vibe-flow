@@ -43,16 +43,23 @@ const updateGoogleConsent = (accepted: boolean): void => {
 // Set consent
 export const setConsent = (accepted: boolean): void => {
     localStorage.setItem(CONSENT_STORAGE_KEY, accepted ? 'accepted' : 'rejected');
-    loadGoogleAnalytics();
-    updateGoogleConsent(accepted);
+
+    if (accepted) {
+        loadGoogleAnalytics();
+    } else {
+        // Do not load the script when rejected; only update if already initialized.
+        updateGoogleConsent(false);
+    }
 };
 
 // Load Google Analytics script
 const loadGoogleAnalytics = (): void => {
     if (typeof window === 'undefined') return;
+    if (!hasAnalyticsConsent()) return;
 
     // Prevent loading twice
     if (window.gtag) {
+        updateGoogleConsent(true);
         return;
     }
 
@@ -64,8 +71,6 @@ const loadGoogleAnalytics = (): void => {
         document.head.appendChild(script);
     }
 
-    const consent = getStoredConsent();
-
     // Initialize gtag
     window.dataLayer = window.dataLayer || [];
     window.gtag = function gtag(...args: unknown[]) {
@@ -73,10 +78,10 @@ const loadGoogleAnalytics = (): void => {
     };
 
     window.gtag('consent', 'default', {
-        analytics_storage: consent === 'accepted' ? 'granted' : 'denied',
-        ad_storage: consent === 'accepted' ? 'granted' : 'denied',
-        ad_user_data: consent === 'accepted' ? 'granted' : 'denied',
-        ad_personalization: consent === 'accepted' ? 'granted' : 'denied'
+        analytics_storage: 'granted',
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
     });
 
     window.gtag('js', new Date());
@@ -88,7 +93,9 @@ const loadGoogleAnalytics = (): void => {
 // Custom hook for analytics
 export const useAnalytics = () => {
     useEffect(() => {
-        loadGoogleAnalytics();
+        if (hasAnalyticsConsent()) {
+            loadGoogleAnalytics();
+        }
     }, []);
 
     const trackEvent = useCallback((eventName: string, params?: Record<string, unknown>) => {

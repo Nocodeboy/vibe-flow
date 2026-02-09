@@ -7,6 +7,7 @@ const base = new Airtable({
 }).base(process.env.AIRTABLE_BASE_ID || 'appSaEaDYNrloBTkT');
 
 const TABLE_NAME = 'News';
+type AirtableAttachment = { url?: unknown };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method === 'OPTIONS') {
@@ -51,17 +52,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }).all();
 
         // Helper to safely extract string from potential objects
-        const getString = (val: any): string => {
+        const getString = (val: unknown): string => {
             if (!val) return '';
             if (typeof val === 'string') return val;
-            if (typeof val === 'object' && val?.value) return String(val.value);
+            if (typeof val === 'object' && val !== null && 'value' in val) {
+                return String((val as { value: unknown }).value);
+            }
             return String(val);
         };
 
         // Helper for attachment images
-        const getImage = (val: any): string => {
+        const getImage = (val: unknown): string => {
             if (Array.isArray(val) && val.length > 0) {
-                return val[0].url;
+                const firstItem = val[0] as AirtableAttachment;
+                if (typeof firstItem?.url === 'string') {
+                    return firstItem.url;
+                }
             }
             return getString(val);
         };
@@ -74,12 +80,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         for (let i = 0; i < records.length; i++) {
             const record = records[i];
-            const fields = record.fields;
+            const fields = record.fields as Record<string, unknown>;
 
             // Generate slug (same logic as posts.ts)
             let postSlug = getString(fields['SEO:Slug']);
             if (!postSlug) {
-                const rawUrl = (fields['Url'] as string) || '';
+                const rawUrl = getString(fields['Url']);
                 if (rawUrl.startsWith('http')) {
                     postSlug = rawUrl.split('/').filter(Boolean).pop() || '';
                 }
@@ -139,11 +145,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             }
         });
 
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Airtable API Error:', error);
+        const details = error instanceof Error ? error.message : String(error);
         res.status(500).json({
             error: 'Failed to fetch post',
-            details: error.message || String(error)
+            details,
         });
     }
 }

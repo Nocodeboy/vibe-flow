@@ -7,12 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "lint": "eslint src api --ext .ts,.tsx",
+    "lint:fix": "eslint src api --ext .ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
-    "type-check": "tsc --noEmit"
+    "type-check": "node ./node_modules/typescript/bin/tsc --noEmit"
   },
   "dependencies": {
     "airtable": "^0.12.2",
@@ -34,8 +34,9 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@typescript-eslint/parser": "^8.53.1",
-    "@vercel/node": "^5.5.28",
+    "@vercel/node": "^5.5.33",
     "@vitejs/plugin-react": "^5.0.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "autoprefixer": "^10.4.23",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",

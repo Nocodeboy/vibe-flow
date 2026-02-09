@@ -74,7 +74,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Background Noise/Texture */}
-                <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("/noise.png")' }} />
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("/noise.svg")' }} />
 
                 {/* Left Column (Hero) */}
                 <div className="relative w-full md:w-[400px] flex-shrink-0 flex flex-col justify-between p-8 md:p-10 overflow-hidden">

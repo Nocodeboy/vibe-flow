@@ -1,6 +1,6 @@
 # Vibe Flow
 
-![Vibe Flow Banner](./public/og-image.jpg)
+![Vibe Flow Banner](./public/images/og-image.png)
 
 **Vibe Flow** es la comunidad de referencia en español para **VibeCoders, NoCoders y Automatizadores** que quieren construir negocios reales usando IA y automatización.
 

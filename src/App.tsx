@@ -178,7 +178,6 @@ const AppContent: React.FC = () => {
                                     <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
                                     <Route path="/blog/:slug" element={<PageTransition><BlogPostPage /></PageTransition>} />
                                     <Route path="/contacto" element={<PageTransition><Contact /></PageTransition>} />
-                                    <Route path="/contacto" element={<PageTransition><Contact /></PageTransition>} />
                                     <Route path="/aviso-legal" element={<PageTransition><LegalNotice /></PageTransition>} />
                                     <Route path="/politica-privacidad" element={<PageTransition><PrivacyPolicy /></PageTransition>} />
                                     <Route path="/politica-cookies" element={<PageTransition><CookiePolicy /></PageTransition>} />

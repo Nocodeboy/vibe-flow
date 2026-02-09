@@ -26,19 +26,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }).all();
 
         const posts = records.map(record => {
-            const fields = record.fields;
+            const fields = record.fields as Record<string, unknown>;
 
-            const getString = (val: any): string => {
+            const getString = (val: unknown): string => {
                 if (!val) return '';
                 if (typeof val === 'string') return val;
-                if (typeof val === 'object' && val?.value) return String(val.value);
+                if (typeof val === 'object' && val !== null && 'value' in val) {
+                    return String((val as { value: unknown }).value);
+                }
                 return String(val);
             };
 
             // Slug logic (consistent with posts.ts)
             let slug = getString(fields['SEO:Slug']);
             if (!slug) {
-                const rawUrl = (fields['Url'] as string) || '';
+                const rawUrl = getString(fields['Url']);
                 if (rawUrl.startsWith('http')) {
                     slug = rawUrl.split('/').filter(Boolean).pop() || '';
                 }

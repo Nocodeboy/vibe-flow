@@ -26,6 +26,7 @@ const ContactSection: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [website, setWebsite] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
   const [accepted, setAccepted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -63,6 +64,7 @@ const ContactSection: React.FC = () => {
           name: name.trim(),
           email: email.trim(),
           message: message.trim(),
+          website: website.trim(),
           submittedAt: new Date().toISOString(),
         }),
       });
@@ -127,6 +129,18 @@ const ContactSection: React.FC = () => {
             className="flex flex-col justify-end"
           >
             <form className="space-y-12" aria-label="Formulario de contacto" onSubmit={handleSubmit}>
+              <div className="hidden" aria-hidden="true">
+                <label htmlFor="contact-website">Website</label>
+                <input
+                  type="text"
+                  id="contact-website"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="group relative">
                 <input
                   type="text"
