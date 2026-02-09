@@ -76,11 +76,11 @@ const Services: React.FC = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5, duration: 1 }}
-                        className="text-xl md:text-2xl text-white/40 max-w-2xl mx-auto leading-relaxed mb-12"
+                        className="text-xl md:text-2xl text-white/65 max-w-2xl mx-auto leading-relaxed mb-12"
                     >
                         Proyectos llave en mano de IA y automatización.
                         <br />
-                        <span className="text-white/60">Desde <span className="text-primary font-bold">2.000€</span>.</span>
+                        <span className="text-white/75">Desde <span className="text-primary font-bold">2.000€</span>.</span>
                     </motion.p>
 
                     {/* CTA Button */}
