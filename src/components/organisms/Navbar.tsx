@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                     </Link>
 
                     {/* Navigation Links - Island Mode: Hidden on Mobile, Visible on Desktop */}
-                    <div className="hidden lg:flex items-center gap-8 text-[10px] uppercase tracking-[0.15em] font-bold text-white/50">
+                    <div className="hidden lg:flex items-center gap-7 text-xs uppercase tracking-[0.12em] font-bold text-white/65">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}

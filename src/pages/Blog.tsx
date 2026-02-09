@@ -105,14 +105,14 @@ const Blog: React.FC = () => {
                         className="text-6xl md:text-8xl font-display italic font-bold leading-[0.9] tracking-tight mb-8"
                     >
                         Blog & <br />
-                        <span className="text-white/40">Ideas.</span>
+                        <span className="text-white/55">Ideas.</span>
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-white/50 max-w-2xl mx-auto font-light leading-relaxed"
+                        className="text-xl text-white/65 max-w-2xl mx-auto font-light leading-relaxed"
                     >
                         Ideas, tutoriales y reflexiones sobre IA, automatización y
                         la construcción de negocios digitales escalables.

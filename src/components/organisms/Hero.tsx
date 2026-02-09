@@ -168,13 +168,13 @@ const Hero: React.FC = () => {
                 {/* Subtitle - Dual Purpose */}
                 <motion.p
                     variants={itemVariants}
-                    className="max-w-2xl text-lg md:text-2xl text-white/60 font-light leading-relaxed mb-4 text-center"
+                    className="max-w-2xl text-lg md:text-2xl text-white/75 font-light leading-relaxed mb-4 text-center"
                 >
                     La comunidad de élite para creadores digitales
                 </motion.p>
                 <motion.p
                     variants={itemVariants}
-                    className="max-w-xl text-base md:text-lg text-white/40 font-light leading-relaxed mb-12 text-center"
+                    className="max-w-xl text-base md:text-lg text-white/55 font-light leading-relaxed mb-12 text-center"
                 >
                     Aprende a dominar la <span className="text-primary font-medium">IA y automatización</span>. O contrata a nuestro equipo para implementarlo por ti.
                 </motion.p>

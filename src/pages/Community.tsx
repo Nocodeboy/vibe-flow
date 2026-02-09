@@ -52,14 +52,14 @@ const Community: React.FC = () => {
                         className="text-6xl md:text-8xl font-display italic font-bold leading-[0.9] tracking-tight mb-8"
                     >
                         Vibe <span className="text-primary">Flow</span><br />
-                        <span className="text-white/40">Community.</span>
+                        <span className="text-white/55">Community.</span>
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-white/50 max-w-2xl mx-auto font-light leading-relaxed mb-12"
+                        className="text-xl text-white/65 max-w-2xl mx-auto font-light leading-relaxed mb-12"
                     >
                         El único lugar donde aprender IA y automatización haciendo,
                         no viendo videos que nunca terminas. Sesiones en vivo, mentoría real,
@@ -83,7 +83,7 @@ const Community: React.FC = () => {
                                         duration={1.5}
                                     />
                                 </p>
-                                <p className="text-sm text-white/40 uppercase tracking-widest mt-2">{stat.label}</p>
+                                <p className="text-sm text-white/55 uppercase tracking-widest mt-2">{stat.label}</p>
                             </div>
                         ))}
                     </motion.div>

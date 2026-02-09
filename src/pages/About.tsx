@@ -61,14 +61,14 @@ const About: React.FC = () => {
                         className="text-6xl md:text-8xl font-display italic font-bold leading-[0.9] tracking-tight mb-8"
                     >
                         Construyendo el <br />
-                        <span className="text-white/40">Futuro Digital.</span>
+                        <span className="text-white/55">Futuro Digital.</span>
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-white/50 max-w-2xl mx-auto font-light leading-relaxed"
+                        className="text-xl text-white/65 max-w-2xl mx-auto font-light leading-relaxed"
                     >
                         Vibe Flow nació de una idea simple: el conocimiento más valioso
                         se transmite entre personas que ejecutan, no entre cursos que nadie termina.
