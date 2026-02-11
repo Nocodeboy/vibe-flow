@@ -59,6 +59,28 @@
       "destination": "/api/sitemap"
     },
     {
+      "source": "/blog/:slug",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterestbot).*"
+        }
+      ],
+      "destination": "/api/blog-meta?slug=:slug"
+    },
+    {
+      "source": "/blog/:slug/",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterestbot).*"
+        }
+      ],
+      "destination": "/api/blog-meta?slug=:slug"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
