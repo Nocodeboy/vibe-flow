@@ -2,7 +2,6 @@ User-agent: *
 Allow: /
 
 Disallow: /api/
-Disallow: /_next/
 Disallow: /admin/
 
 Sitemap: https://vibeflow.es/sitemap.xml

@@ -1,4 +1,5 @@
 {
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/(.*)",
@@ -59,26 +60,37 @@
       "destination": "/api/sitemap"
     },
     {
+      "source": "/blog",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(Googlebot|Googlebot-Image|AdsBot-Google|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Applebot|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterestbot).*"
+        }
+      ],
+      "destination": "/api/blog-list-meta"
+    },
+    {
       "source": "/blog/:slug",
       "has": [
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterestbot).*"
+          "value": ".*(Googlebot|Googlebot-Image|AdsBot-Google|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Applebot|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterestbot).*"
         }
       ],
       "destination": "/api/blog-meta?slug=:slug"
     },
     {
-      "source": "/blog/:slug/",
+      "source": "/:path(servicios|proyectos|nosotros|comunidad|contacto|metodologia|politica-cookies|politica-privacidad|aviso-legal)",
       "has": [
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterestbot).*"
+          "value": ".*(Googlebot|Googlebot-Image|AdsBot-Google|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|Applebot|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|Slackbot|Discordbot|WhatsApp|TelegramBot|Pinterestbot).*"
         }
       ],
-      "destination": "/api/blog-meta?slug=:slug"
+      "destination": "/api/page-meta?path=:path"
     },
     {
       "source": "/((?!api/).*)",
