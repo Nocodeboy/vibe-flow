@@ -49,12 +49,7 @@
     <meta name="theme-color" content="#98e710">
     <meta name="msapplication-TileColor" content="#030303">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
+    <!-- Fonts: self-hosted (see src/styles/fonts.css) — eliminates render-blocking request -->
 
     <!-- Structured Data - Organization -->
     <script type="application/ld+json">
@@ -136,10 +131,10 @@
     </script>
 
     <style>
-        ::selection {
-            background-color: #98e710;
-            color: #000000;
-        }
+        /* Critical CSS — prevents FOUC */
+        html { background-color: #030303; color: #fefefe; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; -webkit-font-smoothing: antialiased; }
+        ::selection { background-color: #98e710; color: #000000; }
     </style>
 </head>
 

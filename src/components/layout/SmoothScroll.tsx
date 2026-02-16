@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { isMobileDevice } from '../../hooks/useIsMobile';
 
 interface SmoothScrollProps {
@@ -15,13 +16,14 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
         }
 
         const lenis = new Lenis({
-            duration: 2.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            // Use lerp instead of duration — avoids forced reflow from measureScroll
+            lerp: 0.1,
             orientation: 'vertical',
             gestureOrientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 0.9,
+            wheelMultiplier: 0.8,
             touchMultiplier: 2,
+            autoResize: true,
         });
 
         function raf(time: number) {
